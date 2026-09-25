@@ -1,0 +1,2095 @@
+<!DOCTYPE html>
+<!--
+  © 2026 大國将 (Shou Ooguni). All Rights Reserved.
+  本アプリ「建設業経理士2級 学習アプリ」の著作権は大國将個人に帰属します。
+  無断複製・改変・再配布を禁じます。
+  解説文・例題・問題はすべて本アプリ用のオリジナル作成です（市販テキストからの転載はありません）。
+  出題範囲は一般財団法人建設業振興基金の公表する出題区分表に準拠しています。
+-->
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#2f4858">
+<title>建設業経理士2級 学習アプリ</title>
+<style>
+:root{--bg:#f3f5f6;--fg:#1d2a30;--card:#fff;--card2:#eef2f3;--pri:#2f4858;--pri2:#3f6275;
+--acc:#c0392b;--acc2:#2e8b57;--bdr:#d7dee2;--dim:#6f7f88;--shadow:0 1px 4px rgba(0,0,0,.07);
+--radius:10px;--font-sz:16px;--dr-col:#1f5f8b;--cr-col:#b03a2e;--hl:#e3a232;--hl-bg:#fdf3df;
+--safe-bot:env(safe-area-inset-bottom,0px);--safe-top:env(safe-area-inset-top,0px);
+--nav-h:64px;--t-border:#a9b8c0}
+.dark{--bg:#12191d;--fg:#e4eaed;--card:#1b252b;--card2:#243239;--pri:#86b6cc;--pri2:#a8cadb;
+--acc:#e0645a;--acc2:#4cc58a;--bdr:#2f3f47;--dim:#98a6ae;--shadow:0 1px 4px rgba(0,0,0,.35);
+--dr-col:#7fb8e0;--cr-col:#f08a80;--t-border:#4a5d66;--hl:#f0b44c;--hl-bg:#3a2f1a}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{overscroll-behavior:none}
+body{font-family:'Hiragino Kaku Gothic ProN','Hiragino Sans','Noto Sans JP','Yu Gothic',Meiryo,sans-serif;font-size:var(--font-sz);
+background:var(--bg);color:var(--fg);min-height:100vh;
+padding-bottom:calc(var(--nav-h) + var(--safe-bot) + 20px);
+padding-top:var(--safe-top);transition:background .3s,color .3s}
+.hide{display:none!important}
+.hd{background:var(--pri);color:#fff;padding:10px 14px;position:sticky;top:0;z-index:100;
+display:flex;align-items:center;gap:8px;margin-bottom:5px}
+.dark .hd{background:#223038}
+.hd::after{content:'';position:absolute;left:0;right:0;bottom:-5px;height:5px;
+background:repeating-linear-gradient(-45deg,var(--hl) 0 9px,#23292c 9px 18px)}
+.hd h1{font-size:1em;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:.02em}
+.hd h1 small{font-weight:400;font-size:.7em;opacity:.8;margin-left:6px}
+.hd button{background:none;border:none;color:#fff;font-size:1.2em;cursor:pointer;padding:4px}
+.hd button:focus-visible,.btn:focus-visible,.nav button:focus-visible,.opt-btn:focus-visible{outline:3px solid var(--hl);outline-offset:2px}
+.nav{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--bdr);
+display:flex;z-index:100;box-shadow:0 -2px 8px rgba(0,0,0,.08);
+padding-bottom:calc(var(--safe-bot) + 8px);padding-top:6px}
+.nav button{flex:1;padding:4px 0;border:none;background:none;color:var(--dim);
+font-size:.6em;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;font-family:inherit}
+.nav button.act{color:var(--pri);font-weight:700}
+.nav button .ni{font-size:1.5em;line-height:1}
+.tab{padding:12px 12px;display:none}.tab.act{display:block}
+.crd{background:var(--card);border-radius:var(--radius);padding:14px;margin-bottom:10px;
+box-shadow:var(--shadow);border:1px solid var(--bdr)}
+.crd h3{font-size:.9em;margin-bottom:6px;color:var(--pri)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:10px 18px;
+border-radius:8px;border:none;font-size:.85em;font-weight:600;cursor:pointer;transition:background .2s;font-family:inherit}
+.btn-pri{background:var(--pri);color:#fff}.btn-pri:hover{background:var(--pri2)}
+.dark .btn-pri{color:#10181c}
+.btn-ok{background:var(--acc2);color:#fff}.btn-ng{background:var(--acc);color:#fff}
+.btn-out{background:transparent;border:2px solid var(--pri);color:var(--pri)}
+.btn-sm{padding:6px 12px;font-size:.78em}
+.btn-block{width:100%;margin-top:6px}
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mode-btn{background:var(--card);border:2px solid var(--bdr);border-radius:var(--radius);
+padding:12px 8px;text-align:center;cursor:pointer;position:relative}
+.mode-btn:hover,.mode-btn.act{border-color:var(--pri);background:var(--card2)}
+.mode-btn .ico{font-size:1.4em}.mode-btn .lbl{font-size:.78em;font-weight:600}
+.mode-btn .sub{font-size:.62em;color:var(--dim);margin-top:2px}
+.mode-btn .resume-badge{position:absolute;top:4px;right:4px;background:var(--acc);color:#fff;
+font-size:.55em;padding:2px 6px;border-radius:10px;font-weight:700}
+.ch-filter{display:flex;flex-wrap:wrap;gap:4px;margin:8px 0}
+.ch-tag{padding:3px 8px;border-radius:16px;font-size:.7em;border:1px solid var(--bdr);cursor:pointer;background:var(--card)}
+.ch-tag.act{background:var(--pri);color:#fff;border-color:var(--pri)}
+.dark .ch-tag.act{color:#10181c}
+.prog{height:5px;background:var(--bdr);border-radius:3px;overflow:hidden}
+.prog-fill{height:100%;background:var(--acc2);border-radius:3px;transition:width .3s}
+.sec-h{margin:16px 0 6px;font-size:.78em;color:var(--dim);border-bottom:1px solid var(--bdr);padding-bottom:3px;display:flex;justify-content:space-between}
+.acc{margin-bottom:6px}
+.acc-h{display:flex;align-items:center;gap:6px;padding:10px 12px;background:var(--card);
+border:1px solid var(--bdr);border-radius:var(--radius);cursor:pointer}
+.acc-h:hover{background:var(--card2)}
+.acc.open .acc-h{border-radius:var(--radius) var(--radius) 0 0;border-bottom-color:var(--t-border)}
+.acc-h .cn{background:var(--pri);color:#fff;padding:2px 8px;border-radius:14px;font-size:.68em;font-weight:700;white-space:nowrap}
+.dark .acc-h .cn{color:#10181c}
+.acc-h .ct{flex:1;font-size:.82em;font-weight:600;min-width:0}
+.acc-h .ct .ex{display:block;font-size:.78em;font-weight:400;color:var(--dim);margin-top:1px}
+.acc-h .st{color:var(--hl);font-size:.72em;letter-spacing:-1px;white-space:nowrap}
+.acc-h .cb{font-size:.65em;color:var(--dim);white-space:nowrap}
+.acc-h .ar{transition:transform .3s;font-size:.7em}
+.acc.open .ar{transform:rotate(90deg)}
+.acc-b{display:none;padding:10px 12px;border:1px solid var(--bdr);border-top:none;
+border-radius:0 0 var(--radius) var(--radius);background:var(--card);line-height:1.75;font-size:.86em}
+.acc.open .acc-b{display:block}
+.acc-b ul,.acc-b ol{margin:6px 0 6px 18px}.acc-b li{margin:3px 0}
+.acc-b b{color:var(--pri)}
+.acc-b h4{font-size:.98em;margin:16px 0 6px;padding:4px 0 4px 10px;border-left:5px solid var(--pri);background:linear-gradient(90deg,var(--card2),transparent)}
+.acc-b h4:first-of-type{margin-top:6px}
+.acc-b .dr{color:var(--dr-col);font-weight:700}.acc-b .cr{color:var(--cr-col);font-weight:700}
+.acc-b .mk{background:linear-gradient(transparent 60%,var(--hl-bg) 60%);font-weight:700}
+.chk-row{display:flex;gap:4px;margin:8px 0;align-items:center}
+.chk-btn{width:28px;height:28px;border-radius:50%;border:2px solid var(--bdr);background:var(--card);
+cursor:pointer;font-size:.7em;display:flex;align-items:center;justify-content:center;color:var(--fg)}
+.chk-btn.done{background:var(--acc2);color:#fff;border-color:var(--acc2)}
+.quiz-area{max-width:640px;margin:0 auto}
+.q-header{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;padding:8px 10px;background:var(--card2);border-radius:8px}
+.q-num{font-size:.75em;font-weight:600;color:var(--pri)}
+.q-progress-txt{font-size:.7em;color:var(--dim)}
+.q-title{font-size:.82em;font-weight:700;margin:4px 0 6px;color:var(--pri)}
+.q-text{font-size:.88em;line-height:1.7;padding:12px;background:var(--card2);
+border-radius:8px;margin-bottom:12px;border-left:4px solid var(--pri);white-space:pre-wrap}
+.je-section{margin-bottom:10px}
+.je-label{font-size:.78em;font-weight:700;padding:6px 10px;border-radius:6px 6px 0 0;display:flex;justify-content:space-between;align-items:center}
+.je-label.dr-label{background:var(--dr-col);color:#fff}
+.je-label.cr-label{background:var(--cr-col);color:#fff}
+.dark .je-label.dr-label,.dark .je-label.cr-label{color:#10181c}
+.je-label .row-ctrl{display:flex;gap:4px}
+.je-label .row-ctrl button{background:rgba(255,255,255,.3);color:inherit;border:none;
+width:24px;height:24px;border-radius:4px;font-size:.9em;cursor:pointer;line-height:1}
+.je-rows{border:1px solid var(--bdr);border-radius:0 0 6px 6px;overflow:hidden}
+.je-row{display:flex;gap:6px;padding:8px;border-bottom:1px solid var(--bdr);align-items:center}
+.je-row:last-child{border-bottom:none}
+.je-row select{flex:1;padding:8px 4px;border:1px solid var(--bdr);border-radius:6px;
+font-size:.82em;background:var(--card);color:var(--fg);font-family:inherit;min-width:0}
+.je-row input[type=number]{width:104px;padding:8px 4px;border:1px solid var(--bdr);
+border-radius:6px;font-size:.82em;text-align:right;background:var(--card);color:var(--fg)}
+.je-row input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.ans-box{border-radius:8px;padding:12px;margin:10px 0}
+.ans-ok{background:#dcf2e5;border:2px solid var(--acc2)}
+.ans-ng{background:#f8dedb;border:2px solid var(--acc)}
+.dark .ans-ok{background:#16352a}.dark .ans-ng{background:#3a1c1a}
+.je-display{font-size:.85em;margin:6px 0;padding:8px;background:var(--card2);border-radius:6px}
+.je-display table{width:100%;border-collapse:collapse}
+.je-display td{padding:3px 6px;vertical-align:top}
+.je-display .dr-side{border-right:2px solid var(--bdr);width:50%}
+.exp-box{font-size:.82em;color:var(--fg);margin-top:6px;padding:8px;background:var(--card2);border-radius:6px;line-height:1.6;white-space:pre-wrap}
+.opt-list{display:flex;flex-direction:column;gap:6px;margin-bottom:8px}
+.opt-btn{text-align:left;padding:11px 12px;border:2px solid var(--bdr);border-radius:8px;background:var(--card);
+color:var(--fg);font-family:inherit;font-size:.86em;cursor:pointer;line-height:1.5}
+.opt-btn:hover{border-color:var(--pri)}
+.opt-btn .ok{color:var(--acc2);font-weight:700}
+.opt-btn.right{border-color:var(--acc2);background:#dcf2e5}.opt-btn.wrong{border-color:var(--acc);background:#f8dedb}
+.dark .opt-btn.right{background:#16352a}.dark .opt-btn.wrong{background:#3a1c1a}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
+.stat-box{background:var(--card);border-radius:var(--radius);padding:12px;text-align:center;border:1px solid var(--bdr)}
+.stat-box .num{font-size:1.5em;font-weight:700;color:var(--pri)}
+.stat-box .lbl{font-size:.65em;color:var(--dim);margin-top:2px}
+.acct-cat{margin-bottom:12px}
+.acct-cat h4{font-size:.82em;padding:6px 10px;border-radius:6px;margin-bottom:4px}
+.acct-cat.c-asset h4{background:#d9efe1;color:#1e7a45}
+.acct-cat.c-liab h4{background:#f7dcd8;color:#a8352a}
+.acct-cat.c-eq h4{background:#d8e8f3;color:#1f5f8b}
+.acct-cat.c-rev h4{background:#fbe9cf;color:#a86a0f}
+.acct-cat.c-exp h4{background:#e8dcef;color:#6d3a8a}
+.acct-cat.c-cost h4{background:#e3e7d3;color:#56621f}
+.acct-cat.c-oth h4{background:#e4e8ea;color:#44535b}
+.dark .acct-cat h4{background:var(--card2)!important;color:var(--pri)!important}
+.acct-item{display:flex;justify-content:space-between;gap:8px;padding:5px 10px;font-size:.8em;border-bottom:1px solid var(--bdr)}
+.acct-item:last-child{border:none}
+.acct-item .cmp{font-size:.72em;color:var(--dim)}
+.setting-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--bdr);font-size:.9em}
+.setting-row:last-child{border:none}
+.setting-row select,.setting-row input{background:var(--card);color:var(--fg)}
+.toggle{width:44px;height:24px;background:var(--bdr);border-radius:12px;position:relative;cursor:pointer;transition:.3s}
+.toggle.on{background:var(--acc2)}
+.toggle::after{content:'';position:absolute;top:2px;left:2px;width:20px;height:20px;background:#fff;border-radius:50%;transition:.3s}
+.toggle.on::after{left:22px}
+.memo-area{width:100%;min-height:60px;padding:8px;border:1px solid var(--bdr);border-radius:6px;
+font-family:inherit;font-size:.82em;resize:vertical;background:var(--card);color:var(--fg)}
+.ch-drill{cursor:pointer}.ch-drill:hover{background:var(--card2)}
+.ptn-card{margin-bottom:10px;padding:12px;background:var(--card);border-radius:var(--radius);border:1px solid var(--bdr)}
+.ptn-card h4{font-size:.85em;color:var(--pri);margin-bottom:6px}
+.ptn-je{font-size:.8em;background:var(--card2);padding:6px 8px;border-radius:4px;margin:3px 0;line-height:1.5}
+.q-pick-list{max-height:420px;overflow:auto;margin-top:8px}
+.q-pick-item{padding:8px 10px;border-bottom:1px solid var(--bdr);cursor:pointer;font-size:.8em;display:flex;align-items:center;gap:8px}
+.q-pick-item:hover{background:var(--card2)}
+.q-pick-item .status-icon{font-size:.9em;flex-shrink:0}
+.q-pick-item .stat-txt{font-size:.7em;color:var(--dim);margin-left:auto;white-space:nowrap}
+.ws-table{border-collapse:collapse;width:100%;font-size:.85em;margin:8px 0}
+.ws-table th,.ws-table td{border:1px solid var(--bdr);padding:6px 8px;text-align:left}
+.ws-table th{background:var(--card2);font-weight:600}
+.ws-table .num-col{text-align:right;width:130px}
+.ws-table input.ws-input{width:100%;padding:4px 6px;border:2px solid var(--hl);
+border-radius:4px;text-align:right;font-size:.95em;background:#fffbea;color:#000;font-weight:700}
+.dark .ws-table input.ws-input{background:#3a3020;color:#fff}
+.ws-side{padding:3px 7px;border-radius:4px;font-size:.7em;display:inline-block;white-space:nowrap;background:var(--card2);color:var(--dim)}
+
+/* テキスト内 図表 */
+.txt-je{margin:10px 0;border:2px solid var(--t-border);border-radius:6px;overflow:hidden;font-size:.86em}
+.txt-je-title{background:var(--pri);color:#fff;padding:4px 10px;font-size:.78em;font-weight:600}
+.dark .txt-je-title{color:#10181c}
+.txt-je-body{display:grid;grid-template-columns:1fr 1fr;min-height:36px}
+.txt-je-dr{border-right:2px solid var(--t-border);padding:6px 10px}
+.txt-je-cr{padding:6px 10px}
+.txt-je-dr div,.txt-je-cr div{display:flex;justify-content:space-between;gap:6px;padding:2px 0}
+.txt-je-dr .acct{color:var(--dr-col);font-weight:600}
+.txt-je-cr .acct{color:var(--cr-col);font-weight:600}
+.txt-je-dr .amt,.txt-je-cr .amt{font-weight:700;font-variant-numeric:tabular-nums}
+.txt-je-note{padding:4px 10px;font-size:.78em;color:var(--dim);background:var(--card2);border-top:1px solid var(--bdr)}
+.t-row{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-start}
+.t-acct{margin:10px 0;border:2px solid var(--t-border);border-radius:6px;overflow:hidden;font-size:.8em;flex:1 1 240px;max-width:340px}
+.t-acct-title{text-align:center;font-weight:700;padding:4px;background:var(--card2);border-bottom:2px solid var(--t-border)}
+.t-acct-body{display:grid;grid-template-columns:1fr 1fr;min-height:40px}
+.t-acct-dr{border-right:2px solid var(--t-border);padding:4px 8px}
+.t-acct-cr{padding:4px 8px}
+.t-acct-dr div,.t-acct-cr div{display:flex;justify-content:space-between;gap:4px;padding:1px 0;font-size:.92em}
+.t-acct .tot{border-top:1px solid var(--bdr);font-weight:700}
+.txt-warn{margin:8px 0;padding:8px 12px;border-left:4px solid var(--acc);background:#fdf2f1;border-radius:0 6px 6px 0;font-size:.84em}
+.dark .txt-warn{background:#2c1716}
+.txt-tip{margin:8px 0;padding:8px 12px;border-left:4px solid var(--acc2);background:#eef9f2;border-radius:0 6px 6px 0;font-size:.84em}
+.dark .txt-tip{background:#14291e}
+.txt-link{margin:8px 0;padding:8px 12px;border-left:4px solid var(--hl);background:var(--hl-bg);border-radius:0 6px 6px 0;font-size:.84em}
+.txt-exam{margin:8px 0;padding:8px 12px;border:1px dashed var(--pri);border-radius:6px;font-size:.82em}
+.txt-exam::before{content:'📝 試験ではこう出る';display:block;font-weight:700;color:var(--pri);font-size:.92em;margin-bottom:2px}
+.txt-formula{margin:8px 0;padding:10px 14px;background:var(--card2);border:1px solid var(--bdr);border-radius:8px;text-align:center;font-weight:700;font-size:.9em;line-height:1.6}
+.txt-ex{margin:8px 0;padding:10px 12px;background:var(--card);border:1px dashed var(--t-border);border-radius:8px;font-size:.84em}
+.txt-ex-title{font-weight:700;color:var(--pri);margin-bottom:4px;font-size:.92em}
+.tbl-wrap{overflow-x:auto;margin:8px 0}
+.txt-tbl{width:100%;border-collapse:collapse;font-size:.8em;min-width:300px}
+.txt-tbl th,.txt-tbl td{border:1px solid var(--bdr);padding:5px 7px;vertical-align:top;line-height:1.5}
+.txt-tbl th{background:var(--card2);font-weight:700;text-align:left}
+.txt-tbl td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.txt-tbl tr.sum td{font-weight:700;background:var(--card2)}
+.flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:4px;margin:8px 0;font-size:.78em}
+.flow .fs{background:var(--card2);border:1px solid var(--bdr);border-radius:6px;padding:5px 8px;text-align:center;line-height:1.4;display:flex;flex-direction:column;justify-content:center}
+.flow .fs.hl{border:2px solid var(--hl);background:var(--hl-bg)}
+.flow .fs small{color:var(--dim);font-size:.85em}
+.flow .fa{color:var(--dim);display:flex;align-items:center;font-weight:700}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:8px 0;font-size:.82em}
+.grid2>div{padding:8px;border-radius:6px;border:1px solid var(--bdr);background:var(--card2)}
+.svg-fig{margin:10px 0;text-align:center;overflow-x:auto}
+.svg-fig svg.wide{min-width:440px}
+.svg-fig svg{max-width:100%;height:auto;display:inline-block}
+.svg-cap{font-size:.72em;color:var(--dim);margin-top:2px}
+.s-ln{stroke:var(--fg);stroke-width:1.5;fill:none}
+.s-ln2{stroke:var(--dim);stroke-width:1.2;stroke-dasharray:4 3;fill:none}
+.s-ax{stroke:var(--dim);stroke-width:1.2;fill:none}
+.s-bx{fill:var(--card2);stroke:var(--t-border);stroke-width:1.2}
+.s-bx2{fill:var(--card);stroke:var(--t-border);stroke-width:1.2}
+.s-pri{fill:var(--pri)}.s-hl{fill:var(--hl)}.s-hlb{fill:var(--hl-bg);stroke:var(--hl);stroke-width:1.5}
+.s-acc{fill:var(--acc)}.s-ok{fill:var(--acc2)}.s-dim{fill:var(--bdr)}
+.s-dr{fill:var(--dr-col)}.s-cr{fill:var(--cr-col)}
+.s-lpri{stroke:var(--pri);stroke-width:2.5;fill:none}.s-lacc{stroke:var(--acc);stroke-width:2.5;fill:none}.s-lok{stroke:var(--acc2);stroke-width:2.5;fill:none}.s-lhl{stroke:var(--hl);stroke-width:2.5;fill:none}
+.s-tx{fill:var(--fg);font-size:12px}.s-txs{fill:var(--fg);font-size:10.5px}.s-txd{fill:var(--dim);font-size:10.5px}
+.s-txw{fill:#fff;font-size:12px;font-weight:700}.dark .s-txw{fill:#10181c}
+.s-txb{fill:var(--fg);font-size:12px;font-weight:700}
+.s-txp{fill:var(--pri);font-size:12px;font-weight:700}
+.ch-prog-panel{margin:8px 0;padding:10px;background:var(--card);border:1px solid var(--bdr);border-radius:var(--radius)}
+.ch-prog-panel summary{font-size:.78em;color:var(--pri);font-weight:700;cursor:pointer}
+.ch-prog-row{display:flex;align-items:center;gap:6px;padding:3px 0;font-size:.72em}
+.ch-prog-row .ch-lbl{width:50px;font-weight:600;color:var(--pri);white-space:nowrap}
+.ch-prog-row .prog{flex:1;height:4px}
+.ch-prog-row .ch-pct{width:40px;text-align:right;color:var(--dim)}
+.ch-prog-row.current{background:var(--card2);border-radius:4px;padding:3px 4px}
+.about{font-size:.78em;line-height:1.7;color:var(--dim)}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.fade-in{animation:fadeIn .2s ease}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media(min-width:600px){.tab{max-width:720px;margin:0 auto}.modes{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:420px){.je-row input[type=number]{width:88px}.grid2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="hd">
+<button onclick="goBack()" id="backBtn" class="hide" aria-label="戻る">◀</button>
+<h1>🏗️ 建設業経理士2級<small>テキスト＋問題</small></h1>
+<button onclick="toggleMemo()" title="メモ" aria-label="メモ">📝</button>
+</div>
+<div class="nav">
+<button onclick="switchTab('T-text')" data-tab="T-text" class="act"><span class="ni">📖</span>テキスト</button>
+<button onclick="switchTab('T-quiz')" data-tab="T-quiz"><span class="ni">✏️</span>問題</button>
+<button onclick="switchTab('T-ref')" data-tab="T-ref"><span class="ni">📋</span>科目</button>
+<button onclick="switchTab('T-stats')" data-tab="T-stats"><span class="ni">📊</span>統計</button>
+<button onclick="switchTab('T-more')" data-tab="T-more"><span class="ni">⚙️</span>設定</button>
+</div>
+<div id="memoOL" class="hide" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:200;display:flex;align-items:end">
+<div style="background:var(--card);width:100%;border-radius:14px 14px 0 0;padding:14px;max-height:80vh;overflow:auto;padding-bottom:calc(14px + var(--safe-bot))">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+<h3 style="font-size:.95em">📝 メモ</h3><button class="btn btn-sm btn-out" onclick="toggleMemo()">閉じる</button></div>
+<p style="font-size:.72em;color:var(--dim);margin-bottom:6px">問題のメモをタップで該当問題を開けます</p>
+<textarea class="memo-area" id="memoText" placeholder="自由メモ…" oninput="saveMemo()" style="min-height:80px"></textarea>
+<div id="qMemoList" style="margin-top:10px"></div>
+</div></div>
+
+<div class="tab act" id="T-text">
+<div class="crd" style="border-left:5px solid var(--hl)">
+<h3>🏗️ このテキストの使い方</h3>
+<p style="font-size:.78em;line-height:1.7">章を開いて読む → 章末の問題をタップして解く → 理解度①②③をチェック。<span style="color:var(--hl)">★★★</span>は過去の出題頻度が高い論点です。各章の見出しにある「第○問」は、本試験でその論点が出る大問番号の目安です。</p>
+</div>
+<div id="textSec"></div>
+</div>
+
+<div class="tab" id="T-quiz">
+<div id="qMenu">
+<h2 style="font-size:1em;margin-bottom:8px">✏️ 問題演習</h2>
+<div id="resumePanel" class="hide"></div>
+<div class="ch-filter" id="chF"></div>
+<div class="modes" id="mGrid"></div>
+<div class="crd" style="margin-top:10px"><h3>📝 問題を選んで解く</h3>
+<p style="font-size:.75em;color:var(--dim);margin-bottom:6px">章を選んで、好きな問題から解けます（📊＝計算表　🔘＝選択式）</p>
+<select id="pickChSel" onchange="renderPickList()" style="width:100%;padding:8px;border:1px solid var(--bdr);border-radius:6px;background:var(--card);color:var(--fg);font-family:inherit;font-size:.85em">
+<option value="0">全ての章</option>
+</select>
+<div id="pickList" class="q-pick-list"></div>
+</div>
+</div>
+<div id="qPlay" class="hide quiz-area"></div>
+</div>
+
+<div class="tab" id="T-ref">
+<h2 style="font-size:1em;margin-bottom:4px">📋 勘定科目リファレンス</h2>
+<p style="font-size:.72em;color:var(--dim);margin-bottom:8px">右端は「増えたときに書く側」。（商）は商業簿記で対応する科目です。</p>
+<div id="acctRef"></div>
+<h2 style="font-size:1em;margin:16px 0 8px">🔄 仕訳パターン集</h2>
+<div id="ptnRef"></div>
+</div>
+
+<div class="tab" id="T-stats">
+<h2 style="font-size:1em;margin-bottom:8px">📊 学習統計</h2>
+<div class="stat-grid" id="sGrid"></div>
+<div class="crd"><h3>📅 学習カレンダー</h3><div id="calG" style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-top:6px"></div></div>
+<div class="crd"><h3>🎯 苦手問題ランキング</h3><div id="weakRank"></div></div>
+<div class="crd"><h3>📝 章別進捗（タップで詳細）</h3><div id="chProg"></div></div>
+<div id="chDetail" class="hide crd"></div>
+</div>
+
+<div class="tab" id="T-more">
+<h2 style="font-size:1em;margin-bottom:8px">⚙️ 設定・その他</h2>
+<div class="crd"><h3>🔧 表示設定</h3>
+<div class="setting-row"><span>ダークモード</span><div class="toggle" id="dkT" onclick="toggleDark()"></div></div>
+<div class="setting-row"><span>フォントサイズ</span>
+<select onchange="setFS(this.value)" id="fsS" style="padding:4px;border:1px solid var(--bdr);border-radius:4px">
+<option value="14px">小</option><option value="16px" selected>中</option><option value="18px">大</option><option value="20px">特大</option></select></div>
+<div class="setting-row"><span>音声読み上げ</span><div class="toggle" id="ttsT" onclick="toggleTTS()"></div></div>
+</div>
+<div class="crd"><h3>🎯 目標設定</h3>
+<div class="setting-row"><span>1日の目標問題数</span><input type="number" id="gC" value="10" min="1" max="100" style="width:55px;padding:4px;border:1px solid var(--bdr);border-radius:4px;text-align:center" onchange="saveGoal()"></div>
+<div class="setting-row"><span>目標正答率</span><span><input type="number" id="gR" value="80" min="1" max="100" style="width:55px;padding:4px;border:1px solid var(--bdr);border-radius:4px;text-align:center" onchange="saveGoal()">%</span></div>
+</div>
+<div class="crd"><h3>💾 データ管理</h3>
+<button class="btn btn-out btn-block" onclick="exportD()">📤 データ書き出し</button>
+<button class="btn btn-out btn-block" onclick="document.getElementById('impF').click()">📥 データ読み込み</button>
+<input type="file" id="impF" class="hide" accept=".json" onchange="importD(event)">
+<button class="btn btn-ng btn-block" onclick="resetD()" style="margin-top:12px">🗑️ データリセット</button></div>
+<div class="crd"><h3>ℹ️ このアプリについて</h3>
+<p class="about">建設業経理士2級（一般財団法人建設業振興基金）の出題区分表に沿って構成した学習アプリです。解説文・図解・例題・問題はすべて本アプリのためのオリジナルで、市販テキストや過去問題の文章・数値は転載していません。試験制度・会計基準は変更されることがあるため、受験前に公式情報を確認してください。<br>© 2026 大國将 All Rights Reserved.</p></div>
+</div>
+<script>
+/* ======== テキスト用ヘルパー（図表） ======== */
+function jeHTML(title,entries,note){
+  let dr=[],cr=[];
+  entries.forEach(e=>{if(e[0])dr.push(e);if(e[2])cr.push(e)});
+  let h='<div class="txt-je">';
+  if(title)h+='<div class="txt-je-title">'+title+'</div>';
+  h+='<div class="txt-je-body"><div class="txt-je-dr">';
+  dr.forEach(e=>{h+='<div><span class="acct">（'+e[0]+'）</span><span class="amt">'+(typeof e[1]==='number'?e[1].toLocaleString():e[1])+'</span></div>'});
+  h+='</div><div class="txt-je-cr">';
+  cr.forEach(e=>{h+='<div><span class="acct">（'+e[2]+'）</span><span class="amt">'+(typeof e[3]==='number'?e[3].toLocaleString():e[3])+'</span></div>'});
+  h+='</div></div>';
+  if(note)h+='<div class="txt-je-note">💡 '+note+'</div>';
+  return h+'</div>';
+}
+function tAcctHTML(title,drItems,crItems,tot){
+  const f=v=>typeof v==='number'?v.toLocaleString():v;
+  let h='<div class="t-acct"><div class="t-acct-title">'+title+'</div><div class="t-acct-body"><div class="t-acct-dr">';
+  drItems.forEach(e=>{h+='<div><span>'+e[0]+'</span><span>'+f(e[1])+'</span></div>'});
+  if(tot)h+='<div class="tot"><span></span><span>'+f(tot)+'</span></div>';
+  h+='</div><div class="t-acct-cr">';
+  crItems.forEach(e=>{h+='<div><span>'+e[0]+'</span><span>'+f(e[1])+'</span></div>'});
+  if(tot)h+='<div class="tot"><span></span><span>'+f(tot)+'</span></div>';
+  return h+'</div></div></div>';
+}
+/* 表：head=見出し配列, rows=行配列（数値は右寄せ・カンマ付き）, sum=合計行のindex配列 */
+function TB(head,rows,sum){
+  sum=sum||[];
+  let h='<div class="tbl-wrap"><table class="txt-tbl"><thead><tr>'+head.map(x=>'<th>'+x+'</th>').join('')+'</tr></thead><tbody>';
+  rows.forEach((r,i)=>{h+='<tr'+(sum.includes(i)?' class="sum"':'')+'>'+r.map(c=>typeof c==='number'?'<td class="n">'+c.toLocaleString()+'</td>':'<td>'+c+'</td>').join('')+'</tr>'});
+  return h+'</tbody></table></div>';
+}
+/* フロー図：'*'始まりは強調、'|'以降は小さな補足 */
+function FL(steps){
+  return '<div class="flow">'+steps.map((s,i)=>{
+    const hl=s.startsWith('*');if(hl)s=s.slice(1);
+    const p=s.split('|');
+    return (i?'<span class="fa">→</span>':'')+'<div class="fs'+(hl?' hl':'')+'">'+p[0]+(p[1]?'<small>'+p[1]+'</small>':'')+'</div>';
+  }).join('')+'</div>';
+}
+function FIG(svg,cap){return '<div class="svg-fig">'+svg+(cap?'<div class="svg-cap">'+cap+'</div>':'')+'</div>'}
+
+/* ======== 問題ビルダー ======== */
+const CHAPTERS=[];const ALL=[];const _qc={};
+function _nid(ch){_qc[ch]=(_qc[ch]||0)+1;return{id:ch*100+_qc[ch],n:_qc[ch]}}
+/* 仕訳問題：dr/cr=[[科目,金額],...] */
+function J(ch,title,q,dr,cr,exp){
+  const k=_nid(ch);const entries=[];const m=Math.max(dr.length,cr.length);
+  for(let i=0;i<m;i++){const e={};if(dr[i]){e.dr=dr[i][0];e.dr_amt=dr[i][1]}if(cr[i]){e.cr=cr[i][0];e.cr_amt=cr[i][1]}entries.push(e)}
+  ALL.push({id:k.id,ch,case:k.n,title,q,entries,exp,type:'journal'});
+}
+/* 計算表問題：rows=[[項目,正解,区分,単位],...] */
+function W(ch,title,q,tt,rows,exp,sub){
+  const k=_nid(ch);
+  ALL.push({id:k.id,ch,case:k.n,title,q,type:'worksheet',template:{title:tt,subtitle:sub||'',rows:rows.map(r=>({label:r[0],answer:r[1],side:r[2]||'計算',unit:r[3]||''}))},exp});
+}
+/* 選択問題 */
+function C(ch,title,q,opts,ans,exp){
+  const k=_nid(ch);
+  ALL.push({id:k.id,ch,case:k.n,title,q,type:'choice',opts,ans,exp});
+}
+const GENKA=['工事原価','販売費及び一般管理費（期間原価）','非原価項目'];
+
+/* ======== 勘定科目（選択肢＋リファレンス） ======== */
+/* [科目, 内容, 増えたとき, 商業簿記の対応科目] */
+const UP='借方↑',DN='貸方↑';
+const ACCT_REF=[
+{cat:'資産',cls:'c-asset',items:[
+['現金','通貨＋通貨代用証券（他人振出小切手など）',UP],['当座預金','小切手を振り出す預金',UP],['普通預金','一般の預金',UP],['定期預金','満期まで引き出せない預金',UP],['別段預金','株式申込証拠金を一時的に預ける',UP],
+['受取手形','工事代金として受け取った手形',UP,'受取手形'],['完成工事未収入金','引渡し済み工事代金の未収分',UP,'売掛金'],['不渡手形','支払を拒絶された手形の請求権',UP],['営業外受取手形','固定資産の売却などで受け取った手形',UP],['営業保証受取手形','取引保証として預かった手形',UP],
+['手形貸付金','手形を受け取って貸し付けた',UP],['貸付金','手形なしの貸付',UP],['長期貸付金','返済期限が1年超の貸付',UP],['有価証券','売買目的の株式・社債など',UP],['投資有価証券','満期保有目的・その他有価証券など',UP],['子会社株式','支配目的で保有する株式',UP],['差入有価証券','借入の担保に差し入れた有価証券',UP],
+['未収入金','本業以外の代金の未収（固定資産売却等）',UP,'未収入金'],['未成工事支出金','引渡し前の工事にかかった原価',UP,'仕掛品'],['材料','工事用材料の在庫',UP,'原材料'],['材料貯蔵品','材料・仮設材料などの在庫（精算表で頻出）',UP],['貯蔵品','未使用の切手・事務用品、スクラップ評価額',UP],
+['前渡金','工事のための前払い（下請・資材業者）',UP,'前払金'],['前払費用','1年以内に費用となる前払分',UP],['前払保険料','保険料の前払分',UP],['前払家賃','家賃の前払分',UP],['長期前払費用','1年を超えて費用となる前払分',UP],['未収利息','利息の未収分',UP],['未収家賃','家賃の未収分',UP],
+['立替金','他人の代わりに支払った',UP],['仮払金','内容・金額が未確定の支出',UP],['仮払法人税等','法人税等の中間納付額',UP],['仮払消費税','支払った消費税',UP],['未収消費税','還付される消費税',UP],['差入保証金','敷金・保証金',UP],['差入営業保証金','営業保証手形を差し入れたときの権利',UP],['火災未決算','保険金確定待ちの焼失資産の帳簿価額',UP],
+['建物','',UP],['構築物','',UP],['機械装置','',UP],['車両運搬具','',UP],['工具器具','',UP],['備品','',UP],['土地','減価償却しない',UP],['建設仮勘定','建設中の固定資産への支払',UP],
+['のれん','超過収益力（20年以内に償却）',UP],['特許権','',UP],['借地権','',UP],
+['創立費','繰延資産（5年以内）',UP],['開業費','繰延資産（5年以内）',UP],['株式交付費','繰延資産（3年以内）',UP],['社債発行費','繰延資産（償還期間内）',UP],['開発費','繰延資産（5年以内）',UP],['諸資産','合併・買収の問題で資産をまとめた科目',UP]]},
+{cat:'資産の控除（評価勘定）',cls:'c-oth',items:[
+['貸倒引当金','債権の回収不能見込額',DN],['減価償却累計額','減価償却の累計（間接法）',DN],['機械装置減価償却累計額','機械装置の償却累計（精算表で使用）',DN],['備品減価償却累計額','備品の償却累計（精算表で使用）',DN],['割引手形','割り引いた手形（評価勘定法）',DN],['裏書手形','裏書した手形（評価勘定法）',DN]]},
+{cat:'負債',cls:'c-liab',items:[
+['支払手形','工事代金等の支払で振り出した手形',DN,'支払手形'],['工事未払金','材料・外注・経費など工事代金の未払',DN,'買掛金'],['営業外支払手形','固定資産購入などで振り出した手形',DN],['営業保証支払手形','取引保証として差し入れた手形',DN],['営業保証預り金','営業保証手形を預かったときの返還義務',DN],
+['借入金','',DN],['手形借入金','手形を振り出して借り入れた',DN],['長期借入金','返済期限1年超',DN],['当座借越','当座預金のマイナス残高',DN],['未払金','本業以外の未払（固定資産・本社経費）',DN,'未払金'],['未払費用','継続サービスの未払分',DN],['未払利息','',DN],['未払家賃','',DN],['未払配当金','株主総会で決まった配当の未払',DN],['未払法人税等','確定申告で納める法人税等',DN],['未払消費税','納付する消費税',DN],
+['未成工事受入金','引渡し前に受け取った工事代金',DN,'前受金'],['預り金','源泉所得税・社会保険料など',DN],['前受収益','継続サービスの前受分',DN],['前受家賃','',DN],['前受利息','',DN],['仮受金','内容不明の入金',DN],['仮受消費税','受け取った消費税',DN],
+['保証債務','手形の遡及義務の時価',DN],['手形割引義務','割引の遡及義務（対照勘定法）',DN],['手形裏書義務','裏書の遡及義務（対照勘定法）',DN],
+['賞与引当金','',DN],['役員賞与引当金','',DN],['修繕引当金','',DN],['完成工事補償引当金','引渡し後の無償補修に備える',DN],['工事損失引当金','受注工事の損失見込',DN],['退職給付引当金','',DN],['社債','',DN],['諸負債','合併・買収の問題で負債をまとめた科目',DN]]},
+{cat:'純資産',cls:'c-eq',items:[
+['資本金','',DN],['資本準備金','株式払込剰余金など',DN],['合併差益','合併で生じた資本剰余金',DN],['その他資本剰余金','減資差益など',DN],['利益準備金','配当の1/10を積立',DN],['別途積立金','任意積立金',DN],['新築積立金','任意積立金',DN],['繰越利益剰余金','処分前の利益の蓄積',DN],['新株式申込証拠金','払込期日前の申込金',DN]]},
+{cat:'収益',cls:'c-rev',items:[
+['完成工事高','工事の売上',DN,'売上'],['受取利息','',DN],['有価証券利息','社債・国債の利息',DN],['受取配当金','',DN],['受取家賃','',DN],['受取地代','',DN],['受取手数料','',DN],['有価証券売却益','',DN],['有価証券評価益','',DN],['投資有価証券売却益','',DN],['仕入割引','期日前支払による割引（営業外収益）',DN],['雑収入','原因不明の現金過剰など',DN,'雑益'],['償却債権取立益','前期以前に貸倒処理した債権の回収',DN],['貸倒引当金戻入','',DN],['完成工事補償引当金戻入','',DN],['固定資産売却益','',DN],['社債償還益','',DN],['保険差益','保険金＞帳簿価額',DN],['保証債務取崩益','遡及義務の消滅',DN]]},
+{cat:'費用',cls:'c-exp',items:[
+['完成工事原価','完成・引渡した工事の原価',UP,'売上原価'],['役員報酬','',UP],['給料手当','本社従業員の給料',UP],['賞与引当金繰入額','',UP],['退職給付引当金繰入額','',UP],['法定福利費','',UP],['福利厚生費','',UP],['修繕維持費','',UP],['事務用消耗品費','',UP],['通信費','',UP],['旅費交通費','',UP],['水道光熱費','',UP],['広告宣伝費','',UP],['交際費','',UP],['貸倒引当金繰入額','',UP],['貸倒損失','',UP],['減価償却費','',UP],['支払家賃','',UP],['租税公課','固定資産税・印紙税など',UP],['保険料','',UP],['雑費','',UP],['販売費及び一般管理費','精算表で本社経費を一括した科目',UP],
+['支払利息','',UP],['社債利息','償却原価法の調整額を含む',UP],['手形売却損','割引料',UP],['保証債務費用','',UP],['有価証券売却損','',UP],['有価証券評価損','',UP],['投資有価証券評価損','',UP],['棚卸減耗損','原価性のない減耗',UP],['材料評価損','',UP],['雑損失','原因不明の現金不足など',UP,'雑損'],['固定資産売却損','',UP],['固定資産除却損','',UP],['火災損失','',UP],['社債償還損','',UP],
+['創立費償却','',UP],['開業費償却','',UP],['株式交付費償却','',UP],['社債発行費償却','',UP],['のれん償却','',UP],['特許権償却','',UP],['修繕引当金繰入額','',UP],['法人税、住民税及び事業税','',UP]]},
+{cat:'工事原価（原価計算）',cls:'c-cost',items:[
+['材料費','工事に消費した材料',UP],['労務費','現場作業員の賃金',UP],['外注費','下請業者への支払',UP],['経費','上記以外の工事原価',UP],['工事間接費','複数工事に共通の原価（現場共通費）',UP],['工事間接費配賦差異','予定配賦額と実際発生額の差',UP+'／'+DN]]},
+{cat:'その他（仮・照合・対照勘定）',cls:'c-oth',items:[
+['現金過不足','帳簿と実際の現金の差（一時的）','─'],['損益','決算振替用','─'],['本店','支店側で使う照合勘定','─'],['支店','本店側で使う照合勘定','─'],['A支店','本店集中計算制度で本店が使う','─'],['B支店','本店集中計算制度で本店が使う','─'],['手形割引義務見返','対照勘定法の相手科目','─'],['手形裏書義務見返','対照勘定法の相手科目','─'],['内部利益控除','内部利益の除去額（費用）','─'],['内部利益控除引当金','内部利益の除去額（資産の控除）','─']]}
+];
+const ACCT_GROUPS=ACCT_REF.map(c=>({cat:c.cat,items:c.items.map(i=>i[0])}));
+
+const PATTERNS=[
+['🏗️ 工事の一生（完成基準）','受注・前受：（現金等）×× ／（未成工事受入金）××','施工中の原価：（未成工事支出金）×× ／（材料・工事未払金など）××','完成・引渡し：（未成工事受入金）（完成工事未収入金）×× ／（完成工事高）××','原価の振替：（完成工事原価）×× ／（未成工事支出金）××'],
+['🏦 当座借越（二勘定制）','残高超の支払：（工事未払金）×× ／（当座預金）残高分＋（当座借越）超過分','入金時：（当座借越）先に返済 ＋（当座預金）残り ／（完成工事未収入金など）××'],
+['🧾 手形の割引（保証債務あり）','（当座預金）手取額＋（手形売却損）割引料＋（保証債務費用）時価 ／（受取手形）額面＋（保証債務）時価','決済時：（保証債務）×× ／（保証債務取崩益）××'],
+['📈 有価証券の期末評価','売買目的：時価へ（有価証券評価損／益）','満期保有：償却原価法（投資有価証券）×× ／（有価証券利息）××','著しい下落：（投資有価証券評価損）×× ／（投資有価証券）××'],
+['📦 材料の期末評価','減耗：（棚卸減耗損 or 未成工事支出金）×× ／（材料）××　← 帳簿単価×減耗数量','評価損：（材料評価損）×× ／（材料）××　← 実地数量×単価下落額'],
+['🏢 固定資産','取得：取得原価＝購入代価＋付随費用','建設中：（建設仮勘定）→ 完成時に本勘定へ振替','資本的支出は資産、収益的支出は修繕維持費','売却：帳簿価額（＋当期償却）と売却額の差が売却損益','焼失（保険あり）：（火災未決算）→ 確定時に保険差益 or 火災損失'],
+['🛡️ 引当金','貸倒（差額補充法）：（貸倒引当金繰入額）差額 ／（貸倒引当金）','完成工事補償：（完成工事原価）差額 ／（完成工事補償引当金）','退職給付（現場・月次予定計上）：差額を（未成工事支出金）で調整'],
+['📜 社債','発行：（当座預金）払込額 ／（社債）払込額','決算：（社債利息）×× ／（社債）×× ← 償却原価法（定額法）','買入償還：帳簿価額と支払額の差が社債償還益・損'],
+['💴 法人税等・消費税','中間：（仮払法人税等）／（当座預金）','決算：（法人税、住民税及び事業税）／（仮払法人税等）＋（未払法人税等）','消費税決算：（仮受消費税）／（仮払消費税）＋（未払消費税）'],
+['🏛️ 株式・剰余金','発行：資本金は払込額の1/2以上、残りは資本準備金','配当：（繰越利益剰余金）／（未払配当金）＋（利益準備金）','利益準備金＝ min（配当×1/10、資本金×1/4－準備金合計）'],
+['📐 工事進行基準','当期完成工事高＝請負金額×（原価累計÷見積総原価）－前期までの計上額','期末：（未成工事受入金）（完成工事未収入金）／（完成工事高）'],
+['🏬 本支店会計','本店→支店の送金：本店（支店）／（現金）、支店（現金）／（本店）','本店集中計算制度：支店間取引は本店を経由したとみなす','内部利益＝期末棚卸高×加算率÷（1＋加算率）'],
+['👷 労務費','当月労務費＝当月支払－前月未払＋当月未払','支給：（労務費）総額 ／（預り金）控除額＋（当座預金）手取額'],
+['⚙️ 工事間接費','予定配賦：（未成工事支出金）／（工事間接費）','差異：予定配賦額－実際発生額（マイナスは不利差異・借方）','予算差異＝予算許容額－実際、操業度差異＝固定費率×（実際－基準）'],
+['📋 決算（第5問）','月次予定計上との差額 → 未成工事支出金に加減','未成工事支出金 －次期繰越額 ＝ 完成工事原価','最後に：税引前当期純利益 × 税率 ＝ 法人税等']
+];
+
+/* ================= 第1章 ================= */
+CHAPTERS.push({n:1,t:"建設業の特徴と会計の全体像",sec:"基礎編",exam:"全問の土台",star:3,text:`
+<h4>建設業はどんな商売か</h4>
+建設業は、注文者（施主）から工事を<b>受注</b>し、契約どおりの建物や道路を<b>完成させて引き渡す</b>ことで代金を得る商売です。お店に並んだ商品を売る商業とも、同じ製品を量産する製造業とも、お金の流れ方が違います。
+<ul>
+<li><b>受注生産</b>：注文を受けてから作る。1件ごとに仕様が違う「一品生産」</li>
+<li><b>工期が長い</b>：数か月〜数年かかり、会計期間をまたぐことが多い</li>
+<li><b>現場が毎回変わる</b>：工場がなく、工事ごとに現場事務所・仮設物をつくる</li>
+<li><b>外注（下請）が多い</b>：専門工事を協力会社に発注し、外注費が原価の大きな割合を占める</li>
+<li><b>前受けの慣行</b>：契約時・中間時に代金の一部を受け取ることが多い</li>
+</ul>
+${FIG(`<svg viewBox="0 0 360 318" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="m1a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" class="s-pri"/></marker></defs>
+<line x1="24" y1="22" x2="24" y2="306" class="s-lpri" marker-end="url(#m1a)"/>
+<g><circle cx="24" cy="36" r="8" class="s-hl"/><text x="42" y="32" class="s-txb" style="font-size:13px">受注・契約</text><text x="42" y="49" class="s-txs" style="font-size:11px">前受金を受け取る</text><rect x="210" y="22" width="144" height="28" rx="6" class="s-bx"/><text x="282" y="41" text-anchor="middle" class="s-txp" style="font-size:12px">未成工事受入金</text></g>
+<g><circle cx="24" cy="96" r="8" class="s-pri"/><text x="42" y="92" class="s-txb" style="font-size:13px">着工・施工</text><text x="42" y="109" class="s-txs" style="font-size:11px">材料・労務・外注・経費</text><rect x="210" y="82" width="144" height="28" rx="6" class="s-bx"/><text x="282" y="101" text-anchor="middle" class="s-txp" style="font-size:12px">未成工事支出金</text></g>
+<g><circle cx="24" cy="156" r="8" class="s-pri"/><text x="42" y="152" class="s-txb" style="font-size:13px">決算日（施工中）</text><text x="42" y="169" class="s-txs" style="font-size:11px">未完成の原価は資産に</text><rect x="210" y="142" width="144" height="28" rx="6" class="s-bx"/><text x="282" y="161" text-anchor="middle" class="s-txp" style="font-size:12px">未成工事支出金（B/S）</text></g>
+<g><circle cx="24" cy="216" r="8" class="s-hl"/><text x="42" y="212" class="s-txb" style="font-size:13px">完成・引渡し</text><text x="42" y="229" class="s-txs" style="font-size:11px">売上と原価を計上</text><rect x="210" y="202" width="144" height="28" rx="6" class="s-hlb"/><text x="282" y="221" text-anchor="middle" class="s-txp" style="font-size:12px">完成工事高・原価</text></g>
+<g><circle cx="24" cy="276" r="8" class="s-pri"/><text x="42" y="272" class="s-txb" style="font-size:13px">代金回収</text><text x="42" y="289" class="s-txs" style="font-size:11px">残金を請求・回収</text><rect x="210" y="262" width="144" height="28" rx="6" class="s-bx"/><text x="282" y="281" text-anchor="middle" class="s-txp" style="font-size:12px">完成工事未収入金</text></g>
+</svg>`,'図1-1 工事1件の一生と使う勘定科目。完成までの原価はすべて未成工事支出金にためる（個別原価計算）')}
+
+<h4>商業簿記からの「読み替え」表 ★最重要</h4>
+3級（商業簿記）で覚えた科目は、建設業では名前が変わります。試験の勘定科目群には建設業の名前しか出てこないので、ここは丸暗記しましょう。
+${TB(['商業簿記','建設業簿記','どんなときに使う？'],[
+['売上','<b>完成工事高</b>','工事が完成し引き渡したとき（収益）'],
+['売上原価','<b>完成工事原価</b>','引き渡した工事の原価（費用）'],
+['売掛金','<b>完成工事未収入金</b>','引渡し済み工事の代金の未回収分（資産）'],
+['買掛金','<b>工事未払金</b>','材料・外注・経費など工事代金の未払分（負債）'],
+['前受金','<b>未成工事受入金</b>','引渡し前に受け取った工事代金（負債）'],
+['仕掛品','<b>未成工事支出金</b>','引渡し前の工事にかかった原価の集計（資産）'],
+['前払金','<b>前渡金</b>','下請・資材業者への前払い（資産）'],
+['原材料・商品','<b>材料</b>・材料貯蔵品','工事用材料の在庫（資産）'],
+['売上総利益','<b>完成工事総利益</b>','完成工事高－完成工事原価'],
+['雑益・雑損','<b>雑収入・雑損失</b>','原因不明の現金過不足など']])}
+<div class="txt-warn">⚠️ <b>ひっかけ注意</b>：本業（工事）以外の未払・未収は、商業簿記と同じく<b>未払金・未収入金</b>です。本社の備品を後払いで買った → 工事未払金ではなく<b>未払金</b>。</div>
+
+<h4>工事原価は「4つの要素」</h4>
+製造業の原価は「材料費・労務費・経費」の3要素ですが、建設業は下請への発注が多いため<b>外注費</b>を独立させた<span class="mk">4要素</span>で表します。
+<div class="grid2">
+<div><b>材料費</b><br>工事に使った材料・部品・仮設材料の消費額。例：生コン、鉄筋、型枠材</div>
+<div><b>労務費</b><br>工事に直接従事した<u>作業員</u>の賃金・手当。例：現場作業員の日給</div>
+<div><b>外注費</b><br>下請業者に工事の一部を発注した対価。例：鉄骨工事、設備工事の下請代金</div>
+<div><b>経費</b><br>上記以外すべて。例：<u>現場監督の給料</u>、現場事務所家賃、機械の減価償却費、保険料</div>
+</div>
+<div class="txt-warn">⚠️ <b>頻出</b>：現場<u>監督者</u>・現場事務員の給料は「労務費」ではなく<b>経費（うち人件費）</b>です。労務費は「作業員」の賃金だけ。</div>
+
+<h4>建設業の損益計算書</h4>
+${TB(['区分','金額（例）','ここに入るもの'],[
+['完成工事高',12000000,'工事の売上'],['完成工事原価',9300000,'引き渡した工事の原価（完成工事原価報告書の合計）'],['<b>完成工事総利益</b>',2700000,'粗利'],
+['販売費及び一般管理費',1800000,'本社の給料・家賃・広告・減価償却、貸倒引当金繰入額など'],['<b>営業利益</b>',900000,'本業のもうけ'],
+['営業外収益',60000,'受取利息・受取配当金・有価証券利息・仕入割引・雑収入'],['営業外費用',110000,'支払利息・社債利息・手形売却損・有価証券評価損・雑損失'],['<b>経常利益</b>',850000,''],
+['特別利益・特別損失',-50000,'固定資産売却損益・火災損失・保険差益など臨時のもの'],['<b>税引前当期純利益</b>',800000,''],['法人税、住民税及び事業税',240000,''],['<b>当期純利益</b>',560000,'繰越利益剰余金へ']],[2,4,7,9,11])}
+
+<h4>完成工事原価報告書のかたち</h4>
+商業の「売上原価の内訳」にあたる、建設業だけの報告書です。第4問の計算問題で毎回のように作らされます。
+${TB(['完成工事原価報告書','金額'],[['Ⅰ 材料費',2500000],['Ⅱ 労務費（うち労務外注費 ×××）',1600000],['Ⅲ 外注費',3700000],['Ⅳ 経費（うち人件費 ×××）',1500000],['完成工事原価',9300000]],[4])}
+<div class="txt-tip">💡 経費の中に「うち人件費」を内書きするのがポイント。人件費＝現場監督の給料手当・退職金・法定福利費・福利厚生費など。</div>
+
+<h4>仕訳のルール（8要素）</h4>
+${TB(['借方（左）に書く','貸方（右）に書く'],[['資産の増加','資産の減少'],['負債の減少','負債の増加'],['純資産の減少','純資産の増加'],['費用の発生','収益の発生'],['（収益の取消）','（費用の取消）']])}
+<div class="txt-formula">借方合計 ＝ 貸方合計（貸借平均の原理）</div>
+
+<h4>試験の全体像（2級・120分・100点満点、70点で合格）</h4>
+${TB(['大問','配点','内容','このアプリの章'],[
+['第1問','20点','仕訳5問（勘定科目群から選択）','2〜15章'],
+['第2問','12点','金額の推定・計算3〜4問（本支店、進行基準、総合償却、のれん等）','2〜16章'],
+['第3問','14点','原価計算の計算（部門別計算・工事間接費など）','19〜22章'],
+['第4問','24点','問1：原価の分類・用語　問2：完成工事原価報告書・配賦差異','17〜22章'],
+['第5問','30点','8桁精算表（決算整理事項10項目前後）','23〜24章']])}
+<div class="txt-link">🏢 <b>実務リンク</b>：工期が長い会社では、期中の損益計算書は「完成した工事」しか映しません。進行中の工事の状況は<b>未成工事支出金（使った原価）</b>と<b>未成工事受入金（受け取った代金）</b>の残高に現れます。月次でこの2つを工事別に並べると、決算を待たずに工事ごとの採算が見えてきます。</div>
+`});
+J(1,"工事請負契約と手付金","当社は、発注者と事務所ビルの工事請負契約（請負金額 8,000,000円）を締結し、手付金 800,000円を当座預金口座への振込みで受け取った。",[["当座預金",800000]],[["未成工事受入金",800000]],"引渡し前に受け取った工事代金は「未成工事受入金」（商業簿記の前受金）。請負金額そのものは契約しただけなので仕訳しない。");
+J(1,"工事用材料の掛け購入","当社は、工事用の鉄筋 360,000円を購入し倉庫に搬入した。代金は月末に支払う。なお、材料は購入時に資産として処理している。",[["材料",360000]],[["工事未払金",360000]],"工事のための購入代金の未払は「工事未払金」（商業簿記の買掛金）。材料は資産（材料勘定）。");
+J(1,"下請業者からの請求","下請業者から、今月分の外注工事代金 950,000円の請求書を受け取った。代金は翌月末払いである。なお、工事原価は未成工事支出金勘定を経由して処理している。",[["未成工事支出金",950000]],[["工事未払金",950000]],"工事にかかった原価は、完成までいったん「未成工事支出金」（資産）に集計する。");
+J(1,"工事の完成・引渡し","上記の工事が完成し、発注者に引き渡した。請負金額 8,000,000円のうち手付金 800,000円を差し引いた残額は翌月受け取る。",[["未成工事受入金",800000],["完成工事未収入金",7200000]],[["完成工事高",8000000]],"引渡し時に完成工事高（収益）を計上。先に受け取っていた未成工事受入金を充当し、残りは完成工事未収入金（商業簿記の売掛金）。");
+J(1,"完成工事原価への振替","引き渡した工事について集計されていた未成工事支出金 6,700,000円を完成工事原価に振り替える。",[["完成工事原価",6700000]],[["未成工事支出金",6700000]],"完成・引渡しにより、ためていた原価（資産）を費用（完成工事原価）へ振り替える。");
+C(1,"読み替え①","商業簿記の「売掛金」に相当する建設業の勘定科目はどれか。",["未成工事受入金","完成工事未収入金","工事未払金","未収入金"],1,"引渡し済み工事の代金の未回収分＝完成工事未収入金。未収入金は本業以外（固定資産の売却代金など）の未収に使う。");
+C(1,"読み替え②","商業（製造業）の「仕掛品」に相当する建設業の勘定科目はどれか。",["材料貯蔵品","前渡金","未成工事支出金","完成工事原価"],2,"完成・引渡し前の工事に投入された原価の集計が未成工事支出金。期末に残っていれば流動資産に表示する。");
+C(1,"労務費と経費","現場監督者の給料は、完成工事原価報告書上どの区分に含まれるか。",["材料費","労務費","外注費","経費（うち人件費）"],3,"労務費は工事に直接従事する作業員の賃金。現場監督者・現場事務員の給料は経費の人件費として内書きする。");
+
+/* ================= 第2章 ================= */
+CHAPTERS.push({n:2,t:"現金・預金と銀行勘定調整表",sec:"財務会計編",exam:"第1問・第2問・第5問",star:3,text:`
+<h4>簿記上の「現金」の範囲</h4>
+簿記の現金は、紙幣・硬貨だけでなく、<b>すぐに換金できる証券（通貨代用証券）</b>も含みます。
+${TB(['受け取ったもの','処理','補足'],[
+['他人振出の小切手','現金','銀行ですぐ換金できる'],
+['送金小切手・郵便為替証書','現金','送金手段として受け取る'],
+['期限到来の公社債の利札','現金','相手科目は<b>有価証券利息</b>（収益）'],
+['株式の配当金領収証','現金','相手科目は<b>受取配当金</b>（収益）'],
+['<u>自社が</u>振り出した小切手','<b>当座預金</b>','振出時に減らした当座預金が戻るだけ'],
+['先日付小切手','<b>受取手形</b>','日付が来るまで換金できない'],
+['収入印紙・切手','<b>租税公課・通信費</b>','現金ではない。期末の未使用分は貯蔵品']])}
+${jeHTML("公社債の利札の期限が到来した（利札 12,000円）",[["現金",12000,"有価証券利息",12000]],"利札は期限が来た時点で「現金」扱い")}
+${jeHTML("完成工事未収入金 300,000円を、以前に当社が振り出した小切手で回収",[["当座預金",300000,"完成工事未収入金",300000]],"自己振出小切手の回収 → 当座預金の増加")}
+
+<h4>現金過不足</h4>
+帳簿残高と実際有高が合わないとき、<b>帳簿を実際に合わせる</b>のが鉄則。差額はいったん「現金過不足」で処理し、原因が判明したら正しい科目へ振り替えます。
+${FL(['不一致の発見|現金過不足で処理','原因判明|該当科目へ振替','*決算日まで不明|雑損失 or 雑収入'])}
+<div class="t-row">${tAcctHTML("現金過不足（不足のケース）",[["現金",10000]],[["通信費",6000],["雑損失",4000]])}${tAcctHTML("現金過不足（過剰のケース）",[["受取手数料",3000],["雑収入",2000]],[["現金",5000]])}</div>
+<div class="txt-warn">⚠️ 建設業の試験では「雑損」「雑益」ではなく<b>雑損失・雑収入</b>を使います。また、決算日当日に発見した不一致は現金過不足を経由せず、<b>直接</b>雑損失・雑収入で処理します。</div>
+
+<h4>当座預金と当座借越</h4>
+銀行と<b>当座借越契約</b>を結んでいると、残高を超えて小切手を振り出せます。超えた分は銀行からの借入れ＝<b>負債</b>です。記帳方法は2つあります。
+${TB(['','二勘定制','一勘定制'],[
+['使う科目','当座預金（資産）＋当座借越（負債）','「当座」勘定のみ（借方残＝預金、貸方残＝借越）'],
+['残高 50,000円で 80,000円の小切手を振り出した','（工事未払金）80,000 ／（当座預金）50,000・（当座借越）30,000','（工事未払金）80,000 ／（当座）80,000'],
+['その後 100,000円の入金','（当座借越）30,000・（当座預金）70,000 ／（完成工事未収入金）100,000','（当座）100,000 ／（完成工事未収入金）100,000']])}
+<div class="txt-tip">💡 二勘定制で入金があったら、<b>まず借越を返済</b>してから当座預金を増やします。決算日に当座預金が貸方残高なら、その額を当座借越（または借入金）に振り替えて負債表示します。</div>
+
+<h4>銀行勘定調整表 ★第2問・第5問の常連</h4>
+当社の当座預金の帳簿残高と、銀行の残高証明書の金額は、記帳のタイミングのずれなどで一致しないことがあります。原因を調べて両方を「正しい残高」にそろえる表が<b>銀行勘定調整表</b>です。
+${TB(['不一致の原因','意味','調整する側','当社の仕訳'],[
+['<b>入金未通知</b>','振込があったのに当社に連絡が来ていない','当社残高に＋','<b>必要</b>（当座預金／完成工事未収入金 等）'],
+['<b>支払未通知</b>','自動引落しを当社が記帳していない','当社残高から－','<b>必要</b>（通信費・支払利息 等／当座預金）'],
+['<b>未渡小切手</b>','小切手を作って記帳したが相手に渡していない','当社残高に＋','<b>必要</b>（当座預金／工事未払金 or 未払金）'],
+['<b>誤記入</b>','当社の記帳ミス','当社残高を±','<b>必要</b>（訂正仕訳）'],
+['時間外預入','銀行の営業時間後に預け入れ、翌日扱い','銀行残高に＋','不要'],
+['未取立小切手','取立てを依頼したが銀行が未処理','銀行残高に＋','不要'],
+['未取付小切手','渡した小切手を相手がまだ銀行に持ち込んでいない','銀行残高から－','不要']])}
+<div class="txt-formula">当社側の原因 ＝ 仕訳が必要　／　銀行側の原因 ＝ 仕訳不要</div>
+<div class="txt-ex"><div class="txt-ex-title">📝 例題：両者区分調整法</div>
+決算日の当社の当座預金残高は 420,000円、銀行の残高証明書は 570,000円。原因は①入金未通知 60,000円（工事代金の振込）②支払未通知 25,000円（本社電話料）③未渡小切手 40,000円（工事未払金の支払用）④時間外預入 30,000円 ⑤未取付小切手 105,000円。
+${TB(['当社の帳簿残高',420000,'銀行の残高証明書',570000],[
+['（加算）入金未通知',60000,'（加算）時間外預入',30000],
+['（加算）未渡小切手',40000,'',''],
+['（減算）支払未通知',-25000,'（減算）未取付小切手',-105000],
+['<b>修正後残高</b>',495000,'<b>修正後残高</b>',495000]],[3])}
+仕訳が必要なのは①②③の3つ（当社側）。④⑤は銀行の処理待ちなので仕訳不要です。
+${jeHTML("③未渡小切手の修正仕訳",[["当座預金",40000,"工事未払金",40000]],"振出時の仕訳（工事未払金／当座預金）を取り消すイメージ。費用の支払用なら相手は未払金")}
+</div>
+<div class="txt-exam">「決算整理前の当座預金勘定残高と銀行残高証明書の金額が一致しなかった。原因を調査したところ…」と始まり、未渡小切手・入金未通知の修正仕訳や、推定問題として「銀行残高証明書の金額はいくらか」が問われます。</div>
+`});
+J(2,"公社債利札の期限到来","保有している社債の利札 9,000円の支払期日が到来した。",[["現金",9000]],[["有価証券利息",9000]],"期限の到来した公社債の利札は通貨代用証券＝現金。相手科目は有価証券利息（収益）。");
+J(2,"自己振出小切手での回収","得意先から完成工事未収入金 250,000円の回収として、以前に当社が振り出した小切手を受け取った。",[["当座預金",250000]],[["完成工事未収入金",250000]],"自社が振り出した小切手は、振出時に当座預金を減らしているので、戻ってきたら当座預金の増加。");
+J(2,"現金不足の発見","期中に金庫の現金を数えたところ、帳簿残高より 8,000円少なかった。",[["現金過不足",8000]],[["現金",8000]],"帳簿を実際有高に合わせる。現金を減らし、差額は一時的に現金過不足（借方）。");
+J(2,"原因判明","上記不足額のうち 5,000円は、本社の通信費の支払いの記帳漏れであることが判明した。",[["通信費",5000]],[["現金過不足",5000]],"判明分を正しい科目に振り替え、現金過不足を取り消す。");
+J(2,"決算時の原因不明分","決算日になっても、現金過不足（借方残高）3,000円の原因は判明しなかった。",[["雑損失",3000]],[["現金過不足",3000]],"借方残（不足）は雑損失、貸方残（過剰）は雑収入。建設業の試験では「雑損」ではなく雑損失。");
+J(2,"当座借越（二勘定制）","当座預金残高が 120,000円のときに、工事未払金 200,000円を小切手を振り出して支払った。なお、借越限度額 500,000円の当座借越契約を結んでおり、二勘定制で処理している。",[["工事未払金",200000]],[["当座預金",120000],["当座借越",80000]],"残高 120,000円を超える 80,000円は銀行からの借入れ＝当座借越（負債）。");
+J(2,"借越の返済","上記の後、完成工事未収入金 150,000円が当座預金口座に振り込まれた（二勘定制）。",[["当座借越",80000],["当座預金",70000]],[["完成工事未収入金",150000]],"入金はまず当座借越 80,000円の返済に充て、残り 70,000円が当座預金の増加。");
+J(2,"未渡小切手の修正","決算にあたり銀行勘定調整表を作成したところ、工事未払金の支払いのために作成した小切手 40,000円が、まだ相手に渡されず金庫に保管されていた。",[["当座預金",40000]],[["工事未払金",40000]],"未渡小切手は当社側の原因。支払いが済んでいないので、当座預金と工事未払金を元に戻す。");
+J(2,"支払未通知の修正","本社の電話料 12,000円が当座預金口座から引き落とされていたが、当社では未記帳であった。",[["通信費",12000]],[["当座預金",12000]],"支払未通知は当社側の記帳漏れ。費用を計上して当座預金を減らす。");
+J(2,"入金未通知の修正","得意先から完成工事未収入金 60,000円が当座預金口座に振り込まれていたが、当社に未通知のため未記帳であった。",[["当座預金",60000]],[["完成工事未収入金",60000]],"入金未通知は当社側の記帳漏れ。回収の仕訳を行う。");
+W(2,"銀行勘定調整表（推定）","決算日の当社の当座預金勘定残高は 420,000円である。不一致の原因は次のとおり。\n①入金未通知 60,000円\n②支払未通知（本社電話料）25,000円\n③未渡小切手 40,000円\n④時間外預入 30,000円\n⑤未取付小切手 105,000円\n修正後の正しい当座預金残高と、銀行残高証明書の金額を求めなさい。","銀行勘定調整表",[["修正後の当座預金残高",495000],["銀行残高証明書の金額",570000]],"当社側：420,000＋60,000－25,000＋40,000＝495,000円\n銀行側は逆算：495,000＝銀行残高＋30,000－105,000 → 銀行残高＝570,000円","両者区分調整法");
+C(2,"仕訳の要否","銀行勘定調整表の不一致原因のうち、当社で修正仕訳が不要なものはどれか。",["入金未通知","未渡小切手","未取付小切手","支払未通知"],2,"未取付小切手・時間外預入・未取立小切手は銀行側の処理待ちで、時間が経てば解消する。当社の帳簿は正しいので仕訳不要。");
+
+/* ================= 第3章 ================= */
+CHAPTERS.push({n:3,t:"手形取引（割引・裏書・不渡・営業外）",sec:"財務会計編",exam:"第1問・第2問",star:2,text:`
+<h4>手形の基本と勘定科目</h4>
+約束手形は「○月○日に○円支払います」という約束の証券です。<b>振出人</b>が支払い、<b>受取人</b>が期日に代金を受け取ります。建設業では、工事代金の受け取りや下請代金の支払いに使われます。
+${TB(['どんな取引で使った手形か','受け取った側','振り出した側'],[
+['工事代金など<b>営業取引</b>','受取手形','支払手形'],
+['固定資産の売買など<b>営業外取引</b>','営業外受取手形','営業外支払手形'],
+['お金の<b>貸し借り</b>','手形貸付金','手形借入金'],
+['取引の<b>保証</b>として差し入れ','営業保証受取手形／営業保証預り金','差入営業保証金／営業保証支払手形']])}
+<div class="txt-warn">⚠️ 本社のパソコンや重機を買って約束手形を振り出した → 支払手形ではなく<b>営業外支払手形</b>。「何の取引か」で科目が変わるのがこの章の最大のひっかけです。</div>
+
+<h4>手形の割引・裏書と「遡及義務」</h4>
+手持ちの受取手形は、期日前に銀行で換金（<b>割引</b>）したり、支払いのために他人に渡したり（<b>裏書譲渡</b>）できます。ただし、振出人が期日に払えなければ、当社が代わりに払う義務（<b>遡及義務</b>）が残ります。
+${FIG(`<svg class="wide" viewBox="0 0 520 230" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="m3a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" class="s-pri"/></marker>
+<marker id="m3b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" class="s-acc"/></marker></defs>
+<rect x="20" y="92" width="130" height="50" rx="8" class="s-hlb"/><text x="85" y="122" text-anchor="middle" class="s-txb">当社（受取人）</text>
+<rect x="370" y="12" width="130" height="50" rx="8" class="s-bx"/><text x="435" y="42" text-anchor="middle" class="s-txb">得意先（振出人）</text>
+<rect x="370" y="168" width="130" height="50" rx="8" class="s-bx"/><text x="435" y="198" text-anchor="middle" class="s-txb">銀行</text>
+<line x1="370" y1="40" x2="152" y2="100" class="s-lpri" marker-end="url(#m3a)"/><text x="262" y="58" text-anchor="middle" class="s-txs">① 工事代金として手形を受取</text>
+<line x1="152" y1="132" x2="368" y2="182" class="s-lpri" marker-end="url(#m3a)"/><text x="228" y="122" text-anchor="middle" class="s-txs">② 銀行で割引（手形を渡す）</text>
+<line x1="368" y1="206" x2="130" y2="146" class="s-ln2" marker-end="url(#m3a)"/><text x="215" y="214" text-anchor="middle" class="s-txd">手取額＝額面－割引料</text>
+<line x1="435" y1="166" x2="435" y2="66" class="s-ln2" marker-end="url(#m3a)"/><text x="428" y="118" text-anchor="end" class="s-txd">③ 期日に取立て</text>
+<text x="85" y="162" text-anchor="middle" class="s-txd" style="fill:var(--acc)">不渡りなら当社が</text><text x="85" y="176" text-anchor="middle" class="s-txd" style="fill:var(--acc)">銀行に支払う（遡及）</text>
+</svg>`,'図3-1 手形の割引と遡及義務')}
+<b>割引料は手形の売却損</b>として「手形売却損」で処理します。さらに遡及義務の時価が示されたら「保証債務」（負債）を計上します。遡及義務（偶発債務）の記録方法には3つあり、問題文の指示に従います。
+${TB(['方法','割引時の仕訳（額面200,000・割引料3,000・保証債務の時価2,000）','期日に無事決済'],[
+['記録しない','（当座預金）197,000（手形売却損）3,000 ／（受取手形）200,000<br>（保証債務費用）2,000 ／（保証債務）2,000','（保証債務）2,000 ／（保証債務取崩益）2,000'],
+['評価勘定法','受取手形の代わりに<b>割引手形</b>を貸方に記入<br>＋保証債務の仕訳は同じ','上記＋（割引手形）200,000 ／（受取手形）200,000'],
+['対照勘定法','受取手形を減らし、さらに<br>（手形割引義務見返）200,000 ／（手形割引義務）200,000','上記＋（手形割引義務）200,000 ／（手形割引義務見返）200,000']])}
+<div class="txt-tip">💡 裏書譲渡のときは「割引」を「裏書」に読み替えるだけ（裏書手形、手形裏書義務・手形裏書義務見返）。割引料がないので手形売却損は出ません。</div>
+
+<h4>手形の不渡り</h4>
+期日に支払を拒絶されたら、請求権を<b>不渡手形</b>（資産）に振り替えます。不渡手形の金額には、額面に加え<b>償還請求にかかった費用や延滞利息</b>も含めます。
+${jeHTML("割り引いた手形 100,000円が不渡り。銀行から請求され、延滞利息 500円とともに小切手で支払った（保証債務 1,000円計上済・記録しない方法）",[["不渡手形",100500,"当座預金",100500],["保証債務",1000,"保証債務取崩益",1000]],"遡及義務が現実になったので保証債務は取り崩す")}
+その後、振出人から回収できれば（現金）／（不渡手形）、回収不能なら貸倒れ（貸倒引当金・貸倒損失）として処理します。
+
+<h4>手形の更改（書き換え）</h4>
+支払期日の延期のため、旧手形を新手形に書き換えることです。延長期間の利息は、現金で払うか新手形の額面に含めます。
+${jeHTML("支払手形 200,000円の期日延長を依頼し、利息 3,000円を加えた新手形を振り出した",[["支払手形",200000,"支払手形",203000],["支払利息",3000,"",""]],"旧手形の消滅と新手形の発生を両建てで記入")}
+
+<h4>手形の貸借と償却原価法</h4>
+お金の貸し借りに手形を使ったら手形貸付金・手形借入金。手形の額面と実際の受取額（貸付額）の差が利息相当額なら、<b>受取額で計上</b>し、差額は期間に応じて帳簿価額に加算していきます（<span class="mk">償却原価法</span>）。
+${jeHTML("額面 510,000円の約束手形を振り出して 500,000円を借り入れた（期間10か月）",[["当座預金",500000,"手形借入金",500000]],"差額 10,000円は利息相当額")}
+${jeHTML("決算：借入れから4か月経過",[["支払利息",4000,"手形借入金",4000]],"10,000円×4/10か月。貸付側なら（手形貸付金）／（受取利息）")}
+
+<h4>営業保証手形・自己振出手形の回収</h4>
+${jeHTML("外注先との継続取引の保証として約束手形 300,000円を差し入れた（当社）",[["差入営業保証金",300000,"営業保証支払手形",300000]],"受け取った側は（営業保証受取手形）／（営業保証預り金）")}
+${jeHTML("完成工事未収入金 70,000円を、当社が以前振り出した約束手形（裏書されてきたもの）で回収",[["支払手形",70000,"完成工事未収入金",70000]],"自社の手形が戻った＝支払義務の消滅。受取手形にしない")}
+`});
+J(3,"工事代金を手形で回収","得意先から完成工事未収入金 300,000円の回収として、同社振出の約束手形を受け取った。",[["受取手形",300000]],[["完成工事未収入金",300000]],"営業取引（工事代金）で受け取った手形は受取手形。");
+J(3,"下請代金を手形で支払","下請業者に対する工事未払金 180,000円を、約束手形を振り出して支払った。",[["工事未払金",180000]],[["支払手形",180000]],"営業取引の支払いに振り出した手形は支払手形。");
+J(3,"備品購入と営業外手形","本社で使用するコピー機 90,000円を購入し、代金は約束手形を振り出して支払った。",[["備品",90000]],[["営業外支払手形",90000]],"固定資産の購入など営業外の取引で振り出した手形は営業外支払手形。");
+J(3,"手形の割引（記録しない方法）","受取手形 200,000円を取引銀行で割り引き、割引料 3,000円を差し引かれた手取額は当座預金とした。なお、保証債務の時価は 2,000円であり、遡及義務は対照勘定等で記録しない方法による。",[["当座預金",197000],["手形売却損",3000],["保証債務費用",2000]],[["受取手形",200000],["保証債務",2000]],"割引料は手形売却損。遡及義務の時価を保証債務（負債）として計上し、相手は保証債務費用。");
+J(3,"割引手形の決済","上記の割引手形が期日に無事決済された旨の連絡を受けた。",[["保証債務",2000]],[["保証債務取崩益",2000]],"遡及義務が消滅したので保証債務を取り崩す。");
+J(3,"裏書（評価勘定法）","工事未払金 150,000円の支払いのため、手持ちの受取手形を裏書譲渡した。遡及義務は評価勘定法で記録し、保証債務の時価は 1,500円である。",[["工事未払金",150000],["保証債務費用",1500]],[["裏書手形",150000],["保証債務",1500]],"評価勘定法では受取手形を直接減らさず、裏書手形（受取手形のマイナス）を貸方に記入する。");
+J(3,"裏書（対照勘定法）","工事未払金 80,000円の支払いのため、手持ちの受取手形を裏書譲渡した。遡及義務は対照勘定法で記録する（保証債務の時価は考慮しない）。",[["工事未払金",80000],["手形裏書義務見返",80000]],[["受取手形",80000],["手形裏書義務",80000]],"対照勘定法は、受取手形を減らしたうえで、手形裏書義務見返／手形裏書義務の対照勘定で偶発債務を備忘記録する。");
+J(3,"割引手形の不渡り","割り引いていた手形 100,000円が不渡りとなり、銀行から償還請求を受けたため、延滞利息 500円とともに小切手を振り出して支払った。なお、保証債務 1,000円が計上されている（記録しない方法）。",[["不渡手形",100500],["保証債務",1000]],[["当座預金",100500],["保証債務取崩益",1000]],"不渡手形は額面＋延滞利息等の請求額。遡及義務は現実化したので保証債務は取り崩す。");
+J(3,"手形借入れ","額面 510,000円の約束手形を振り出して銀行から 500,000円を借り入れ、当座預金とした。差額は利息相当額であり、償却原価法を適用する。",[["当座預金",500000]],[["手形借入金",500000]],"借入時は実際の借入額で計上。差額 10,000円は期間に応じて手形借入金に加算していく。");
+J(3,"手形借入金の償却原価法","決算日を迎えた。上記の借入れ（期間10か月）から4か月が経過している。",[["支払利息",4000]],[["手形借入金",4000]],"10,000円×4か月／10か月＝4,000円を支払利息として手形借入金に加算。");
+J(3,"営業保証手形の差入れ","外注先との安定した取引を確保するため、営業保証の目的で約束手形 300,000円を振り出して差し入れた。",[["差入営業保証金",300000]],[["営業保証支払手形",300000]],"取引終了時に返してもらえる権利＝差入営業保証金（資産）、潜在的な支払義務＝営業保証支払手形（負債）。");
+J(3,"自己振出手形の回収","得意先から完成工事未収入金 70,000円の回収として、かつて当社が振り出した約束手形（他社から裏書されてきたもの）を受け取った。",[["支払手形",70000]],[["完成工事未収入金",70000]],"自社振出の手形が戻ってきた＝支払義務の消滅なので支払手形を減らす。");
+J(3,"手形の更改","支払手形 200,000円について、資金繰りの都合で支払期日の延長を申し入れ、承諾を得た。延長期間の利息 3,000円を加えた新手形を振り出し、旧手形と交換した。",[["支払手形",200000],["支払利息",3000]],[["支払手形",203000]],"旧手形の消滅（借方）と新手形の発生（貸方）を両建て。利息は新手形に含めた。");
+C(3,"科目の判断","本社用の土地を購入し、代金として約束手形を振り出した。貸方の勘定科目はどれか。",["支払手形","営業外支払手形","手形借入金","未払金"],1,"営業取引以外で振り出した手形は営業外支払手形。");
+
+/* ================= 第4章 ================= */
+CHAPTERS.push({n:4,t:"有価証券",sec:"財務会計編",exam:"第1問・第2問・第5問",star:2,text:`
+<h4>保有目的で科目と評価が決まる</h4>
+${TB(['保有目的','勘定科目','期末の評価','評価差額の行き先'],[
+['売買目的（値上がり益ねらい）','<b>有価証券</b>（流動資産）','時価','有価証券評価損・評価益（損益）'],
+['満期保有目的の債券','<b>投資有価証券</b>','取得原価（金利調整差額は償却原価法）','有価証券利息'],
+['子会社・関連会社株式','子会社株式など','取得原価','なし'],
+['その他（持合い株など）','<b>投資有価証券</b>','時価','その他有価証券評価差額金（純資産）']])}
+<div class="txt-tip">💡 満期保有目的の債券でも、満期まで1年以内になったものは流動資産の「有価証券」に表示されます。</div>
+
+<h4>取得・売却・配当</h4>
+<div class="txt-formula">取得原価 ＝ 購入代価（@単価×株数）＋ 付随費用（買入手数料など）</div>
+${jeHTML("売買目的でA社株式 2,000株を@450円で購入、手数料 9,000円とともに小切手払い",[["有価証券",909000,"当座預金",909000]],"1株あたり帳簿価額は 909,000÷2,000＝@454.5円")}
+売却したら、<b>帳簿価額（平均単価×売却株数）</b>と売却額の差が売却損益です。売却手数料は売却代金から差し引く（または支払手数料）と問題文で指示されます。
+${jeHTML("上記のうち1,200株を@480円で売却、手数料 3,600円を差し引かれ現金で受取",[["現金",572400,"有価証券",545400],["","","有価証券売却益",27000]],"帳簿価額 @454.5×1,200＝545,400円／手取 576,000－3,600＝572,400円")}
+配当金領収証を受け取ったら（現金）／（受取配当金）です。
+
+<h4>債券の端数利息</h4>
+社債・国債は利払日に<b>その時点の保有者</b>が半年分の利息を全額受け取ります。そこで、利払日の途中で売買したときは、前回の利払日の翌日から売買日までの利息（<b>端数利息</b>）を、買主が売主に立て替えて支払います。
+${FIG(`<svg class="wide" viewBox="0 0 560 130" xmlns="http://www.w3.org/2000/svg">
+<rect x="30" y="45" width="190" height="30" class="s-hlb"/><rect x="220" y="45" width="310" height="30" class="s-bx"/>
+<line x1="30" y1="35" x2="30" y2="85" class="s-ln"/><line x1="220" y1="35" x2="220" y2="85" class="s-lacc"/><line x1="530" y1="35" x2="530" y2="85" class="s-ln"/>
+<g text-anchor="middle"><text x="30" y="26" class="s-txs">前回利払日</text><text x="220" y="26" class="s-txb" style="fill:var(--acc)">購入日</text><text x="530" y="26" class="s-txs">次回利払日</text>
+<text x="125" y="65" class="s-txs">売主が保有した期間</text><text x="375" y="65" class="s-txs">当社（買主）が保有する期間</text>
+<text x="125" y="102" class="s-txp" style="font-size:11px">端数利息＝売主に立替払い</text><text x="375" y="102" class="s-txd">利払日に半年分を全額受け取る</text>
+<text x="280" y="124" class="s-txd">→ 結果として当社の利息収入は「購入日〜次回利払日」分だけになる</text></g>
+</svg>`,'図4-1 端数利息のしくみ')}
+<div class="txt-formula">端数利息 ＝ 額面 × 年利率 × 経過日数 ÷ 365日</div>
+${jeHTML("額面 1,000,000円の社債を@98円で購入（売買目的）。手数料 5,000円、端数利息 7,300円とともに小切手払い",[["有価証券",985000,"当座預金",992300],["有価証券利息",7300,"",""]],"支払った端数利息は有価証券利息の借方（収益のマイナス）。売却時に受け取れば貸方")}
+
+<h4>期末評価</h4>
+${jeHTML("売買目的の株式 800株（帳簿 @454.5円＝363,600円）の期末時価が@430円",[["有価証券評価損",19600,"有価証券",19600]],"時価 344,000円との差額")}
+<b>満期保有目的の債券</b>を額面と異なる金額で取得し、その差額が金利の調整と認められるときは、<span class="mk">償却原価法（定額法）</span>で毎期少しずつ帳簿価額を額面に近づけます。
+${jeHTML("額面 500,000円の社債を@97円（485,000円）で当期首に取得。満期まで5年",[["投資有価証券",3000,"有価証券利息",3000]],"（500,000－485,000）÷5年")}
+<div class="txt-warn">⚠️ 満期保有目的・その他有価証券・子会社株式などで<b>時価が著しく下落（おおむね50%以上）</b>し回復の見込みがないときは、時価まで強制的に評価を下げます（<b>投資有価証券評価損</b>）。</div>
+
+<h4>有価証券の差入れ</h4>
+借入の担保として有価証券を差し入れたときは、自分のものであることは変わりませんが、区別して<b>差入有価証券</b>に振り替えます（帳簿価額で）。
+${jeHTML("借入の担保として投資有価証券（帳簿価額 800,000円）を差し入れた",[["差入有価証券",800000,"投資有価証券",800000]],"")}
+`});
+J(4,"株式の購入","売買目的でA社株式 2,000株を1株 450円で購入し、買入手数料 9,000円とともに小切手を振り出して支払った。",[["有価証券",909000]],[["当座預金",909000]],"取得原価＝450円×2,000株＋手数料 9,000円＝909,000円（@454.5円）。");
+J(4,"株式の売却","上記A社株式のうち 1,200株を1株 480円で売却し、売却手数料 3,600円を差し引かれた残額を現金で受け取った。",[["現金",572400]],[["有価証券",545400],["有価証券売却益",27000]],"帳簿価額 454.5円×1,200株＝545,400円。手取額 576,000－3,600＝572,400円。差額 27,000円が売却益。");
+J(4,"売買目的有価証券の期末評価","決算日。売買目的で保有するA社株式 800株（1株あたり帳簿価額 454.5円）の時価は1株 430円であった。",[["有価証券評価損",19600]],[["有価証券",19600]],"帳簿 363,600円－時価 344,000円＝19,600円の評価損。");
+J(4,"社債の購入と端数利息","売買目的で額面総額 1,000,000円の社債を額面100円につき 98円で購入し、買入手数料 5,000円および端数利息 7,300円とともに小切手を振り出して支払った。",[["有価証券",985000],["有価証券利息",7300]],[["当座預金",992300]],"取得原価 980,000＋5,000＝985,000円。端数利息は有価証券利息の借方に記入（売主への立替払い）。");
+J(4,"償却原価法","当期首に満期保有目的で額面 500,000円の社債を額面100円につき 97円で取得している。満期までの期間は5年で、額面との差額は金利の調整と認められるため償却原価法（定額法）を適用する。決算の仕訳を示しなさい。",[["投資有価証券",3000]],[["有価証券利息",3000]],"（500,000－485,000）÷5年＝3,000円を帳簿価額に加算し、有価証券利息を計上。");
+J(4,"利札の期限到来","保有する利付国債の利札 4,500円の支払期日が到来した。",[["現金",4500]],[["有価証券利息",4500]],"期限到来の公社債利札は現金扱い。");
+J(4,"担保としての差入れ","銀行から 1,000,000円を借り入れ当座預金に預け入れた。借入れの担保として、投資有価証券（帳簿価額 800,000円）を差し入れた。",[["当座預金",1000000],["差入有価証券",800000]],[["借入金",1000000],["投資有価証券",800000]],"担保に差し入れた有価証券は帳簿価額で差入有価証券に振り替える。");
+J(4,"強制評価減","その他有価証券として保有するB社株式（帳簿価額 600,000円）の時価が 250,000円に下落し、回復の見込みはないと判断された。",[["投資有価証券評価損",350000]],[["投資有価証券",350000]],"時価が取得原価の50%程度以上下落し回復見込みなし → 時価まで切り下げ、評価差額は当期の損失。");
+J(4,"配当金領収証","保有株式について配当金領収証 12,000円を受け取った。",[["現金",12000]],[["受取配当金",12000]],"配当金領収証は通貨代用証券＝現金。");
+
+/* ================= 第5章 ================= */
+CHAPTERS.push({n:5,t:"建設業特有の債権・債務と材料",sec:"財務会計編",exam:"第1問・第2問・第5問",star:3,text:`
+<h4>債権・債務の4区分マップ</h4>
+「本業（工事）かどうか」と「前か後か」の2軸で整理すると迷いません。
+${TB(['','本業（工事）の取引','本業以外の取引'],[
+['代金を<b>後で受け取る</b>（資産）','<b>完成工事未収入金</b>','未収入金'],
+['代金を<b>先に払った</b>（資産）','<b>前渡金</b>（未成工事支出金）','前払金・前払費用'],
+['代金を<b>後で払う</b>（負債）','<b>工事未払金</b>','未払金'],
+['代金を<b>先に受け取った</b>（負債）','<b>未成工事受入金</b>','前受金']])}
+
+<h4>未成工事受入金 → 完成工事高</h4>
+${jeHTML("契約時：前受金 500,000円を他人振出小切手で受取",[["現金",500000,"未成工事受入金",500000]],"")}
+${jeHTML("引渡し時：請負 2,500,000円。受入済 800,000円、1,000,000円は約束手形、残りは未収",[["未成工事受入金",800000,"完成工事高",2500000],["受取手形",1000000,"",""],["完成工事未収入金",700000,"",""]],"受入金をまず充当するのが基本")}
+
+<h4>前渡金と未成工事支出金</h4>
+下請業者・資材業者に工事着手前に前払いした金額は、まだサービスを受けていないので<b>前渡金</b>（資産）です。作業が済んだら未成工事支出金に振り替えます。
+${FL(['前払い|前渡金','作業完了|未成工事支出金','*引渡し|完成工事原価'])}
+<div class="txt-exam">決算整理で「未成工事支出金のうち○円は外注先への<u>前渡</u>分である」と書かれていたら、未成工事支出金から<b>前渡金</b>へ振り替えます（前払分なら前払費用）。「前渡」と「前払」の言葉の違いに注意。</div>
+
+<h4>工事未払金と未払金</h4>
+工事に関する材料・外注・経費の未払は<b>工事未払金</b>。本社の備品や経費の未払は<b>未払金</b>です。決算時に完成工事の<b>仮設撤去費や現場の経費の未払</b>を計上する問題もよく出ます。
+${jeHTML("決算：完成工事の仮設撤去費 80,000円が未払（工事原価は未成工事支出金を経由）",[["未成工事支出金",80000,"工事未払金",80000]],"")}
+
+<h4>材料の購入原価 ★ひっかけ頻出</h4>
+<div class="txt-formula">購入原価 ＝ 購入代価 －（仕入値引・仕入割戻し）＋ 引取運賃などの付随費用</div>
+${TB(['用語','意味','処理'],[['仕入値引','品質不良・数量不足による値下げ','購入原価から控除'],['仕入割戻し','大量購入によるリベート','購入原価から控除'],['<b>仕入割引</b>','支払期日前に払ったことによる<u>金利分</u>の割引','<b>収益（営業外）</b>。購入原価から引かない']])}
+<div class="txt-ex"><div class="txt-ex-title">📝 例題</div>
+材料100個（@600円）を購入。値引・割戻し 4,000円、期日前支払による割引 500円を受け、残額を小切手で支払った。引取運賃 2,000円は現金払い。
+${jeHTML("材料の購入",[["材料",58000,"当座預金",55500],["","","現金",2000],["","","仕入割引",500]],"購入原価 60,000－4,000＋2,000＝58,000円（@580円）。仕入割引は引かない")}</div>
+
+<h4>材料の期末評価（棚卸減耗損・材料評価損）</h4>
+期末に実地棚卸をして、<b>数量の減少（減耗）</b>と<b>単価の下落（評価損）</b>を計算します。図で覚えるのが一番確実です。
+${FIG(`<svg viewBox="0 0 440 260" xmlns="http://www.w3.org/2000/svg">
+<rect x="70" y="90" width="240" height="130" class="s-bx"/>
+<rect x="70" y="40" width="240" height="50" class="s-hlb"/>
+<rect x="310" y="40" width="70" height="180" class="s-acc" fill-opacity=".2" style="stroke:var(--acc);stroke-width:1.5"/>
+<line x1="70" y1="225" x2="70" y2="20" class="s-ax"/><line x1="65" y1="220" x2="420" y2="220" class="s-ax"/>
+<text x="62" y="44" text-anchor="end" class="s-txs">@250</text><text x="62" y="57" text-anchor="end" class="s-txd">帳簿単価</text>
+<text x="62" y="94" text-anchor="end" class="s-txs">@230</text><text x="62" y="107" text-anchor="end" class="s-txd">時価</text>
+<text x="310" y="238" text-anchor="middle" class="s-txs">380個</text><text x="310" y="252" text-anchor="middle" class="s-txd">実地数量</text>
+<text x="382" y="238" text-anchor="middle" class="s-txs">400個</text><text x="382" y="252" text-anchor="middle" class="s-txd">帳簿数量</text>
+<g text-anchor="middle"><text x="190" y="62" class="s-txb">材料評価損</text><text x="190" y="78" class="s-txs">380個×(250－230)＝7,600</text>
+<text x="190" y="150" class="s-txb">次期繰越（B/S）</text><text x="190" y="167" class="s-txs">380個×230＝87,400</text>
+<text x="345" y="120" class="s-txb">棚卸</text><text x="345" y="136" class="s-txb">減耗損</text><text x="345" y="154" class="s-txs">20×250</text><text x="345" y="169" class="s-txs">＝5,000</text></g>
+</svg>`,'図5-1 材料の期末評価（面積図）。外枠が帳簿価額 100,000円')}
+<div class="txt-formula">棚卸減耗損 ＝（帳簿数量－実地数量）× <u>帳簿単価</u><br>材料評価損 ＝ 実地数量 ×（帳簿単価－時価）</div>
+<div class="txt-tip">💡 必ず<b>減耗損を先に</b>、帳簿単価で計算。時価は「再調達単価（購入時価＋付随費用）」で示されることが多い。</div>
+<div class="txt-warn">⚠️ 減耗のうち<b>通常発生する範囲</b>は原価性あり → 工事原価（未成工事支出金・工事間接費）。<b>異常な原因</b>（盗難など）は原価性なし → 棚卸減耗損（営業外費用）。第5問で「材料貯蔵品の減耗 ○円のうち△円は工事原価に算入」と出ます。</div>
+
+<h4>貯蔵品</h4>
+事務用消耗品や切手・印紙の期末未使用分、除却した資産のスクラップの評価額は<b>貯蔵品</b>（資産）で処理します。
+`});
+J(5,"材料の購入（値引・割引）","材料100個（@600円）を購入した。仕入値引・割戻し 4,000円と、支払期日前の支払いによる割引 500円を受け、残額を小切手を振り出して支払った。また、引取運賃 2,000円は現金で支払った。",[["材料",58000]],[["当座預金",55500],["現金",2000],["仕入割引",500]],"購入原価＝60,000－4,000＋2,000＝58,000円。仕入割引は金利分なので収益（営業外）で、購入原価からは控除しない。");
+J(5,"前受金の受取","工事請負契約を締結し、前受金 500,000円を発注者振出の小切手で受け取った。",[["現金",500000]],[["未成工事受入金",500000]],"他人振出小切手は現金。引渡し前の受取額は未成工事受入金。");
+J(5,"外注先への前払い","下請業者に対し、工事着手前に外注代金の一部 200,000円を小切手を振り出して前払いした。",[["前渡金",200000]],[["当座預金",200000]],"まだ作業を受けていない前払いは前渡金（資産）。");
+J(5,"外注作業の完了","上記の下請業者の作業が完了し、外注代金 600,000円の請求を受けた。前払分 200,000円を充当し、残額は翌月払いとする。なお、工事原価は未成工事支出金を経由して処理する。",[["未成工事支出金",600000]],[["前渡金",200000],["工事未払金",400000]],"作業完了で原価（未成工事支出金）に計上。前渡金を充当し、残りは工事未払金。");
+J(5,"本社備品の後払い購入","本社で使用するパソコン 240,000円を購入し、代金は翌月末に支払うこととした。",[["備品",240000]],[["未払金",240000]],"本業（工事）以外の未払は工事未払金ではなく未払金。");
+J(5,"仮設撤去費の未払計上","決算にあたり、当期に完成した工事に係る仮設撤去費の未払分 80,000円を計上する。なお、工事原価は未成工事支出金を経由して処理している。",[["未成工事支出金",80000]],[["工事未払金",80000]],"工事の原価なので未成工事支出金を経由し、未払は工事未払金。");
+J(5,"材料の棚卸減耗","決算にあたり材料貯蔵品の実地棚卸を行ったところ、減耗 5,000円が判明した。このうち 3,000円は通常発生する程度のものであり工事原価（未成工事支出金）に算入し、残額は原価性がないものとして処理する。",[["未成工事支出金",3000],["棚卸減耗損",2000]],[["材料貯蔵品",5000]],"通常の減耗は原価性あり→工事原価。異常な減耗は棚卸減耗損（営業外費用）。");
+W(5,"材料の期末評価","期末材料の帳簿数量は 400個、帳簿単価は @250円である。実地棚卸数量は 380個、期末の再調達単価（購入時価＋付随費用）は @230円であった。棚卸減耗損、材料評価損、材料の次期繰越額を求めなさい。","材料の期末評価",[["棚卸減耗損",5000],["材料評価損",7600],["材料の次期繰越額",87400]],"減耗損＝(400－380)×@250＝5,000円\n評価損＝380×(@250－@230)＝7,600円\n次期繰越＝380×@230＝87,400円\n合計 100,000円＝帳簿価額 400×@250 と一致");
+J(5,"引渡し時の複数の決済手段","工事（請負金額 2,500,000円）が完成し引き渡した。受入済みの前受金 800,000円を充当し、1,000,000円は発注者振出の約束手形で受け取り、残額は翌月受け取ることとした。",[["未成工事受入金",800000],["受取手形",1000000],["完成工事未収入金",700000]],[["完成工事高",2500000]],"前受金（未成工事受入金）→手形（受取手形）→残額（完成工事未収入金）。");
+C(5,"仕入割引の性質","材料代金を支払期日前に支払ったことにより受けた「仕入割引」の処理として正しいものはどれか。",["材料の購入原価から控除する","営業外収益として処理する","完成工事高に加算する","工事未払金から控除するだけで仕訳しない"],1,"仕入割引は支払時期に伴う金利の性質をもつため、営業外収益。値引・割戻しとの違いが頻出のひっかけ。");
+
+/* ================= 第6章 ================= */
+CHAPTERS.push({n:6,t:"仮払金・仮受金と経過勘定",sec:"財務会計編",exam:"第1問・第2問・第5問",star:3,text:`
+<h4>仮払金の整理 ★第5問ほぼ毎回</h4>
+内容や金額が確定していない支出は「仮払金」に入れておき、判明したら正しい科目に振り替えます。精算表では<b>仮払金の中身を分解する</b>問題が定番です。
+${TB(['判明した内容','振替先','注意点'],[
+['本社（管理部門）の出張旅費','旅費交通費（販売費及び一般管理費）','仮払額を超えた分は未払金、余りは現金で返金'],
+['現場の経費・外注費','未成工事支出金','工事原価に算入'],
+['法人税等の中間納付','仮払法人税等（法人税等の計算で相殺）','精算表では法人税等の計算に直結'],
+['下請への前払','前渡金',''],
+['従業員が負担すべきもの','立替金',''],
+['本社の修繕','修繕維持費','資本的支出なら建物など'],
+['保険料の翌期分','前払費用（1年超なら長期前払費用）',''],
+['補償工事の支出','完成工事補償引当金の取崩し','引当金を充当']])}
+${jeHTML("仮払金 30,000円は本社の出張旅費。実際は 36,000円かかり差額は未払",[["旅費交通費",36000,"仮払金",30000],["","","未払金",6000]],"")}
+
+<h4>仮受金の整理</h4>
+内容不明の入金は「仮受金」。判明したら振り替えます。
+${TB(['判明した内容','振替先'],[['工事代金の回収','完成工事未収入金'],['新しい工事の前受け','未成工事受入金'],['引渡し済み工事の未計上代金','完成工事高'],['前期に貸倒処理した債権の回収','償却債権取立益'],['貯蔵品（スクラップ）の売却代金','貯蔵品'],['差入保証金の返還','差入保証金']])}
+
+<h4>経過勘定（前払・未払・前受・未収）</h4>
+継続的なサービスの代金を、<b>当期の分だけ</b>損益に入れるための調整です。
+${TB(['','支払った側（費用）','受け取った側（収益）'],[
+['代金が先（期間が未経過）','<b>前払費用</b>（資産）<br>（前払費用）／（保険料など）','<b>前受収益</b>（負債）<br>（受取家賃など）／（前受収益）'],
+['代金が後（期間は経過済み）','<b>未払費用</b>（負債）<br>（支払利息など）／（未払費用）','<b>未収収益</b>（資産）<br>（未収収益）／（受取利息など）']])}
+<div class="txt-tip">💡 翌期首には<b>逆仕訳（再振替仕訳）</b>をして元の費用・収益勘定に戻します。</div>
+
+<h4>長期前払費用 ★建設業の第5問で頻出</h4>
+前払分のうち、決算日の翌日から<b>1年を超えて</b>費用になる部分は<b>長期前払費用</b>（固定資産）に分けます。
+${FIG(`<svg class="wide" viewBox="0 0 560 120" xmlns="http://www.w3.org/2000/svg">
+<rect x="20" y="40" width="87" height="32" class="s-pri"/><rect x="107" y="40" width="173" height="32" class="s-hl"/><rect x="280" y="40" width="260" height="32" class="s-bx"/>
+<g text-anchor="middle"><text x="63" y="61" class="s-txw">当期 6か月</text><text x="193" y="61" class="s-txb" style="fill:#23292c">翌期 12か月</text><text x="410" y="61" class="s-txb">翌々期以降 18か月</text>
+<text x="20" y="30" text-anchor="start" class="s-txd">X1/10/1支払</text><text x="107" y="30" class="s-txd">X2/3/31決算</text><text x="280" y="30" class="s-txd">X3/3/31</text><text x="540" y="30" text-anchor="end" class="s-txd">X4/9/30</text>
+<text x="63" y="92" class="s-txs">保険料</text><text x="63" y="107" class="s-txs">60,000</text>
+<text x="193" y="92" class="s-txp">前払費用</text><text x="193" y="107" class="s-txs">120,000</text>
+<text x="410" y="92" class="s-txp">長期前払費用</text><text x="410" y="107" class="s-txs">180,000</text></g>
+</svg>`,'図6-1 3年分の保険料 360,000円（月10,000円）の配分')}
+${jeHTML("決算：支払時に全額を保険料で処理していた",[["前払費用",120000,"保険料",300000],["長期前払費用",180000,"",""]],"当期の費用として残るのは6か月分 60,000円")}
+
+<h4>推定問題（第2問）の解き方：T字で考える</h4>
+<div class="t-row">${tAcctHTML("保険料（前払のケース）",[["期首前払（再振替）",12000],["当期支払額 ？",156000]],[["期末前払",18000],["P/L計上額",150000]],168000)}${tAcctHTML("支払利息（未払のケース）",[["当期支払額",60000],["期末未払",7000]],[["期首未払（再振替）",5000],["P/L計上額 ？",62000]],67000)}</div>
+<div class="txt-formula">P/L計上額 ＝ 当期支払額 ＋ 期首前払 － 期末前払<br>P/L計上額 ＝ 当期支払額 － 期首未払 ＋ 期末未払</div>
+
+<h4>立替金・預り金</h4>
+従業員が負担すべき費用を会社が払ったら<b>立替金</b>、給料から天引きした源泉所得税・社会保険料は<b>預り金</b>（納付時に取り崩す）です。
+`});
+J(6,"仮払金の精算（返金あり）","出張から戻った本社管理部門の従業員から、仮払金 50,000円の精算を受けた。旅費は 42,000円で、残額は現金で返金された。",[["旅費交通費",42000],["現金",8000]],[["仮払金",50000]],"本社の旅費は旅費交通費（販売費及び一般管理費）。余りは現金で返ってくる。");
+J(6,"仮払金＝中間納付","決算にあたり仮払金 150,000円の内容を調べたところ、法人税等の中間納付額であることが判明した。",[["仮払法人税等",150000]],[["仮払金",150000]],"中間納付額は仮払法人税等へ。決算で法人税等を計上するときに相殺する。");
+J(6,"仮払金の精算（不足あり）","本社管理部門の出張旅費として仮払いしていた 30,000円について、実際の旅費は 36,000円であり、不足額は後日支払うこととした。",[["旅費交通費",36000]],[["仮払金",30000],["未払金",6000]],"仮払額を超える部分は未払金として計上する。");
+J(6,"仮受金の整理","仮受金 400,000円の内容を調べたところ、300,000円は完成工事未収入金の回収、100,000円は新規工事の前受金であることが判明した。",[["仮受金",400000]],[["完成工事未収入金",300000],["未成工事受入金",100000]],"回収分は完成工事未収入金の減少、新規工事の前受は未成工事受入金。");
+J(6,"長期前払費用","X1年10月1日に本社建物の火災保険料3年分 360,000円を支払い、全額を保険料で処理した。決算日（X2年3月31日）の整理仕訳を示しなさい。",[["前払費用",120000],["長期前払費用",180000]],[["保険料",300000]],"月額 10,000円。当期6か月 60,000円、翌期12か月 120,000円は前払費用、残り18か月 180,000円は長期前払費用。");
+J(6,"未収利息","貸付金に対する当期分の利息 9,000円が未収である。",[["未収利息",9000]],[["受取利息",9000]],"当期に属する収益を未収計上（未収収益）。");
+J(6,"前受家賃","受取家賃のうち 40,000円（2か月分）は翌期分である。",[["受取家賃",40000]],[["前受家賃",40000]],"翌期分の収益を当期から除き、前受家賃（負債）とする。");
+J(6,"未払家賃","本社事務所の家賃 1か月分 80,000円が未払である。",[["支払家賃",80000]],[["未払家賃",80000]],"当期に属する費用を未払計上（未払費用）。");
+W(6,"経過勘定の推定","（1）前期末の前払保険料 12,000円、当期末の前払保険料 18,000円、当期の損益計算書の保険料 150,000円のとき、当期に支払った保険料はいくらか。\n（2）前期末の未払利息 5,000円、当期末の未払利息 7,000円、当期の利息支払額 60,000円のとき、損益計算書の支払利息はいくらか。","推定問題",[["（1）当期の保険料支払額",156000],["（2）損益計算書の支払利息",62000]],"（1）150,000＝支払額＋12,000－18,000 → 支払額 156,000円\n（2）60,000－5,000＋7,000＝62,000円");
+
+/* ================= 第7章 ================= */
+CHAPTERS.push({n:7,t:"有形固定資産（取得・改良・減価償却）",sec:"財務会計編",exam:"第1問・第2問・第5問",star:3,text:`
+<h4>取得原価</h4>
+<div class="txt-formula">取得原価 ＝ 購入代価 －（値引・割戻し）＋ 付随費用</div>
+付随費用：登記料・仲介手数料・引取運賃・据付費・試運転費など、<b>使える状態にするまでの支出</b>はすべて取得原価に含めます。
+${jeHTML("事務所用建物 5,000,000円を購入。登記料 150,000円・仲介手数料 200,000円は現金払い、本体は翌月払い",[["建物",5350000,"未払金",5000000],["","","現金",350000]],"固定資産の未払は工事未払金ではなく未払金")}
+
+<h4>建設仮勘定</h4>
+自社の建物などを建設中に支払った手付金・中間金は、完成まで<b>建設仮勘定</b>（資産）にためておき、完成・引渡し時に本来の科目（建物など）に振り替えます。
+${FL(['手付金・中間金の支払|建設仮勘定','*完成・引渡し|建物など本勘定へ振替','使用開始|減価償却スタート'])}
+<div class="txt-warn">⚠️ 建設仮勘定は<b>減価償却しません</b>（まだ使っていないから）。建設業では、自社の倉庫などを<b>手持ちの材料で建てる（自家消費）</b>こともあり、そのときは（建設仮勘定）／（材料）となります。</div>
+
+<h4>交換による取得</h4>
+自社の固定資産と交換で別の資産を取得したときは、<b>手放した資産の帳簿価額＋支払った交換差金</b>を取得原価とします。
+${jeHTML("機械（取得 800,000円・累計額 500,000円）を下取りに出し、トラックを取得。差金 120,000円を現金払い",[["車両運搬具",420000,"機械装置",800000],["減価償却累計額",500000,"現金",120000]],"帳簿価額 300,000＋差金 120,000＝420,000円")}
+
+<h4>資本的支出と収益的支出</h4>
+${TB(['区分','内容','処理'],[['資本的支出','価値を高める・耐用年数を延ばす改良（例：増築、耐震補強）','資産の取得原価に加算'],['収益的支出','現状を維持する修理（例：壁の塗り直し、部品交換）','<b>修繕維持費</b>（費用）']])}
+${jeHTML("改修費 900,000円を小切手払い。うち 600,000円は資本的支出",[["建物",600000,"当座預金",900000],["修繕維持費",300000,"",""]],"")}
+
+<h4>減価償却の4つの方法</h4>
+${TB(['方法','計算式','特徴'],[
+['定額法','（取得原価－残存価額）÷ 耐用年数','毎年同額'],
+['定率法','期首帳簿価額 × 償却率','初めほど多い。200%定率法の償却率＝1÷耐用年数×2'],
+['生産高比例法','（取得原価－残存価額）× 当期利用量 ÷ 総利用可能量','車両（走行距離）、鉱業用設備など'],
+['総合償却法','複数資産をまとめて償却','平均耐用年数で一括計算']])}
+${FIG(`<svg viewBox="0 0 440 210" xmlns="http://www.w3.org/2000/svg">
+<line x1="50" y1="180" x2="420" y2="180" class="s-ax"/><line x1="50" y1="180" x2="50" y2="15" class="s-ax"/>
+<polyline points="50,30 120,60 190,90 260,120 330,150 400,180" class="s-lpri"/>
+<polyline points="50,30 120,90 190,126 260,147.6 330,160.6 400,180" class="s-lhl"/>
+<text x="46" y="34" text-anchor="end" class="s-txs">取得原価</text><text x="410" y="196" text-anchor="middle" class="s-txs">5年</text>
+<text x="232" y="96" class="s-txp">定額法（直線）</text><text x="68" y="166" class="s-txb" style="fill:var(--hl)">定率法（前半に大きく減る）</text>
+<text x="235" y="200" text-anchor="middle" class="s-txd">帳簿価額の推移（耐用年数5年・残存価額0の例）</text>
+</svg>`,'図7-1 定額法と定率法の帳簿価額')}
+<div class="txt-ex"><div class="txt-ex-title">📝 定率法：取得原価 1,000,000円、償却率 0.4</div>
+1年目：1,000,000×0.4＝400,000円 ／ 2年目：（1,000,000－400,000）×0.4＝<b>240,000円</b></div>
+<div class="txt-ex"><div class="txt-ex-title">📝 生産高比例法：車両 3,000,000円、残存価額10%、総走行可能距離 150,000km、当期 24,000km</div>
+（3,000,000－300,000）× 24,000/150,000 ＝ <b>432,000円</b></div>
+
+<h4>総合償却法 ★第2問の推定で頻出</h4>
+${TB(['資産','取得原価（残存0）','耐用年数','年償却額'],[['機械A',600000,'5年',120000],['機械B',900000,'6年',150000],['機械C',400000,'8年',50000],['合計',1900000,'',320000]],[3])}
+<div class="txt-formula">平均耐用年数 ＝ 要償却額合計 ÷ 年償却額合計 ＝ 1,900,000÷320,000 ＝ 5.9… → <u>5年（端数切捨て）</u><br>総合償却の年償却額 ＝ 1,900,000 ÷ 5年 ＝ 380,000円</div>
+
+<h4>期中取得は月割、記帳は直接法と間接法</h4>
+11月1日に取得し決算が3月31日なら、償却は<b>5か月分</b>（11〜3月）。記帳は、資産を直接減らす<b>直接法</b>と、減価償却累計額を使う<b>間接法</b>があります（試験は間接法が中心）。
+<div class="txt-link">🏢 <b>建設業ならでは</b>：工事用の機械装置の減価償却費は<b>工事原価</b>（工事間接費・未成工事支出金）、本社の建物・備品は<b>販売費及び一般管理費</b>。月次原価計算では機械の償却を毎月予定額で原価に入れ、決算で実際額との差を調整します（第23章）。</div>
+`});
+J(7,"建物の購入と付随費用","事務所用の建物を 5,000,000円で購入し、代金は翌月末に支払うこととした。購入にあたり登記料 150,000円と仲介手数料 200,000円は現金で支払った。",[["建物",5350000]],[["未払金",5000000],["現金",350000]],"取得原価＝購入代価＋付随費用＝5,350,000円。固定資産の代金の未払は未払金。");
+J(7,"建設仮勘定（手付金）","本社ビルの新築工事を建設会社に発注し、手付金 1,000,000円を小切手を振り出して支払った。",[["建設仮勘定",1000000]],[["当座預金",1000000]],"建設中の固定資産への支払は建設仮勘定。");
+J(7,"建設仮勘定から本勘定へ","上記の本社ビルが完成し引渡しを受けた。請負代金 6,000,000円から手付金 1,000,000円を差し引いた残額は、約束手形を振り出して支払った。",[["建物",6000000]],[["建設仮勘定",1000000],["営業外支払手形",5000000]],"完成により建設仮勘定を建物に振り替える。固定資産代金の手形は営業外支払手形。");
+J(7,"材料の自家消費","自社の資材倉庫を建設中であり、その工事に手持ちの材料 150,000円を使用した。なお、倉庫の建設費は建設仮勘定で処理している。",[["建設仮勘定",150000]],[["材料",150000]],"工事用材料を自社資産の建設に使う（自家消費）→ 材料を減らし建設仮勘定に集計。");
+J(7,"資本的支出と収益的支出","本社建物の改修工事が完了し、代金 900,000円を小切手で支払った。このうち 600,000円は建物の価値を高める資本的支出である。",[["建物",600000],["修繕維持費",300000]],[["当座預金",900000]],"資本的支出は資産に加算、残り（収益的支出）は修繕維持費。");
+J(7,"固定資産の交換","使用中の機械装置（取得原価 800,000円、減価償却累計額 500,000円）を下取りに出してトラックを取得し、交換差金 120,000円を現金で支払った。取得原価は、譲渡資産の帳簿価額に交換差金を加えた額とする。",[["車両運搬具",420000],["減価償却累計額",500000]],[["機械装置",800000],["現金",120000]],"取得原価＝帳簿価額 300,000円＋差金 120,000円＝420,000円。");
+J(7,"定率法（2年目）","前期首に取得した機械装置（取得原価 1,000,000円）について、2年目の減価償却を行う。定率法（償却率 0.4）、間接法（減価償却累計額勘定）による。",[["減価償却費",240000]],[["減価償却累計額",240000]],"1年目 400,000円。2年目＝（1,000,000－400,000）×0.4＝240,000円。");
+J(7,"生産高比例法","車両運搬具（取得原価 3,000,000円、残存価額は取得原価の10%、総走行可能距離 150,000km）の当期走行距離は 24,000kmであった。生産高比例法、間接法（減価償却累計額勘定）で減価償却を行う。",[["減価償却費",432000]],[["減価償却累計額",432000]],"（3,000,000－300,000）×24,000/150,000＝432,000円。");
+W(7,"総合償却法","次の機械を一括して総合償却する（定額法、残存価額はいずれも0）。\n機械A：取得原価 600,000円、耐用年数5年\n機械B：取得原価 900,000円、耐用年数6年\n機械C：取得原価 400,000円、耐用年数8年\n平均耐用年数（1年未満切捨て）と、年間の減価償却費を求めなさい。","総合償却",[["平均耐用年数",5,'計算','年'],["年間の減価償却費",380000]],"各年償却額：120,000＋150,000＋50,000＝320,000円\n平均耐用年数＝1,900,000÷320,000＝5.9375 → 5年\n年償却額＝1,900,000÷5＝380,000円");
+J(7,"期中取得の月割計算","11月1日に本社の備品 480,000円を取得した。決算日は3月31日、定額法（耐用年数8年、残存価額0）、間接法（減価償却累計額勘定）による。",[["減価償却費",25000]],[["減価償却累計額",25000]],"年額 60,000円×5か月/12か月＝25,000円。");
+
+/* ================= 第8章 ================= */
+CHAPTERS.push({n:8,t:"固定資産の売却・除却・災害と無形・繰延資産",sec:"財務会計編",exam:"第1問・第2問・第5問",star:2,text:`
+<h4>売却：帳簿価額と売却額の差が損益</h4>
+<div class="txt-formula">帳簿価額 ＝ 取得原価 － 期首減価償却累計額 － 当期の減価償却費（期中売却のとき）</div>
+${FL(['取得原価 2,400,000','－期首累計額 1,440,000','－当期償却 120,000|4〜9月の6か月分','*帳簿価額 840,000','売却額 800,000|差額 40,000＝売却損'])}
+${jeHTML("9月30日に機械装置を 800,000円で売却、代金は月末受取（定額法・年額 240,000円）",[["減価償却累計額",1440000,"機械装置",2400000],["減価償却費",120000,"",""],["未収入金",800000,"",""],["固定資産売却損",40000,"",""]],"固定資産の売却代金の未収は未収入金")}
+
+<h4>除却：使うのをやめる</h4>
+廃棄せずに保管し、処分価値（スクラップ価値）があれば<b>貯蔵品</b>に。帳簿価額との差額や除却にかかった費用は<b>固定資産除却損</b>です。
+${jeHTML("備品（取得 300,000円・累計額 270,000円）を除却。処分見込額 10,000円",[["減価償却累計額",270000,"備品",300000],["貯蔵品",10000,"",""],["固定資産除却損",20000,"",""]],"")}
+
+<h4>災害（火災）：保険があるかで分かれる</h4>
+${FL(['焼失','*保険あり|火災未決算（帳簿価額）','保険金確定','保険金＞帳簿価額|保険差益','保険金＜帳簿価額|火災損失'])}
+${jeHTML("倉庫（取得 4,000,000円・累計額 2,500,000円）が焼失。保険金 2,000,000円を請求中",[["減価償却累計額",2500000,"建物",4000000],["火災未決算",1500000,"",""]],"保険金の上限より帳簿価額が小さいので全額を火災未決算へ")}
+${jeHTML("保険金 1,800,000円の支払が確定（後日入金）",[["未収入金",1800000,"火災未決算",1500000],["","","保険差益",300000]],"")}
+<div class="txt-tip">💡 保険をかけていなければ、帳簿価額を直接<b>火災損失</b>にします。期中に焼失したら、まず当期分の減価償却費を計上してから帳簿価額を出すのを忘れずに。</div>
+
+<h4>無形固定資産</h4>
+${TB(['科目','償却','ポイント'],[['のれん','20年以内に定額法','合併・買収で生じる超過収益力'],['特許権','8年（税法）で定額法',''],['借地権','償却しない',''],['ソフトウェア（自社利用）','5年以内で定額法','']])}
+無形固定資産は<b>残存価額ゼロ・直接法</b>（累計額を使わず資産を直接減らす）で償却します。
+
+<h4>繰延資産</h4>
+支出の効果が将来にも及ぶ費用を、資産として繰り延べ、数年にわたり償却できます（原則は支出時の費用処理）。
+${TB(['繰延資産','内容','償却期間'],[['創立費','会社設立のための費用','5年以内'],['開業費','設立後、開業までの準備費用','5年以内'],['株式交付費','新株発行のための費用','3年以内'],['社債発行費','社債発行のための費用','社債の償還期間内'],['開発費','新技術・新市場の開発費用','5年以内']])}
+${jeHTML("当期首に計上した創立費 600,000円を5年で償却",[["創立費償却",120000,"創立費",120000]],"月割計算が必要なこともある")}
+`});
+J(8,"期中売却と売却損","9月30日に機械装置（取得原価 2,400,000円、期首減価償却累計額 1,440,000円、定額法・耐用年数10年・残存価額0、間接法）を 800,000円で売却し、代金は月末に受け取ることとした。決算日は3月31日で、当期の減価償却費も計上すること。",[["減価償却累計額",1440000],["減価償却費",120000],["未収入金",800000],["固定資産売却損",40000]],[["機械装置",2400000]],"当期償却＝240,000×6/12＝120,000円。帳簿価額＝2,400,000－1,440,000－120,000＝840,000円。売却額 800,000円との差 40,000円が売却損。");
+J(8,"除却とスクラップ","備品（取得原価 300,000円、減価償却累計額 270,000円）を除却した。この備品の処分見込額は 10,000円である。",[["減価償却累計額",270000],["貯蔵品",10000],["固定資産除却損",20000]],[["備品",300000]],"帳簿価額 30,000円のうち処分価値 10,000円は貯蔵品、残り 20,000円が除却損。");
+J(8,"火災による焼失（保険あり）","倉庫（取得原価 4,000,000円、減価償却累計額 2,500,000円）が火災で焼失した。この建物には 2,000,000円の火災保険を掛けており、保険会社に請求中である。",[["減価償却累計額",2500000],["火災未決算",1500000]],[["建物",4000000]],"保険金が確定するまで帳簿価額を火災未決算（仮勘定）にしておく。");
+J(8,"保険金の確定","上記の火災について、保険会社から保険金 1,800,000円を支払う旨の通知を受けた（入金は後日）。",[["未収入金",1800000]],[["火災未決算",1500000],["保険差益",300000]],"保険金 1,800,000円＞帳簿価額 1,500,000円 → 差額は保険差益。");
+J(8,"のれんの償却","前期首に買収により計上したのれん 1,000,000円を、10年間で定額法により償却する。当期の決算仕訳を示しなさい（直接法）。",[["のれん償却",100000]],[["のれん",100000]],"1,000,000÷10年＝100,000円。無形固定資産は直接法。");
+J(8,"創立費の償却","当期首に会社を設立し、創立費 600,000円を繰延資産として計上している。決算において5年間の定額法で償却する。",[["創立費償却",120000]],[["創立費",120000]],"600,000÷5年＝120,000円。");
+J(8,"特許権の償却","当期首に特許権 800,000円を取得した。決算にあたり8年間の定額法で償却する（直接法）。",[["特許権償却",100000]],[["特許権",100000]],"800,000÷8年＝100,000円。");
+C(8,"繰延資産の償却期間","繰延資産のうち、償却期間が「3年以内」とされているものはどれか。",["創立費","開業費","株式交付費","開発費"],2,"株式交付費は3年以内。創立費・開業費・開発費は5年以内、社債発行費は社債の償還期間内。");
+
+/* ================= 第9章 ================= */
+CHAPTERS.push({n:9,t:"引当金（貸倒・完成工事補償・退職給付ほか）",sec:"財務会計編",exam:"第1問・第2問・第5問",star:3,text:`
+<h4>引当金の4要件</h4>
+<ol><li>将来の特定の費用または損失であること</li><li>その発生が当期以前の事象に起因すること</li><li>発生の可能性が高いこと</li><li>金額を合理的に見積もれること</li></ol>
+${TB(['種類','例','繰入額の区分'],[
+['評価性引当金','貸倒引当金','販売費及び一般管理費（売上債権）'],
+['負債性引当金','<b>完成工事補償引当金</b>','<b>工事原価</b>（完成工事原価）'],
+['','退職給付引当金・賞与引当金','現場分は工事原価、本社分は販管費'],
+['','修繕引当金','修繕引当金繰入額'],
+['','工事損失引当金','完成工事原価（受注工事の損失見込）']])}
+
+<h4>貸倒引当金 ★第5問は毎回</h4>
+${TB(['','洗替法','差額補充法'],[['考え方','前期の残高を全額戻し入れ、改めて全額設定','不足分だけ追加（多すぎれば戻し入れ）'],['残高 30,000・必要額 50,000','（貸倒引当金）30,000／（貸倒引当金戻入）30,000<br>（貸倒引当金繰入額）50,000／（貸倒引当金）50,000','（貸倒引当金繰入額）20,000／（貸倒引当金）20,000']])}
+<div class="txt-formula">設定額 ＝（受取手形＋完成工事未収入金）× 設定率 － 貸倒引当金残高</div>
+<div class="txt-warn">⚠️ 精算表では、<b>先に仮受金の整理などで完成工事未収入金が変動していないか</b>確認してから計算。期中の貸倒れで引当金が減っている場合も、残高試算表の金額をそのまま使えばOKです。</div>
+貸倒れが起きたときの処理：
+${TB(['いつ発生した債権か','処理'],[['前期以前','貸倒引当金を取り崩す。足りなければ超過分は貸倒損失'],['当期','全額 貸倒損失（引当金の対象外）'],['前期以前に貸倒処理済みの債権を回収','償却債権取立益（収益）']])}
+
+<h4>完成工事補償引当金</h4>
+引き渡した工事に欠陥があったとき、一定期間は無償で補修する契約になっていることが多いため、その費用を見積もって引当てます。<b>繰入額は工事原価</b>として扱います。
+${jeHTML("完成工事高 60,000,000円の0.2%を差額補充法で設定（残高 45,000円）",[["完成工事原価",75000,"完成工事補償引当金",75000]],"120,000－45,000＝75,000円。問題文の指示で「完成工事補償引当金繰入額」を使うこともある")}
+${jeHTML("前期引渡しの工事を補修。材料 20,000円を出庫し、外注費 30,000円は未払",[["完成工事補償引当金",50000,"材料",20000],["","","工事未払金",30000]],"引当金を充当（取崩し）。引当金を超える分は当期の完成工事原価")}
+
+<h4>退職給付引当金 ★建設業は「月次予定計上」がポイント</h4>
+本社の従業員分は<b>退職給付引当金繰入額</b>（販管費）。現場作業員分は<b>工事原価</b>で、月次原価計算では毎月<u>予定額</u>を未成工事支出金（工事間接費）に計上しておき、決算で実際額との差を調整します。
+${FL(['毎月|予定額を計上','決算|当期の繰入額が確定','*差額を調整|未成工事支出金で加減'])}
+${jeHTML("現場分：月 50,000円×12か月＝600,000円を予定計上済。実際の繰入額は 630,000円",[["未成工事支出金",30000,"退職給付引当金",30000]],"予定より実際が多いので不足分を追加。逆なら貸借反対")}
+${jeHTML("従業員の退職：退職金 1,500,000円（引当金を充当）から源泉所得税 50,000円を差し引き当座預金で支払",[["退職給付引当金",1500000,"預り金",50000],["","","当座預金",1450000]],"")}
+
+<h4>賞与引当金</h4>
+${jeHTML("賞与の当期負担分：施工部門 180,000円（未成工事支出金経由）、管理部門 120,000円",[["未成工事支出金",180000,"賞与引当金",300000],["賞与引当金繰入額",120000,"",""]],"部門で費用の区分が分かれる")}
+<div class="txt-tip">💡 <b>工事損失引当金</b>：受注工事の見積総原価が請負金額を上回り、損失が見込まれるとき、まだ計上していない損失見込額を引当てます（繰入額は完成工事原価）。</div>
+`});
+J(9,"貸倒引当金（差額補充法）","決算にあたり、受取手形 800,000円と完成工事未収入金 1,700,000円の期末残高に対して2%の貸倒引当金を差額補充法により設定する。貸倒引当金の残高は 30,000円である。",[["貸倒引当金繰入額",20000]],[["貸倒引当金",20000]],"（800,000＋1,700,000）×2%＝50,000円。残高 30,000円との差額 20,000円を繰り入れる。");
+J(9,"前期発生債権の貸倒れ","得意先が倒産し、前期に発生した完成工事未収入金 70,000円が回収不能となった。貸倒引当金の残高は 50,000円である。",[["貸倒引当金",50000],["貸倒損失",20000]],[["完成工事未収入金",70000]],"前期以前の債権は引当金を取り崩し、不足分は貸倒損失。");
+J(9,"当期発生債権の貸倒れ","当期に発生した完成工事未収入金 40,000円が回収不能となった。貸倒引当金の残高は 25,000円ある。",[["貸倒損失",40000]],[["完成工事未収入金",40000]],"当期に発生した債権は引当金の設定対象ではないので、全額貸倒損失。");
+J(9,"償却債権の回収","前期に貸倒れとして処理した完成工事未収入金のうち 30,000円を現金で回収した。",[["現金",30000]],[["償却債権取立益",30000]],"前期以前に貸倒処理済みの債権の回収は償却債権取立益（収益）。");
+J(9,"完成工事補償引当金の設定","決算にあたり、当期の完成工事高 60,000,000円に対して0.2%の完成工事補償引当金を差額補充法により計上する。引当金の残高は 45,000円であり、繰入額は完成工事原価に含めて処理する。",[["完成工事原価",75000]],[["完成工事補償引当金",75000]],"60,000,000×0.2%＝120,000円－45,000円＝75,000円。繰入額は工事原価。");
+J(9,"補償工事の実施","前期に引き渡した建物に不具合が見つかり補修工事を行った。手持ちの材料 20,000円を使用し、下請業者への補修代金 30,000円は未払である。完成工事補償引当金の残高は十分にある。",[["完成工事補償引当金",50000]],[["材料",20000],["工事未払金",30000]],"引当金を取り崩して補修費に充当する。");
+J(9,"退職給付引当金（本社分）","決算にあたり、本社管理部門の従業員に係る当期の退職給付費用 240,000円を計上する。",[["退職給付引当金繰入額",240000]],[["退職給付引当金",240000]],"本社分は販売費及び一般管理費（退職給付引当金繰入額）。");
+J(9,"退職給付引当金（現場・差額調整）","現場作業員の退職給付引当金について、毎月 50,000円を予定計上（未成工事支出金経由）してきた。決算で確定した当期の繰入額は 630,000円である。差額を調整しなさい。",[["未成工事支出金",30000]],[["退職給付引当金",30000]],"予定計上額 600,000円（50,000×12か月）＜実際 630,000円。不足 30,000円を工事原価に追加。");
+J(9,"賞与引当金","決算にあたり、翌期に支給する賞与のうち当期負担分を引当計上する。施工部門分は 180,000円（未成工事支出金経由）、管理部門分は 120,000円である。",[["未成工事支出金",180000],["賞与引当金繰入額",120000]],[["賞与引当金",300000]],"施工部門分は工事原価、管理部門分は販管費。");
+J(9,"退職金の支払","従業員が退職し、退職金 1,500,000円から源泉所得税 50,000円を差し引いた残額を当座預金から支払った。退職給付引当金を充当する。",[["退職給付引当金",1500000]],[["預り金",50000],["当座預金",1450000]],"引当金を取り崩し、源泉所得税は預り金。");
+W(9,"洗替法と差額補充法","貸倒引当金の残高が 30,000円、当期末の設定必要額が 50,000円である。\n（1）洗替法の場合の繰入額と戻入額\n（2）差額補充法の場合の繰入額\nを求めなさい。","貸倒引当金",[["（1）洗替法：繰入額",50000],["（1）洗替法：戻入額",30000],["（2）差額補充法：繰入額",20000]],"洗替法：残高 30,000円を全額戻し入れ、必要額 50,000円を全額繰入れ。\n差額補充法：50,000－30,000＝20,000円を繰入れ。");
+
+/* ================= 第10章 ================= */
+CHAPTERS.push({n:10,t:"社債",sec:"財務会計編",exam:"第1問・第2問",star:2,text:`
+<h4>社債とは</h4>
+会社が投資家からお金を借りるために発行する債券です。額面より安く発行（<b>割引発行</b>）されることが多く、額面との差額は実質的な利息です。
+<h4>発行 → 利払 → 償却原価法 → 償還</h4>
+<div class="txt-ex"><div class="txt-ex-title">📝 設例：当期首に額面 10,000,000円を@98円で発行、償還期間5年、年利2%（年1回・期末払い）、社債発行費 150,000円</div>
+${jeHTML("発行時",[["当座預金",9800000,"社債",9800000],["社債発行費",150000,"当座預金",150000]],"社債は払込金額で計上")}
+${jeHTML("利払日（期末）",[["社債利息",200000,"当座預金",200000]],"額面×年利率＝10,000,000×2%")}
+${jeHTML("決算：償却原価法（定額法）",[["社債利息",40000,"社債",40000]],"（10,000,000－9,800,000）÷5年")}
+${jeHTML("決算：社債発行費の償却",[["社債発行費償却",30000,"社債発行費",30000]],"150,000÷5年")}
+</div>
+${FIG(`<svg viewBox="0 0 440 190" xmlns="http://www.w3.org/2000/svg">
+<line x1="60" y1="160" x2="420" y2="160" class="s-ax"/><line x1="60" y1="160" x2="60" y2="15" class="s-ax"/>
+<line x1="60" y1="30" x2="410" y2="30" class="s-ln2"/><text x="405" y="24" text-anchor="end" class="s-txs">額面 10,000,000</text>
+<polyline points="60,130 130,110 200,90 270,70 340,50 410,30" class="s-lpri"/>
+<g class="s-pri"><circle cx="60" cy="130" r="4"/><circle cx="130" cy="110" r="4"/><circle cx="200" cy="90" r="4"/><circle cx="270" cy="70" r="4"/><circle cx="340" cy="50" r="4"/><circle cx="410" cy="30" r="4"/></g>
+<text x="64" y="148" class="s-txs">9,800,000</text><text x="276" y="88" class="s-txs">3年後 9,920,000</text>
+<g text-anchor="middle" class="s-txd"><text x="60" y="176" class="s-txd">発行</text><text x="130" y="176" class="s-txd">1年</text><text x="200" y="176" class="s-txd">2年</text><text x="270" y="176" class="s-txd">3年</text><text x="340" y="176" class="s-txd">4年</text><text x="410" y="176" class="s-txd">償還</text></g>
+</svg>`,'図10-1 償却原価法で帳簿価額が額面に近づく（毎年＋40,000）')}
+<div class="txt-formula">当期の社債利息（P/L）＝ 利払額 ＋ 償却原価法の加算額</div>
+
+<h4>買入償還</h4>
+満期前に市場から買い戻して消滅させることです。<b>償還時点の帳簿価額</b>と支払額の差が社債償還益（損）になります。
+${jeHTML("第4期首に額面 4,000,000円分を@99円で買入償還",[["社債",3968000,"当座預金",3960000],["","","社債償還益",8000]],"帳簿価額 9,920,000×4/10＝3,968,000円、支払 3,960,000円")}
+<div class="txt-warn">⚠️ <b>期中</b>に償還するときは、期首から償還日までの償却額（月割）を先に加算してから帳簿価額を出します。端数利息を払うときは社債利息で処理。</div>
+`});
+J(10,"社債の発行","当期首に額面総額 10,000,000円の社債を、額面100円につき 98円で発行し、払込金は当座預金とした（償還期間5年、年利率2%）。",[["当座預金",9800000]],[["社債",9800000]],"社債は払込金額（9,800,000円）で計上する。");
+J(10,"社債発行費","上記社債の発行のための費用 150,000円を小切手で支払った。繰延資産として処理する。",[["社債発行費",150000]],[["当座預金",150000]],"繰延資産とする場合は社債発行費（資産）。");
+J(10,"償却原価法","決算にあたり、上記社債（額面 10,000,000円、払込金額 9,800,000円、償還期間5年）について償却原価法（定額法）を適用する。",[["社債利息",40000]],[["社債",40000]],"200,000円÷5年＝40,000円を社債に加算し、社債利息とする。");
+J(10,"社債発行費の償却","決算にあたり、社債発行費 150,000円を社債の償還期間5年で定額法により償却する（当期首に発行）。",[["社債発行費償却",30000]],[["社債発行費",30000]],"150,000÷5年＝30,000円。");
+J(10,"社債利息の支払","額面総額 10,000,000円の社債（年利率2%、利払いは年2回）について、半年分の利息を当座預金から支払った。",[["社債利息",100000]],[["当座預金",100000]],"10,000,000×2%×6/12＝100,000円。");
+J(10,"社債の買入償還","第4期首に、上記社債のうち額面 4,000,000円を額面100円につき 99円で買入償還し、代金は当座預金から支払った。前期末までの償却原価法による加算額は正しく処理されている。",[["社債",3968000]],[["当座預金",3960000],["社債償還益",8000]],"前期末の帳簿価額 9,800,000＋40,000×3年＝9,920,000円。償還分 9,920,000×4/10＝3,968,000円。支払 3,960,000円との差 8,000円が償還益。");
+W(10,"社債の帳簿価額と利息","当期首（第1期首）に額面 10,000,000円を@98円で発行（償還期間5年、年利率2%、年1回期末払い、償却原価法・定額法）。\n（1）第3期末の社債の帳簿価額\n（2）各期の損益計算書に計上される社債利息\nを求めなさい。","社債",[["（1）第3期末の帳簿価額",9920000],["（2）毎期の社債利息",240000]],"（1）9,800,000＋40,000×3＝9,920,000円\n（2）利払 200,000円＋償却額 40,000円＝240,000円");
+
+/* ================= 第11章 ================= */
+CHAPTERS.push({n:11,t:"税金（法人税等・消費税）",sec:"財務会計編",exam:"第1問・第2問・第5問",star:3,text:`
+<h4>法人税、住民税及び事業税</h4>
+${FL(['期中：中間申告・納付|仮払法人税等','*決算：税額確定|法人税、住民税及び事業税','差額|未払法人税等','翌期：確定申告・納付|未払法人税等を取崩し'])}
+${jeHTML("中間納付 480,000円を小切手で納付",[["仮払法人税等",480000,"当座預金",480000]],"")}
+${jeHTML("決算：当期の法人税等 1,150,000円",[["法人税、住民税及び事業税",1150000,"仮払法人税等",480000],["","","未払法人税等",670000]],"中間納付分を差し引いた残りが未払")}
+<div class="txt-exam">第5問では「税引前当期純利益の30%を計上する。なお、中間納付額○円は<u>仮払金</u>で処理している」という形が定番。まず精算表の損益計算書欄で税引前利益を出し、税額を計算してから、仮払金（または仮払法人税等）を相殺して残りを未払法人税等にします。<b>法人税等は必ず最後</b>に計算します。</div>
+${jeHTML("決算：税引前利益 3,000,000円×30%。中間納付 350,000円は仮払金で処理済",[["法人税、住民税及び事業税",900000,"仮払金",350000],["","","未払法人税等",550000]],"")}
+
+<h4>消費税（税抜方式）</h4>
+消費税は最終消費者が負担し、事業者は「預かった税－支払った税」を納めます。
+${FL(['材料を購入|支払った消費税→仮払消費税','工事を引渡し|預かった消費税→仮受消費税','*決算|相殺して差額を未払消費税'])}
+${jeHTML("材料 330,000円（税込）を掛けで購入（税率10%）",[["材料",300000,"工事未払金",330000],["仮払消費税",30000,"",""]],"")}
+${jeHTML("工事を引渡し、請負代金 5,500,000円（税込）は未収",[["完成工事未収入金",5500000,"完成工事高",5000000],["","","仮受消費税",500000]],"完成工事未収入金は税込で計上")}
+${jeHTML("決算：仮受 500,000円、仮払 380,000円",[["仮受消費税",500000,"仮払消費税",380000],["","","未払消費税",120000]],"")}
+${jeHTML("決算：仮受 400,000円、仮払 500,000円（還付）",[["仮受消費税",400000,"仮払消費税",500000],["未収消費税",100000,"",""]],"支払った税の方が多ければ還付＝未収消費税")}
+<div class="txt-warn">⚠️ 完成工事未収入金が貸倒れたときは、税込の金額で引当金や貸倒損失を処理します（試験では問題文の指示に従う）。</div>
+
+<h4>その他の税金</h4>
+固定資産税・自動車税・印紙税などは<b>租税公課</b>（本社分は販管費、現場の車両・機械に係るものは工事原価の経費）。源泉所得税の預り分は<b>預り金</b>で、納付時に取り崩します。
+`});
+J(11,"法人税等の中間納付","法人税等の中間申告を行い、480,000円を小切手を振り出して納付した。",[["仮払法人税等",480000]],[["当座預金",480000]],"中間納付額は仮払法人税等（資産）。");
+J(11,"法人税等の計上","決算の結果、当期の法人税、住民税及び事業税が 1,150,000円と確定した。中間納付額 480,000円が仮払法人税等に計上されている。",[["法人税、住民税及び事業税",1150000]],[["仮払法人税等",480000],["未払法人税等",670000]],"確定額から中間納付額を差し引いた残りが未払法人税等。");
+J(11,"中間納付が仮払金の場合","決算にあたり、法人税、住民税及び事業税 900,000円を計上する。なお、中間納付額 350,000円は仮払金で処理している。",[["法人税、住民税及び事業税",900000]],[["仮払金",350000],["未払法人税等",550000]],"仮払金で処理された中間納付額を取り崩して相殺する。");
+J(11,"確定申告と納付","前期の未払法人税等 670,000円を当座預金から納付した。",[["未払法人税等",670000]],[["当座預金",670000]],"確定申告による納付で未払法人税等を取り崩す。");
+J(11,"材料購入と仮払消費税","工事用材料 330,000円（消費税10%込み）を掛けで購入した。消費税は税抜方式で処理する。",[["材料",300000],["仮払消費税",30000]],[["工事未払金",330000]],"本体 300,000円と消費税 30,000円に分ける。");
+J(11,"引渡しと仮受消費税","工事が完成し引き渡した。請負代金は 5,500,000円（消費税10%込み）で、全額未収である。",[["完成工事未収入金",5500000]],[["完成工事高",5000000],["仮受消費税",500000]],"完成工事高は税抜、消費税は仮受消費税。未収入金は税込。");
+J(11,"消費税の決算（納付）","決算にあたり、仮受消費税 500,000円と仮払消費税 380,000円を相殺し、納付額を計上する。",[["仮受消費税",500000]],[["仮払消費税",380000],["未払消費税",120000]],"差額 120,000円が納付額＝未払消費税。");
+J(11,"消費税の決算（還付）","決算にあたり、仮受消費税 400,000円と仮払消費税 500,000円を相殺する。",[["仮受消費税",400000],["未収消費税",100000]],[["仮払消費税",500000]],"支払った消費税の方が多いので還付される＝未収消費税（資産）。");
+W(11,"法人税等と当期純利益","税引前当期純利益は 3,000,000円である。法人税、住民税及び事業税を税引前当期純利益の30%で計上する。中間納付額は 350,000円である。法人税等、未払法人税等、当期純利益を求めなさい。","法人税等の計算",[["法人税、住民税及び事業税",900000],["未払法人税等",550000],["当期純利益",2100000]],"3,000,000×30%＝900,000円\n未払＝900,000－350,000＝550,000円\n当期純利益＝3,000,000－900,000＝2,100,000円");
+
+/* ================= 第12章 ================= */
+CHAPTERS.push({n:12,t:"株式会社の純資産（株式発行・合併・減資）",sec:"財務会計編",exam:"第1問・第2問",star:2,text:`
+<h4>純資産の部の構成</h4>
+${TB(['区分','科目','どうやって生まれる？'],[
+['株主資本｜資本金','資本金','株主の払込み'],
+['株主資本｜資本剰余金','資本準備金（株式払込剰余金）','払込みのうち資本金にしなかった部分'],
+['','合併差益','合併で受け入れた純資産のうち資本金にしなかった部分'],
+['','その他資本剰余金','減資差益など'],
+['株主資本｜利益剰余金','利益準備金','配当時に会社法で強制的に積立'],
+['','任意積立金（別途積立金・新築積立金）','株主総会で自主的に積立'],
+['','繰越利益剰余金','まだ使い道の決まっていない利益']])}
+
+<h4>株式の発行と資本金組入額</h4>
+<div class="txt-formula">原則：払込金額の全額を資本金<br>容認：払込金額の<u>2分の1以上</u>を資本金、残りを資本準備金（株式払込剰余金）</div>
+${jeHTML("設立：1,000株を@60,000円で発行、資本金は会社法の最低限度額",[["当座預金",60000000,"資本金",30000000],["","","資本準備金",30000000]],"「最低限度額」＝2分の1")}
+<b>増資の流れ</b>：申込期日までに受け取った申込証拠金は、まだ株主になっていないので資本金にせず<b>新株式申込証拠金</b>（純資産）とし、お金は<b>別段預金</b>に預けておきます。払込期日に資本金へ振り替えます。
+${FL(['申込期日|新株式申込証拠金／別段預金','*払込期日|資本金・資本準備金へ振替','同時に|別段預金→当座預金'])}
+設立時の費用は<b>創立費</b>、設立後の新株発行費用は<b>株式交付費</b>（ともに繰延資産にできる）。
+
+<h4>合併</h4>
+他社を吸収合併し、相手の株主に自社株式を交付します。受け入れた資産・負債は時価で引き継ぎます。
+${TB(['ケース','処理'],[['交付株式の価額 ＝ 受入純資産','そのうち資本金にしなかった部分が<b>合併差益</b>'],['交付株式の価額 ＞ 受入純資産','超過分が<b>のれん</b>（借方）']])}
+${jeHTML("諸資産 3,000,000円・諸負債 1,200,000円の会社を合併。30株（@60,000円）を交付し、資本金は 1,200,000円",[["諸資産",3000000,"諸負債",1200000],["","","資本金",1200000],["","","合併差益",600000]],"交付額 1,800,000－資本金 1,200,000＝合併差益")}
+
+<h4>買収（事業の譲受け）とのれんの算定</h4>
+現金などで他社の事業を買い取ったときも、支払対価が受け入れた純資産（時価）を上回れば<b>のれん</b>です。
+${jeHTML("諸資産（時価）9,000,000円・諸負債 4,000,000円の会社を 5,600,000円で買収、小切手払い",[["諸資産",9000000,"諸負債",4000000],["のれん",600000,"当座預金",5600000]],"")}
+<div class="txt-formula">収益還元価値 ＝ 平均利益額 ÷ 同種企業の平均利益率<br>のれん ＝ 収益還元価値 － 純資産（時価）</div>
+<div class="txt-ex">平均利益 480,000円、同種企業の平均利益率 8%、純資産（時価）5,400,000円 → 収益還元価値 6,000,000円、のれん <b>600,000円</b></div>
+
+<h4>減資・資本準備金の資本組入れ</h4>
+${jeHTML("資本金 2,000,000円を減少させ、その他資本剰余金とした",[["資本金",2000000,"その他資本剰余金",2000000]],"減資差益（資本金減少差益）はその他資本剰余金")}
+${jeHTML("欠損てん補：その他資本剰余金で繰越利益剰余金のマイナス 1,500,000円をてん補",[["その他資本剰余金",1500000,"繰越利益剰余金",1500000]],"")}
+${jeHTML("資本準備金 1,000,000円を資本金に組み入れた",[["資本準備金",1000000,"資本金",1000000]],"純資産の中での振替なので総額は変わらない")}
+`});
+J(12,"設立時の株式発行","会社の設立にあたり、株式 1,000株を1株 60,000円で発行し、全額の払込みを受けて当座預金とした。資本金には会社法で認められる最低限度額を組み入れる。",[["当座預金",60000000]],[["資本金",30000000],["資本準備金",30000000]],"最低限度額は払込金額の2分の1。残りは資本準備金（株式払込剰余金）。");
+J(12,"新株の申込証拠金","増資にあたり株式 200株を1株 50,000円で募集したところ、申込期日までに全株の申込みがあり、申込証拠金を全額受け取って別段預金とした。",[["別段預金",10000000]],[["新株式申込証拠金",10000000]],"払込期日まではまだ資本金にしない。申込証拠金は純資産の区分に表示。");
+J(12,"払込期日の振替","上記の払込期日が到来した。申込証拠金を資本金に振り替える（資本金は会社法の最低限度額）。あわせて別段預金を当座預金に預け替えた。",[["新株式申込証拠金",10000000],["当座預金",10000000]],[["資本金",5000000],["資本準備金",5000000],["別段預金",10000000]],"資本金は2分の1の 5,000,000円、残りは資本準備金。別段預金→当座預金。");
+J(12,"株式交付費","上記の新株発行に要した費用 300,000円を現金で支払い、繰延資産として処理した。",[["株式交付費",300000]],[["現金",300000]],"会社設立後の新株発行の費用は株式交付費（設立時なら創立費）。");
+J(12,"買収とのれん","他社の事業を買収し、代金 5,600,000円を小切手を振り出して支払った。買収時の諸資産（時価）は 9,000,000円、諸負債は 4,000,000円である。",[["諸資産",9000000],["のれん",600000]],[["諸負債",4000000],["当座預金",5600000]],"受入純資産 5,000,000円に対して 5,600,000円を支払ったので、差額 600,000円がのれん。");
+J(12,"合併差益","B社を吸収合併し、B社の株主に株式 30株（1株 60,000円）を交付した。B社の諸資産は 3,000,000円、諸負債は 1,200,000円（いずれも時価）であり、資本金の増加額は 1,200,000円とする。",[["諸資産",3000000]],[["諸負債",1200000],["資本金",1200000],["合併差益",600000]],"交付株式 1,800,000円＝受入純資産 1,800,000円。資本金にしなかった 600,000円が合併差益。");
+J(12,"合併とのれん","C社を吸収合併し、株式 40株（1株 45,000円）を交付して全額を資本金とした。C社の諸資産は 2,500,000円、諸負債は 900,000円（いずれも時価）である。",[["諸資産",2500000],["のれん",200000]],[["諸負債",900000],["資本金",1800000]],"交付額 1,800,000円－受入純資産 1,600,000円＝200,000円がのれん。");
+J(12,"減資","株主総会の決議により資本金 2,000,000円を減少させ、その他資本剰余金とした。",[["資本金",2000000]],[["その他資本剰余金",2000000]],"減資で生じる差益はその他資本剰余金（資本金減少差益）。");
+J(12,"資本準備金の資本組入れ","株主総会の決議により、資本準備金 1,000,000円を資本金に組み入れた。",[["資本準備金",1000000]],[["資本金",1000000]],"純資産内部の振替。");
+W(12,"のれんの算定（収益還元法）","買収対象会社の過去の平均利益額は 480,000円、同種企業の平均利益率は8%、同社の純資産（時価）は 5,400,000円である。収益還元価値とのれんの額を求めなさい。","のれんの算定",[["収益還元価値",6000000],["のれん",600000]],"収益還元価値＝480,000÷8%＝6,000,000円\nのれん＝6,000,000－5,400,000＝600,000円");
+
+/* ================= 第13章 ================= */
+CHAPTERS.push({n:13,t:"剰余金の配当と処分",sec:"財務会計編",exam:"第1問・第2問",star:2,text:`
+<h4>利益の流れ</h4>
+${FL(['決算：当期純利益|損益→繰越利益剰余金','*株主総会|配当・積立を決議','配当金の支払|未払配当金を取崩し'])}
+${jeHTML("決算：当期純利益 3,500,000円を振替",[["損益",3500000,"繰越利益剰余金",3500000]],"純損失なら貸借逆")}
+
+<h4>利益準備金の積立額 ★計算頻出</h4>
+配当をするときは、会社法により<b>配当額の10分の1</b>を準備金として積み立てます。ただし、準備金（資本準備金＋利益準備金）の合計が<b>資本金の4分の1</b>に達したら不要です。
+<div class="txt-formula">積立額 ＝ 次の小さいほう<br>① 配当金 × 1/10　② 資本金 × 1/4 －（資本準備金＋利益準備金）</div>
+${TB(['','ケースA','ケースB'],[['資本金',40000000,40000000],['資本準備金',6000000,6000000],['利益準備金',3200000,3900000],['配当金',2000000,1500000],['① 配当×1/10',200000,150000],['② 限度額（10,000,000－準備金合計）',800000,100000],['<b>積立額</b>',200000,100000]],[6])}
+${jeHTML("ケースA：配当 2,000,000円、利益準備金は計算額、別途積立金 500,000円",[["繰越利益剰余金",2700000,"未払配当金",2000000],["","","利益準備金",200000],["","","別途積立金",500000]],"")}
+<div class="txt-tip">💡 その他<b>資本</b>剰余金から配当した場合は、積み立てるのは資本準備金です。</div>
+
+<h4>中間配当</h4>
+取締役会の決議で、期中に1回配当できます。このときも1/10の準備金積立が必要です。
+
+<h4>株主資本等変動計算書（イメージ）</h4>
+${TB(['','資本金','利益準備金','別途積立金','繰越利益剰余金'],[['当期首残高',40000000,3200000,1000000,5000000],['剰余金の配当','',200000,'',-2200000],['別途積立金の積立','','',500000,-500000],['当期純利益','','','',3500000],['当期末残高',40000000,3400000,1500000,5800000]],[4])}
+<div class="txt-link">🏢 <b>実務リンク</b>：役員賞与は現在は発生した期の費用（決算で役員賞与引当金を計上）として扱います。利益処分で処理する古い形の問題が出たら、問題文の指示に従いましょう。</div>
+`});
+J(13,"当期純利益の振替","決算において当期純利益 3,500,000円を計上した。",[["損益",3500000]],[["繰越利益剰余金",3500000]],"損益勘定の貸方残高（利益）を繰越利益剰余金へ振り替える。");
+J(13,"剰余金の配当と処分","株主総会で、繰越利益剰余金から次のとおり配当・処分することが承認された。株主配当金 2,000,000円、利益準備金（会社法の規定による額）、別途積立金 500,000円。なお、資本金 40,000,000円、資本準備金 6,000,000円、利益準備金 3,200,000円である。",[["繰越利益剰余金",2700000]],[["未払配当金",2000000],["利益準備金",200000],["別途積立金",500000]],"①配当の1/10＝200,000円 ②10,000,000－9,200,000＝800,000円 → 小さいほう 200,000円。");
+J(13,"積立限度に達する場合","株主総会で、株主配当金 1,500,000円と利益準備金（会社法の規定による額）の積立てが承認された。資本金 40,000,000円、資本準備金 6,000,000円、利益準備金 3,900,000円である。",[["繰越利益剰余金",1600000]],[["未払配当金",1500000],["利益準備金",100000]],"①150,000円 ②10,000,000－9,900,000＝100,000円 → 100,000円。");
+J(13,"配当金の支払","株主総会で決議された配当金 2,000,000円を当座預金から支払った。",[["未払配当金",2000000]],[["当座預金",2000000]],"決議時に計上した未払配当金を取り崩す。");
+J(13,"当期純損失の振替","決算において当期純損失 800,000円を計上した。",[["繰越利益剰余金",800000]],[["損益",800000]],"損失は繰越利益剰余金を減らす（借方）。");
+J(13,"中間配当","取締役会の決議により中間配当 1,000,000円を行うこととし、あわせて利益準備金を積み立てる。準備金の合計は資本金の4分の1に十分に達していない。",[["繰越利益剰余金",1100000]],[["未払配当金",1000000],["利益準備金",100000]],"中間配当でも配当額の1/10を利益準備金に積み立てる。");
+W(13,"利益準備金の積立額","資本金 40,000,000円、資本準備金 6,000,000円、利益準備金 3,200,000円の会社が 2,000,000円の配当を行う。\n（1）利益準備金の積立額\n（2）同じ会社で利益準備金が 3,900,000円、配当が 1,500,000円の場合の積立額","利益準備金",[["（1）積立額",200000],["（2）積立額",100000]],"限度額＝資本金×1/4＝10,000,000円\n（1）min（200,000、10,000,000－9,200,000＝800,000）＝200,000円\n（2）min（150,000、10,000,000－9,900,000＝100,000）＝100,000円");
+
+/* ================= 第14章 ================= */
+CHAPTERS.push({n:14,t:"工事収益の認識（完成基準・進行基準）",sec:"財務会計編",exam:"第1問・第2問",star:3,text:`
+<h4>いつ売上（完成工事高）を計上するか</h4>
+${TB(['基準','計上のタイミング','特徴'],[
+['工事完成基準','工事が完成し引き渡したとき','確実だが、工期中の期は売上ゼロ'],
+['工事進行基準','決算日ごとに進捗度に応じて','成果の確実性が認められる場合。工期中も業績が見える'],
+['工事部分完成基準','引渡しが済んだ部分ごとに','道路の区間ごとの引渡しなど']])}
+<div class="txt-tip">💡 現在の会計基準（収益認識基準）では「履行義務の充足に係る進捗度」に基づいて収益を認識しますが、建設業経理士2級では当面、従来の工事完成基準・工事進行基準の考え方と用語で出題されます。</div>
+
+<h4>工事進行基準の計算（原価比例法）★第2問で頻出</h4>
+<div class="txt-formula">当期の完成工事高 ＝ 請負金額 × <u>当期末までの発生原価累計</u> ÷ <u>見積工事原価総額</u> － 前期までに計上した完成工事高</div>
+<div class="txt-ex"><div class="txt-ex-title">📝 設例：請負金額 60,000,000円、当初の見積総原価 48,000,000円、工期3年</div>
+${TB(['','1年目','2年目','3年目（完成）'],[
+['当期発生原価',14400000,18000000,18100000],
+['原価累計',14400000,32400000,50500000],
+['見積総原価',48000000,'50,000,000（変更）','50,500,000（確定）'],
+['進捗度','30%','64.8%','100%'],
+['累計の完成工事高',18000000,38880000,60000000],
+['<b>当期の完成工事高</b>',18000000,20880000,21120000],
+['当期の完成工事総利益',3600000,2880000,3020000]],[5])}
+</div>
+${FIG(`<svg viewBox="0 0 460 200" xmlns="http://www.w3.org/2000/svg">
+<line x1="40" y1="170" x2="440" y2="170" class="s-ax"/>
+<rect x="70" y="119" width="80" height="51" class="s-pri"/><rect x="190" y="97" width="80" height="73" class="s-pri"/><rect x="310" y="96" width="80" height="74" class="s-pri"/>
+<rect x="70" y="109" width="80" height="10" class="s-hl"/><rect x="190" y="89" width="80" height="8" class="s-hl"/><rect x="310" y="88" width="80" height="8" class="s-hl"/>
+<g text-anchor="middle"><text x="110" y="186" class="s-txs">1年目</text><text x="230" y="186" class="s-txs">2年目</text><text x="350" y="186" class="s-txs">3年目</text>
+<text x="110" y="102" class="s-txs">18,000,000</text><text x="230" y="82" class="s-txs">20,880,000</text><text x="350" y="81" class="s-txs">21,120,000</text>
+<text x="110" y="148" class="s-txw" style="font-size:10.5px">原価14.4百万</text><text x="230" y="138" class="s-txw" style="font-size:10.5px">原価18.0百万</text><text x="350" y="138" class="s-txw" style="font-size:10.5px">原価18.1百万</text></g>
+<rect x="60" y="20" width="12" height="10" class="s-hl"/><text x="78" y="29" class="s-txs">完成工事総利益</text><rect x="190" y="20" width="12" height="10" class="s-pri"/><text x="208" y="29" class="s-txs">完成工事原価</text>
+</svg>`,'図14-1 工事進行基準では各期に売上と利益が配分される')}
+<div class="txt-warn">⚠️ 見積総原価が変わったら、<b>変更後の見積総原価</b>で累計進捗度を計算し直し、前期までの計上額を引きます（過去の期は修正しない）。</div>
+
+<h4>進行基準の仕訳</h4>
+${jeHTML("1年目の決算：完成工事高 18,000,000円。受け取った前受金 10,000,000円を充当",[["未成工事受入金",10000000,"完成工事高",18000000],["完成工事未収入金",8000000,"",""]],"まず未成工事受入金と相殺し、残りを完成工事未収入金")}
+${jeHTML("1年目の原価の振替",[["完成工事原価",14400000,"未成工事支出金",14400000]],"")}
+<div class="txt-link">🏢 <b>実務リンク</b>：工事完成基準の会社では、期末に未完成の工事の原価は<b>未成工事支出金</b>として資産に残り、受け取った代金は<b>未成工事受入金</b>として負債に残ります。工事ごとに「受入金－支出金」を並べれば、完成前の工事の採算を月次で把握できます。</div>
+<div class="txt-tip">💡 <b>工事損失引当金</b>：見積総原価が請負金額を上回るとわかったら、損失見込額のうちまだ計上していない分を引当てます（繰入額は完成工事原価）。</div>
+`});
+J(14,"工事進行基準の収益計上","当期に着工した工事（請負金額 60,000,000円、見積工事原価総額 48,000,000円）について、工事進行基準（原価比例法）により完成工事高を計上する。当期の発生原価は 14,400,000円で、前受金 10,000,000円を受け取っている（未成工事受入金で処理済み）。",[["未成工事受入金",10000000],["完成工事未収入金",8000000]],[["完成工事高",18000000]],"進捗度 14,400,000÷48,000,000＝30%。完成工事高＝60,000,000×30%＝18,000,000円。前受金を充当し、残り 8,000,000円は完成工事未収入金。");
+J(14,"原価の振替（進行基準）","上記の工事について、当期に発生した原価 14,400,000円（未成工事支出金に集計済み）を完成工事原価に振り替える。",[["完成工事原価",14400000]],[["未成工事支出金",14400000]],"進行基準では、計上した収益に対応する原価を完成工事原価に振り替える。");
+W(14,"見積変更がある場合","請負金額 60,000,000円の工事（工期3年）を工事進行基準（原価比例法）で処理している。\n1年目：発生原価 14,400,000円、見積総原価 48,000,000円\n2年目：発生原価 18,000,000円、見積総原価を 50,000,000円に変更\n3年目：発生原価 18,100,000円で完成・引渡し\n各年の完成工事高と、2年目の完成工事総利益を求めなさい。","工事進行基準",[["1年目の完成工事高",18000000],["2年目の完成工事高",20880000],["3年目の完成工事高",21120000],["2年目の完成工事総利益",2880000]],"1年目：60,000,000×14,400,000/48,000,000＝18,000,000円\n2年目：累計 60,000,000×32,400,000/50,000,000＝38,880,000円－18,000,000＝20,880,000円\n3年目：60,000,000－38,880,000＝21,120,000円\n2年目の利益：20,880,000－18,000,000＝2,880,000円");
+W(14,"進行基準の基本計算","請負金額 12,000,000円、見積工事原価総額 9,000,000円の工事で、当期の発生原価は 3,600,000円（当期着工）であった。工事進行基準（原価比例法）による当期の完成工事高と完成工事総利益を求めなさい。","工事進行基準",[["当期の完成工事高",4800000],["当期の完成工事総利益",1200000]],"進捗度 3,600,000÷9,000,000＝40%\n完成工事高＝12,000,000×40%＝4,800,000円\n総利益＝4,800,000－3,600,000＝1,200,000円");
+J(14,"完成基準での引渡し","工事完成基準を採用している工事（請負金額 8,000,000円）が完成し、引き渡した。前受金 3,000,000円を受け取っており、残額は約束手形で受け取った。",[["未成工事受入金",3000000],["受取手形",5000000]],[["完成工事高",8000000]],"完成基準は引渡し時に全額を完成工事高に計上する。");
+C(14,"未完成工事の表示","工事完成基準を採用している会社で、決算日に未完成の工事について発生した原価は、貸借対照表にどのように表示されるか。",["完成工事原価として費用に計上","未成工事支出金として流動資産に表示","未成工事受入金と相殺して表示しない","建設仮勘定として固定資産に表示"],1,"未完成工事の原価は未成工事支出金（棚卸資産・流動資産）として次期に繰り越す。建設仮勘定は自社の固定資産の建設に使う科目。");
+
+/* ================= 第15章 ================= */
+CHAPTERS.push({n:15,t:"本支店会計",sec:"財務会計編",exam:"第2問",star:2,text:`
+<h4>本店勘定と支店勘定</h4>
+支店が独立して帳簿をつける場合、本店と支店の貸し借りは<b>支店勘定</b>（本店の帳簿）と<b>本店勘定</b>（支店の帳簿）で記録します。両者は<b>貸借逆で必ず同額</b>になる照合勘定です。
+${TB(['取引','本店の仕訳','支店の仕訳'],[
+['本店が支店に現金 500,000円を送付','（支店）500,000 ／（現金）500,000','（現金）500,000 ／（本店）500,000'],
+['本店が支店の工事未払金 120,000円を立替払い','（支店）120,000 ／（当座預金）120,000','（工事未払金）120,000 ／（本店）120,000'],
+['支店が本店の完成工事未収入金 80,000円を現金で回収','（支店）80,000 ／（完成工事未収入金）80,000','（現金）80,000 ／（本店）80,000'],
+['本店から支店へ固定資産の付替え','（支店）××／（備品）××','（備品）××／（本店）××']])}
+
+<h4>支店間取引：本店集中計算制度</h4>
+支店が複数あるとき、支店どうしの取引を<b>本店を経由したとみなして</b>記帳する方法です。各支店は「本店」勘定だけを使い、本店が各支店勘定を管理します。
+${FIG(`<svg viewBox="0 0 460 212" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="m15" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0L10,5L0,10z" class="s-pri"/></marker></defs>
+<rect x="165" y="10" width="130" height="44" rx="8" class="s-hlb"/><text x="230" y="37" text-anchor="middle" class="s-txb">本店</text>
+<rect x="20" y="130" width="130" height="44" rx="8" class="s-bx"/><text x="85" y="157" text-anchor="middle" class="s-txb">A支店</text>
+<rect x="310" y="130" width="130" height="44" rx="8" class="s-bx"/><text x="375" y="157" text-anchor="middle" class="s-txb">B支店</text>
+<line x1="150" y1="152" x2="308" y2="152" class="s-ln2" marker-end="url(#m15)"/><text x="230" y="146" text-anchor="middle" class="s-txd">実際の送金 100,000</text>
+<line x1="95" y1="128" x2="175" y2="58" class="s-lpri" marker-end="url(#m15)"/><line x1="285" y1="58" x2="365" y2="128" class="s-lpri" marker-end="url(#m15)"/>
+<text x="85" y="196" text-anchor="middle" class="s-txs">（本店）／（現金）</text><text x="375" y="196" text-anchor="middle" class="s-txs">（現金）／（本店）</text>
+<text x="230" y="100" text-anchor="middle" class="s-txp" style="font-size:11px">（B支店）／（A支店）</text>
+</svg>`,'図15-1 A支店→B支店への送金を本店経由とみなす')}
+
+<h4>未達取引</h4>
+一方は記帳済みなのに、もう一方にまだ現金や通知が届いていない取引です。決算では<b>未処理の側が記帳</b>して、本店勘定と支店勘定の残高を一致させます。
+${jeHTML("本店が支店へ送った材料 60,000円が支店に未達（支店側で整理）",[["材料",60000,"本店",60000]],"")}
+${jeHTML("支店が本店の工事未払金 50,000円を支払ったが本店に未通知（本店側で整理）",[["工事未払金",50000,"支店",50000]],"")}
+
+<h4>内部利益の控除</h4>
+本店が材料に利益を上乗せして支店に送ると、支店の期末在庫には会社全体から見れば実現していない<b>内部利益</b>が含まれます。本支店合併財務諸表を作るときに取り除きます。
+<div class="txt-formula">内部利益 ＝ 支店の期末棚卸高（本店仕入分）× 加算率 ÷（1＋加算率）</div>
+<div class="txt-ex">加算率10%、支店の期末材料のうち本店から仕入れた分 330,000円 → 内部利益 ＝ 330,000×0.1÷1.1 ＝ <b>30,000円</b></div>
+${jeHTML("内部利益の控除（本店の決算整理）",[["内部利益控除",30000,"内部利益控除引当金",30000]],"合併貸借対照表では材料から控除して表示する")}
+
+<h4>本支店合併財務諸表の手順</h4>
+${FL(['未達取引の整理','本店・支店勘定の相殺','本支店間の売上と仕入の相殺','内部利益の控除','*合算して合併F/S'])}
+`});
+J(15,"支店への送金（本店）","本店は支店に現金 500,000円を送付した。本店の仕訳を示しなさい。",[["支店",500000]],[["現金",500000]],"本店側は支店に対する貸し＝支店勘定（借方）。");
+J(15,"本店からの送金（支店）","支店は本店から送付された現金 500,000円を受け取った。支店の仕訳を示しなさい。",[["現金",500000]],[["本店",500000]],"支店側は本店に対する借り＝本店勘定（貸方）。");
+J(15,"立替払い（本店）","本店は、支店の工事未払金 120,000円を小切手を振り出して立替払いした。本店の仕訳を示しなさい。",[["支店",120000]],[["当座預金",120000]],"支店の債務を本店が払った → 支店への貸し。");
+J(15,"立替払い（支店）","上記の立替払いの通知を受けた。支店の仕訳を示しなさい。",[["工事未払金",120000]],[["本店",120000]],"支店の工事未払金が減り、本店への借りが増える。");
+J(15,"本店集中計算制度","本店集中計算制度を採用している。A支店が、B支店の完成工事未収入金 80,000円を現金で回収した。本店の仕訳を示しなさい。",[["A支店",80000]],[["B支店",80000]],"A支店は本店に現金を送り、本店がB支店の債権回収を仲介したとみなす。本店ではA支店への貸しが増え、B支店への貸しが減る。");
+J(15,"未達取引（支店側）","決算にあたり、本店が支店に発送した材料 60,000円が支店に未達であることが判明した。支店の整理仕訳を示しなさい。",[["材料",60000]],[["本店",60000]],"未処理の支店側で受入れを記帳し、本店勘定と支店勘定を一致させる。");
+W(15,"内部利益の計算","本店は材料を仕入原価に10%の利益を加算して支店に送付している。支店の期末材料のうち本店から仕入れた分は 330,000円である。内部利益の額と、合併貸借対照表に計上する材料（本店仕入分）の額を求めなさい。","内部利益",[["内部利益",30000],["合併B/Sの材料（本店仕入分）",300000]],"内部利益＝330,000×0.1÷1.1＝30,000円\n材料＝330,000－30,000＝300,000円（本店の仕入原価）");
+J(15,"内部利益の控除","上記の内部利益 30,000円を控除する（内部利益控除引当金を用いる）。",[["内部利益控除",30000]],[["内部利益控除引当金",30000]],"内部利益控除（費用）と内部利益控除引当金（資産の控除）で処理する。");
+
+/* ================= 第16章 ================= */
+CHAPTERS.push({n:16,t:"帳簿組織と伝票",sec:"財務会計編",exam:"第2問",star:1,text:`
+<h4>主要簿と補助簿</h4>
+${TB(['種類','帳簿','建設業での中身'],[
+['主要簿','仕訳帳・総勘定元帳','すべての取引'],
+['補助記入帳','現金出納帳・当座預金出納帳・受取手形記入帳・支払手形記入帳','取引の明細'],
+['補助元帳','得意先元帳','発注者別の完成工事未収入金・未成工事受入金'],
+['','工事未払金台帳','業者別の工事未払金'],
+['','材料元帳','材料の品目別の受払・残高'],
+['','<b>工事台帳（原価計算表）</b>','工事別の原価の集計'],
+['','固定資産台帳','資産ごとの取得・償却']])}
+
+<h4>3伝票制</h4>
+${TB(['伝票','使う取引','記入する科目'],[['入金伝票','現金が増える取引','借方は必ず現金 → 相手科目だけ書く'],['出金伝票','現金が減る取引','貸方は必ず現金 → 相手科目だけ書く'],['振替伝票','現金が動かない取引','借方・貸方とも書く']])}
+<b>一部現金取引</b>（例：工事代金 500,000円のうち 200,000円を現金で受け取り、残りは未収）は、2通りの起票方法があります。
+${TB(['方法','振替伝票','入金伝票'],[
+['① 取引を分解する','（完成工事未収入金）300,000 ／（完成工事高）300,000','（完成工事高）200,000'],
+['② いったん全額を未収とみなす','（完成工事未収入金）500,000 ／（完成工事高）500,000','（完成工事未収入金）200,000']])}
+<div class="txt-exam">「入金伝票の科目が完成工事未収入金になっている」→ ②の方法だと推定できます。伝票の一部から取引全体を推定させる問題が第2問で出ます。</div>
+
+<h4>特殊仕訳帳</h4>
+当座預金出納帳などを仕訳帳としても使う方法です。頻繁な取引は相手科目別に合計して月末に<b>まとめて転記（合計転記）</b>し、二重転記を避けるため親勘定への個別転記はしません。
+`});
+C(16,"伝票①","工事代金 500,000円のうち 200,000円を現金で受け取り、残額を未収とした。取引を分解して起票する方法によると、入金伝票の相手科目はどれか。",["完成工事未収入金","完成工事高","未成工事受入金","現金"],1,"分解法：入金伝票（完成工事高 200,000）＋振替伝票（完成工事未収入金／完成工事高 300,000）。");
+C(16,"伝票②","同じ取引を、いったん全額を掛け（未収）とみなして起票する方法によると、入金伝票の相手科目はどれか。",["完成工事高","完成工事未収入金","受取手形","未成工事受入金"],1,"擬制法：振替伝票（完成工事未収入金／完成工事高 500,000）＋入金伝票（完成工事未収入金 200,000）。");
+C(16,"補助簿","工事ごとに材料費・労務費・外注費・経費を集計する補助簿はどれか。",["得意先元帳","工事未払金台帳","工事台帳（原価計算表）","材料元帳"],2,"工事台帳（工事別原価計算表）で工事ごとの原価を集計する。個別原価計算の基礎資料。");
+
+/* ================= 第17章 ================= */
+CHAPTERS.push({n:17,t:"原価計算の基礎（原価の本質・分類・種類）",sec:"原価計算編",exam:"第4問 問1（理論）",star:3,text:`
+<h4>製造業と建設業の原価計算の違い</h4>
+${TB(['','製造業','建設業'],[['生産形態','見込み生産が多い','<b>受注生産</b>（1件ごとに仕様が違う）'],['生産場所','固定の工場','<b>移動する屋外の現場</b>'],['原価計算の方法','総合原価計算も多い','<b>個別原価計算</b>が基本（工事ごと）'],['原価要素','材料費・労務費・経費','材料費・労務費・<b>外注費</b>・経費'],['原価計算期間','月次','月次＋工事完成までの全期間']])}
+
+<h4>原価の本質（原価計算基準の4条件）</h4>
+すべてを満たすものだけが「原価」です。どれかに反すると<b>非原価項目</b>になります。
+${TB(['条件','意味','反する例（非原価）'],[
+['① 経済価値の消費','財やサービスを使ったこと','—'],
+['② 給付に転嫁される','完成品や工事に結びつく','—'],
+['③ 経営目的に関連','本業（工事）のための消費','支払利息などの<b>財務活動</b>費用、投資不動産の費用、寄付金'],
+['④ 正常的なもの','通常の状態で発生','火災・盗難・異常な仕損などの<b>異常な損失</b>']])}
+
+<h4>工事原価・期間原価・非原価の峻別 ★第4問 問1の最頻出</h4>
+${TB(['区分','主な例'],[
+['<b>A 工事原価</b><br>（プロダクト・コスト）','現場作業員の賃金、現場監督者の給料、現場事務所の家賃・水道光熱費、工事用機械の減価償却費・修繕費、仮設材料費、現場の労災保険料、工事の設計費、完成工事補償引当金繰入額、現場作業員の退職給付費用'],
+['<b>B 販売費及び一般管理費</b><br>（期間原価＝ピリオド・コスト）','本社役員の報酬、本社経理部員の給料、本社建物の減価償却費、広告宣伝費、営業部の交際費、受注活動のための費用、売上債権の貸倒引当金繰入額、本社の固定資産税'],
+['<b>C 非原価項目</b>','支払利息・社債利息・手形売却損、有価証券評価損・売却損、固定資産売却損・除却損、火災損失、異常な仕損・減耗、法人税等、配当金、投資目的の不動産の費用']])}
+<div class="txt-warn">⚠️ ひっかけの定番：「<u>工事現場</u>の事務員の給料」→A（工事原価）、「<u>本社</u>の事務員の給料」→B。「工事用機械の修繕費」→A、「本社建物の修繕費」→B。場所と目的で判断します。</div>
+
+<h4>原価のさまざまな分類</h4>
+${TB(['分類の視点','区分','ポイント'],[
+['発生形態別','材料費・労務費・外注費・経費','建設業は外注費を独立させた4区分'],
+['作業機能別','例：土工事費、躯体工事費、仮設工事費 など','何の作業のための原価か'],
+['計算対象との関連性','<b>工事直接費</b>／<b>工事間接費</b>','特定の工事に直接集計できるか。間接費は配賦する'],
+['操業度との関連性','<b>変動費</b>／<b>固定費</b>（準変動費・準固定費）','作業量の増減に応じて変わるか'],
+['管理可能性','管理可能費／管理不能費','その管理者が発生額を左右できるか']])}
+${FIG(`<svg class="wide" viewBox="0 0 530 160" xmlns="http://www.w3.org/2000/svg">
+<g><line x1="25" y1="110" x2="120" y2="110" class="s-ax"/><line x1="25" y1="110" x2="25" y2="20" class="s-ax"/><line x1="25" y1="110" x2="115" y2="28" class="s-lpri"/></g>
+<g><line x1="155" y1="110" x2="250" y2="110" class="s-ax"/><line x1="155" y1="110" x2="155" y2="20" class="s-ax"/><line x1="155" y1="65" x2="245" y2="65" class="s-lpri"/></g>
+<g><line x1="285" y1="110" x2="380" y2="110" class="s-ax"/><line x1="285" y1="110" x2="285" y2="20" class="s-ax"/><line x1="285" y1="80" x2="375" y2="32" class="s-lpri"/></g>
+<g><line x1="415" y1="110" x2="510" y2="110" class="s-ax"/><line x1="415" y1="110" x2="415" y2="20" class="s-ax"/><polyline points="415,90 445,90 445,70 475,70 475,48 505,48" class="s-lpri"/></g>
+<g text-anchor="middle"><text x="72" y="130" class="s-txb">変動費</text><text x="202" y="130" class="s-txb">固定費</text><text x="332" y="130" class="s-txb">準変動費</text><text x="462" y="130" class="s-txb">準固定費</text>
+<text x="72" y="148" class="s-txd">例：材料費</text><text x="202" y="148" class="s-txd">例：機械の減価償却費</text><text x="332" y="148" class="s-txd">例：電力料（基本料＋従量）</text><text x="462" y="148" class="s-txd">例：監督者の給料</text></g>
+</svg>`,'図17-1 操業度（横軸）と原価（縦軸）の関係')}
+
+<h4>原価の基本的な概念</h4>
+${TB(['対になる概念','内容'],[
+['事前原価 ⇔ 事後原価','事前原価＝見積原価・予定原価・標準原価（例：<b>実行予算</b>）。事後原価＝実際原価（実際に発生した原価）'],
+['プロダクト・コスト ⇔ ピリオド・コスト','工事（製品）に集計される原価 ⇔ 発生した期間の費用とされる原価（販管費）'],
+['全部原価 ⇔ 部分原価','すべての原価要素を集計 ⇔ 一部だけ集計（例：変動費だけの直接原価）'],
+['工事原価 ⇔ 総原価','工事原価に販売費及び一般管理費を加えたものが総原価']])}
+
+<h4>原価計算制度と特殊原価調査</h4>
+${TB(['','原価計算制度','特殊原価調査'],[['目的','財務諸表の作成、原価管理、予算統制など','経営上の意思決定（例：自社施工か外注か）'],['性格','財務会計と有機的に結びつき、<b>常時継続的</b>に行う','必要に応じて<b>随時</b>行う統計的・技術的な計算'],['使う原価','実際原価・標準原価','差額原価・機会原価など']])}
+<div class="txt-link">🏢 <b>実務リンク</b>：現場ごとに作る<b>実行予算</b>は「事前原価計算」そのもので、工事台帳（実際原価）と比べることで原価管理ができます。実行予算書を「工事別の個別原価計算の設計図」と見ると、試験範囲と実務がつながります。</div>
+`});
+C(17,"峻別①","「本社経理部員の給料」は次のどれに該当するか。",GENKA,1,"本社（管理部門）の人件費は期間原価＝販売費及び一般管理費。");
+C(17,"峻別②","「工事現場事務所の家賃」は次のどれに該当するか。",GENKA,0,"工事のための現場の費用は工事原価（経費）。");
+C(17,"峻別③","「運転資金の借入金に対する支払利息」は次のどれに該当するか。",GENKA,2,"財務活動の費用は経営目的（工事）に関連しないため非原価項目。");
+C(17,"峻別④","「工事用機械の減価償却費」は次のどれに該当するか。",GENKA,0,"工事に使う機械の減価償却費は工事原価（経費・機械等経費）。");
+C(17,"峻別⑤","「倉庫の火災で焼失した資材の損失」は次のどれに該当するか。",GENKA,2,"異常な事象による損失は原価の「正常性」に反する → 非原価項目。");
+C(17,"峻別⑥","「新聞に掲載した会社の広告宣伝費」は次のどれに該当するか。",GENKA,1,"受注活動・広告は販売費及び一般管理費。");
+C(17,"峻別⑦","「完成工事補償引当金の繰入額」は次のどれに該当するか。",GENKA,0,"引き渡した工事の補修に備える費用で、工事原価として扱う。");
+C(17,"峻別⑧","「工事現場の監督者の給料」は次のどれに該当するか。",GENKA,0,"工事原価（経費のうち人件費）。本社の人件費ではない。");
+C(17,"事前原価","工事の着工前に作成する実行予算に示される原価は、次のどれにあたるか。",["事後原価","事前原価","ピリオド・コスト","部分原価"],1,"実行予算＝着工前に見積もった原価＝事前原価（見積原価・予定原価）。");
+C(17,"操業度との関連","作業量（操業度）が増減しても、一定の範囲内では総額が変わらない原価を何というか。",["変動費","固定費","準変動費","工事直接費"],1,"固定費。例：工事用機械の減価償却費（定額法）、賃借料。");
+C(17,"計算対象との関連","複数の工事に共通して発生し、特定の工事に直接集計できない原価を何というか。",["工事直接費","工事間接費","期間原価","非原価項目"],1,"工事間接費（現場共通費）。一定の基準で各工事に配賦する。");
+C(17,"原価計算制度","次のうち、原価計算制度ではなく特殊原価調査にあたるものはどれか。",["工事別に実際原価を集計して完成工事原価報告書を作る","月次で工事間接費を予定配賦する","ある工程を自社施工するか外注するかを決めるため差額原価を計算する","部門別に原価を集計する"],2,"意思決定のために随時行う差額原価などの計算は特殊原価調査。制度は財務会計と結びついて常時継続的に行う。");
+
+/* ================= 第18章 ================= */
+CHAPTERS.push({n:18,t:"工事原価計算の流れと完成工事原価報告書",sec:"原価計算編",exam:"第4問 問2",star:3,text:`
+<h4>原価計算の3ステップ</h4>
+${FL(['① 費目別計算|材料費・労務費・外注費・経費に分けて集計','② 部門別計算|工事間接費を部門ごとに集計（第22章）','*③ 工事別計算|工事台帳に工事ごとに集計'])}
+工事に直接結びつく原価（工事直接費）は各工事に<b>直課（賦課）</b>し、共通の原価（工事間接費）は基準を決めて各工事に<b>配賦</b>します。
+
+<h4>勘定の流れ</h4>
+${FL(['材料・賃金・外注・経費','工事間接費|配賦','*未成工事支出金|工事ごとに集計','完成工事原価|完成・引渡し分','損益'])}
+<div class="t-row">${tAcctHTML("未成工事支出金",[["期首残高（前月から）",700000],["当期発生：材料費",680000],["　　　　　労務費",600000],["　　　　　外注費",1120000],["　　　　　経費",260000]],[["完成工事原価（A・B）",2850000],["期末残高（C工事）",510000]],3360000)}</div>
+<div class="txt-formula">期首未成工事原価 ＋ 当期発生工事原価 ＝ 完成工事原価 ＋ 期末未成工事原価</div>
+
+<h4>工事別原価計算表（工事台帳の集計表）</h4>
+${TB(['','A工事（前月着工・当月完成）','B工事（当月着工・完成）','C工事（当月着工・未完成）','合計'],[
+['月初未成工事原価',700000,'—','—',700000],
+['当月 材料費',180000,350000,150000,680000],
+['当月 労務費',220000,280000,100000,600000],
+['当月 外注費',400000,520000,200000,1120000],
+['当月 経費（うち人件費）','90,000（30,000）','110,000（40,000）','60,000（20,000）',260000],
+['合計',1590000,1260000,510000,3360000],
+['区分','<b>完成</b>','<b>完成</b>','<b>未成</b>','']],[5])}
+A工事の月初原価の内訳：材料費 200,000／労務費 150,000／外注費 300,000／経費 50,000（うち人件費 10,000）
+
+<h4>完成工事原価報告書の作成</h4>
+完成したA工事とB工事の原価を<b>要素別に合算</b>します。月初分を足し忘れないのがポイントです。
+${TB(['完成工事原価報告書（当月）','計算','金額'],[['Ⅰ 材料費','200,000＋180,000＋350,000',730000],['Ⅱ 労務費','150,000＋220,000＋280,000',650000],['Ⅲ 外注費','300,000＋400,000＋520,000',1220000],['Ⅳ 経費','50,000＋90,000＋110,000',250000],['　（うち人件費）','10,000＋30,000＋40,000','(80,000)'],['完成工事原価','',2850000]],[5])}
+<div class="txt-tip">💡 <b>工事間接費</b>は報告書に独立の行がありません。配賦額は、問題の指示に従って各要素（多くは経費）に含めます。<b>労務外注費</b>（材料を支給して労務だけを外注したもの）は労務費に含め「うち労務外注費」と内書きします。</div>
+
+<h4>工事原価明細表</h4>
+「当月発生工事原価」と「当月完成工事原価」を要素別に並べる表です。
+${TB(['','当月発生工事原価','当月完成工事原価'],[['材料費',680000,730000],['労務費',600000,650000],['外注費',1120000,1220000],['経費',260000,250000],['合計',2660000,2850000]],[4])}
+<div class="txt-exam">第4問 問2は「工事原価計算表を完成させ、完成工事原価報告書を作成しなさい」＋「工事間接費配賦差異の月末残高」の組み合わせが定番。まず表を完成させ、完成・未成を判定してから報告書へ転記します。</div>
+`});
+W(18,"完成工事原価報告書","【資料】\nA工事（前月着工・当月完成）月初原価：材料費 200,000／労務費 150,000／外注費 300,000／経費 50,000（うち人件費 10,000）。当月：材料費 180,000／労務費 220,000／外注費 400,000／経費 90,000（うち人件費 30,000）\nB工事（当月着工・当月完成）：材料費 350,000／労務費 280,000／外注費 520,000／経費 110,000（うち人件費 40,000）\nC工事（当月着工・未完成）：材料費 150,000／労務費 100,000／外注費 200,000／経費 60,000（うち人件費 20,000）\n当月の完成工事原価報告書を作成しなさい。","完成工事原価報告書",[["Ⅰ 材料費",730000],["Ⅱ 労務費",650000],["Ⅲ 外注費",1220000],["Ⅳ 経費",250000],["（うち人件費）",80000],["完成工事原価",2850000]],"完成したA工事（月初分＋当月分）とB工事を合算する。\n材料費 200,000＋180,000＋350,000＝730,000\n労務費 150,000＋220,000＋280,000＝650,000\n外注費 300,000＋400,000＋520,000＝1,220,000\n経費 50,000＋90,000＋110,000＝250,000（人件費 80,000）\n合計 2,850,000","当月");
+W(18,"未成工事支出金勘定","上の資料について、未成工事支出金勘定の月初残高、当月発生工事原価、完成工事原価、月末残高を求めなさい。","未成工事支出金",[["月初残高",700000],["当月発生工事原価",2660000],["完成工事原価",2850000],["月末残高",510000]],"当月発生＝A 890,000＋B 1,260,000＋C 510,000＝2,660,000\n700,000＋2,660,000＝2,850,000＋510,000 で一致。");
+J(18,"完成工事原価の振替","上記について、当月に完成・引渡しした工事の原価 2,850,000円を未成工事支出金から振り替える。",[["完成工事原価",2850000]],[["未成工事支出金",2850000]],"完成・引渡し分だけを完成工事原価へ。C工事分 510,000円は未成工事支出金に残る。");
+C(18,"人件費の内書き","完成工事原価報告書において「うち人件費」を内書きするのはどの区分か。",["材料費","労務費","外注費","経費"],3,"経費に含まれる従業員給料手当・退職金・法定福利費・福利厚生費などを人件費として内書きする。");
+C(18,"労務外注費","材料を元請が支給し、下請業者に労務だけを発注した場合の外注費（労務外注費）は、完成工事原価報告書でどのように表示するか。",["材料費に含める","労務費に含め、うち労務外注費として内書きする","外注費に含めるだけで内書きしない","経費に含め、うち人件費として内書きする"],1,"労務外注費は実質的に労務費と同じ性格なので、労務費に含めて内書きする。");
+
+/* ================= 第19章 ================= */
+CHAPTERS.push({n:19,t:"材料費（消費単価・仮設材料）",sec:"原価計算編",exam:"第3問・第4問・第5問",star:3,text:`
+<h4>材料と材料費の違い</h4>
+<b>材料</b>は倉庫にある在庫（資産）、<b>材料費</b>は工事で使った（消費した）分です。消費した材料費は未成工事支出金（直接材料費）または工事間接費（間接材料費）に振り替えます。
+
+<h4>購入時の2つの処理法</h4>
+${TB(['方法','購入時','現場で使ったとき','向いている材料'],[
+['購入時資産処理法','（材料）／（工事未払金）','（未成工事支出金）／（材料）','倉庫で保管し、複数の工事で使う材料'],
+['購入時材料費処理法','（未成工事支出金）／（工事未払金）','仕訳なし','特定の工事のため<b>現場に直送</b>する材料']])}
+
+<h4>消費量と消費単価</h4>
+消費量は、受払を記録する<b>継続記録法</b>が原則（棚卸計算法は補助的）。消費単価は次の3つが出題されます。
+${TB(['方法','考え方'],[['先入先出法','先に仕入れたものから先に払い出す'],['移動平均法','受け入れるたびに平均単価を計算し直す'],['総平均法','一定期間（1か月）の受入全体の平均単価で払い出す']])}
+<div class="txt-ex"><div class="txt-ex-title">📝 設例：当月の材料の受払</div>
+1日 月初 100個 @500／5日 受入 300個 @540／12日 払出 250個／18日 受入 200個 @551／25日 払出 280個
+<div style="margin-top:6px;font-weight:700">移動平均法の材料元帳</div>
+${TB(['日付','受入','単価','払出','残高数量','平均単価','残高金額'],[
+['1日 月初','100個','500','','100個','500',50000],
+['5日 受入','300個','540','','400個','530',212000],
+['12日 払出','','','250個 → 132,500','150個','530',79500],
+['18日 受入','200個','551','','350個','542',189700],
+['25日 払出','','','280個 → 151,760','70個','542',37940]])}
+${TB(['方法','12日払出','25日払出','払出合計','月末残高'],[
+['先入先出法','100×500＋150×540＝131,000','150×540＋130×551＝152,630',283630,'70×551＝38,570'],
+['移動平均法','250×530＝132,500','280×542＝151,760',284260,'70×542＝37,940'],
+['総平均法','平均単価 322,200÷600個＝@537','',284610,'70×537＝37,590']])}
+</div>
+<div class="txt-warn">⚠️ <b>現場からの戻入れ</b>（使わなかった材料が倉庫に戻る）は、払い出したときの単価で受入欄に記入し（移動平均法では平均単価が変わらない）、仕訳は（材料）／（未成工事支出金）です。</div>
+
+<h4>期末評価（第5章の復習）</h4>
+棚卸減耗損は<b>帳簿単価×減耗数量</b>、材料評価損は<b>実地数量×単価下落額</b>。通常の減耗は原価性あり（工事間接費・未成工事支出金）、異常な減耗は営業外費用。
+
+<h4>仮設材料（すくい出し方式）★第5問でも出る</h4>
+足場・型枠・山留材など、工事中だけ使い、撤去後はほかの現場で再利用できる材料です。2級では<b>すくい出し方式</b>が出題されます。
+${FL(['購入・搬入|取得価額の全額を工事原価に','工事中|仕訳なし','*工事完了・撤去|残存価値を評価して工事原価から控除'])}
+${jeHTML("工事完了。撤去して倉庫に戻した仮設材料の評価額 45,000円",[["材料貯蔵品",45000,"未成工事支出金",45000]],"その工事の負担は「取得価額－評価額」＝損耗分だけになる")}
+<div class="txt-tip">💡 もう一つの方法「社内損料計算方式」は、仮設材料を資産として持ち、使用期間に応じた損料を各工事に配賦する方法です（1級寄り）。</div>
+`});
+W(19,"消費単価の3つの方法","当月の材料の受払は次のとおり。\n1日 月初有高 100個 @500円\n5日 受入 300個 @540円\n12日 払出 250個\n18日 受入 200個 @551円\n25日 払出 280個\n先入先出法、移動平均法、総平均法による当月の払出額（合計）を求めなさい。","材料の払出額",[["先入先出法",283630],["移動平均法",284260],["総平均法",284610]],"先入先出法：12日 131,000＋25日 152,630＝283,630円\n移動平均法：12日 @530×250＝132,500、18日後の単価 189,700÷350＝@542、25日 @542×280＝151,760 → 284,260円\n総平均法：受入合計 322,200÷600個＝@537 × 530個＝284,610円");
+W(19,"移動平均法の月末残高","上の資料で、移動平均法による月末の材料残高（数量と金額）を求めなさい。","材料元帳（移動平均法）",[["月末数量",70,'計算','個'],["月末残高",37940]],"600個－530個＝70個。単価 @542 → 37,940円");
+J(19,"材料の払出し（購入時資産処理法）","倉庫の材料 132,500円をA工事の現場に払い出した。材料は購入時に資産として処理している。",[["未成工事支出金",132500]],[["材料",132500]],"特定の工事に使う材料費（直接材料費）は未成工事支出金へ。");
+J(19,"現場からの戻入れ","A工事の現場で使わなかった材料 10個（払出単価 @542円）が倉庫に戻された。",[["材料",5420]],[["未成工事支出金",5420]],"払出時の逆仕訳。単価は払出時の単価を使う。");
+J(19,"仮設材料（すくい出し方式）","材料費は購入時材料費処理法、仮設材料の消費分はすくい出し方式によっている。工事が完了し、現場から撤去して倉庫に戻した仮設材料の評価額は 45,000円であった。なお、工事原価は未成工事支出金を経由して処理する。",[["材料貯蔵品",45000]],[["未成工事支出金",45000]],"購入時に全額を工事原価にしているので、残存価値を工事原価から控除（すくい出し）して資産に戻す。");
+J(19,"現場直送材料（購入時材料費処理法）","B工事のため、材料 250,000円を掛けで購入し、倉庫を通さず現場に直接搬入した。購入時材料費処理法による。",[["未成工事支出金",250000]],[["工事未払金",250000]],"購入時に直接、工事原価（未成工事支出金）とする。");
+J(19,"通常の棚卸減耗","月末に材料の実地棚卸を行ったところ、通常発生する程度の減耗 4,000円が判明した。これは工事間接費として処理する。",[["工事間接費",4000]],[["材料",4000]],"通常の減耗は原価性があり、特定の工事に直接結びつかないため工事間接費へ。");
+C(19,"仮設材料の方式","工事の用に供した時点で仮設材料の取得価額の全額を工事原価とし、工事完了時に残存価値を評価してその工事の原価から控除する方法を何というか。",["社内損料計算方式","すくい出し方式","購入時資産処理法","継続記録法"],1,"すくい出し方式。2級の出題対象。");
+
+/* ================= 第20章 ================= */
+CHAPTERS.push({n:20,t:"労務費・外注費・経費",sec:"原価計算編",exam:"第3問・第4問",star:2,text:`
+<h4>労務費：誰の賃金か</h4>
+労務費は、<b>工事に直接従事する作業員</b>（直接雇用）の賃金・手当です。現場監督者や現場事務員の給料は労務費ではなく<b>経費（人件費）</b>になります。
+
+<h4>支払と消費のずれ</h4>
+給与の計算期間（例：前月21日〜当月20日）と原価計算期間（1日〜末日）がずれるため、当月の労務費は次のように計算します。
+${FIG(`<svg class="wide" viewBox="0 0 520 110" xmlns="http://www.w3.org/2000/svg">
+<rect x="30" y="30" width="150" height="26" class="s-bx"/><rect x="180" y="30" width="170" height="26" class="s-pri"/><rect x="350" y="30" width="140" height="26" class="s-hl"/>
+<g text-anchor="middle"><text x="105" y="48" class="s-txs">前月未払（前月21〜末日）</text><text x="265" y="48" class="s-txw" style="font-size:11px">当月支払で重なる期間</text><text x="420" y="48" class="s-txb" style="fill:#23292c;font-size:11px">当月未払（21〜末日）</text>
+<text x="190" y="22" class="s-txd">← 当月の支払額（給与計算期間）→</text><text x="420" y="22" class="s-txd">原価計算期間の終わり</text>
+<text x="265" y="80" class="s-txs">当月の労務費（原価計算期間 1日〜末日）＝ 重なる期間 ＋ 当月未払</text></g>
+<line x1="180" y1="62" x2="180" y2="70" class="s-ln"/><line x1="490" y1="62" x2="490" y2="70" class="s-ln"/><line x1="180" y1="66" x2="490" y2="66" class="s-ln"/>
+</svg>`,'図20-1 支払と消費の期間のずれ')}
+<div class="txt-formula">当月の労務費 ＝ 当月支払額 － 前月未払額 ＋ 当月未払額</div>
+<div class="t-row">${tAcctHTML("労務費",[["当月支払",1200000],["当月未払",350000]],[["前月未払（再振替）",300000],["当月消費額",1250000]],1550000)}</div>
+支払時は、賃金の総額から源泉所得税・社会保険料を天引きして支給します。
+${jeHTML("賃金支給総額 1,200,000円、源泉所得税 60,000円・社会保険料 90,000円を控除し当座預金で支給",[["労務費",1200000,"預り金",150000],["","","当座預金",1050000]],"")}
+
+<h4>工事への賦課：時間×賃率</h4>
+作業員が複数の工事に従事したときは、作業時間に賃率をかけて配分します。<b>夜勤手当・時間外手当</b>がその工事のために発生したものなら、その工事に直接加算します。
+<div class="txt-ex">当月賃金 180,000円（うちB工事の夜勤手当 20,000円）、作業時間 A工事 60h・B工事 40h<br>基本部分の賃率＝160,000÷100h＝@1,600円 → A：96,000円、B：64,000＋20,000＝<b>84,000円</b></div>
+予定賃率を使うと、実際賃金との差が<b>賃率差異</b>になります。
+
+<h4>外注費</h4>
+下請業者への発注の対価です。出来高に応じて請求されるので、<b>当月の作業分</b>を当月の外注費とします。
+<div class="txt-formula">当月の外注費 ＝ 当月支払額 － 前払分（翌月以降の作業） ＋ 未払分（当月の作業で未払）</div>
+
+<h4>経費：把握のしかたで4種類</h4>
+${TB(['種類','例','当月分の求め方'],[
+['支払経費','現場の通信費・交通費・設計費','当月支払額（前払・未払を調整）'],
+['月割経費','工事用機械の減価償却費・保険料・賃借料','年額 ÷ 12'],
+['測定経費','現場の電力料・水道料','メーターの当月使用量から計算'],
+['発生経費','材料の棚卸減耗費','当月の発生額']])}
+<div class="txt-tip">💡 経費の主な科目（建設業法の区分）：動力用水光熱費、機械等経費、設計費、労務管理費、租税公課、地代家賃、保険料、従業員給料手当、退職金、法定福利費、福利厚生費、事務用品費、通信交通費、交際費、補償費、雑費。このうち給料手当・退職金・法定福利費・福利厚生費が「人件費」。</div>
+`});
+W(20,"当月の労務費","現場作業員の賃金について、当月の支払額（支給総額）は 1,200,000円、前月末の未払額は 300,000円、当月末の未払額は 350,000円である。当月の労務費を求めなさい。","労務費",[["当月の労務費",1250000]],"1,200,000－300,000＋350,000＝1,250,000円");
+J(20,"賃金の支給","現場作業員の賃金支給総額 1,200,000円から、源泉所得税 60,000円と社会保険料 90,000円を控除し、残額を当座預金から支払った。",[["労務費",1200000]],[["預り金",150000],["当座預金",1050000]],"天引き分は預り金（負債）。後日、会社が納付する。");
+W(20,"工事別の労務費","ある現場作業員の当月賃金は 180,000円であった。作業時間はA工事 60時間、B工事 40時間であり、賃金のうち 20,000円はB工事の夜勤によるものである。A工事とB工事の労務費を求めなさい。","労務費の賦課",[["A工事の労務費",96000],["B工事の労務費",84000]],"夜勤手当を除く 160,000円÷100時間＝@1,600円\nA：60h×1,600＝96,000円\nB：40h×1,600＋夜勤手当 20,000＝84,000円");
+J(20,"外注費の計上","下請業者から当月の出来高に応じた外注工事代金 700,000円の請求を受けた（翌月払い）。工事原価は未成工事支出金を経由して処理する。",[["未成工事支出金",700000]],[["工事未払金",700000]],"当月の作業分を外注費として工事原価に計上。");
+W(20,"工事別の外注費","A工事：当月の外注費支払額 620,000円のうち 70,000円は翌月の作業分の前払である。\nB工事：当月の外注費支払額は 380,000円であり、このほかに当月の作業分で未払の金額が 45,000円ある。\n各工事の当月の外注費を求めなさい。","外注費",[["A工事の外注費",550000],["B工事の外注費",425000]],"A：620,000－70,000＝550,000円\nB：380,000＋45,000＝425,000円");
+W(20,"当月の経費","当月の現場経費は次のとおり。当月の経費合計を求めなさい。\n・現場の火災保険料：年額 360,000円（月割）\n・現場の電力料：当月の測定額 48,000円\n・現場事務所の家賃：当月分 90,000円（当月支払済）","経費",[["当月の経費合計",168000]],"保険料 360,000÷12＝30,000（月割経費）＋電力料 48,000（測定経費）＋家賃 90,000（支払経費）＝168,000円");
+C(20,"経費の把握方法","工事用機械の減価償却費は、経費の把握方法による分類でどれにあたるか。",["支払経費","月割経費","測定経費","発生経費"],1,"年間の金額を12で割って月々に配分する月割経費。");
+C(20,"労務費の範囲","次のうち、完成工事原価報告書の「労務費」に含まれるものはどれか。",["現場監督者の給料","本社事務員の給料","工事に直接従事した作業員の賃金","現場事務所の事務員の給料"],2,"労務費は作業員の賃金。現場監督者・現場事務員の給料は経費（人件費）、本社事務員は販管費。");
+
+/* ================= 第21章 ================= */
+CHAPTERS.push({n:21,t:"工事間接費の配賦と配賦差異",sec:"原価計算編",exam:"第3問・第4問",star:3,text:`
+<h4>工事間接費とは</h4>
+複数の工事に共通して発生し、特定の工事に直接集計できない原価（<b>現場共通費</b>）です。例：複数現場で使う機械の減価償却費・修繕費、共通の仮設材料費、労務管理費、複数現場を巡回する監督者の給料など。一定の基準で各工事に<b>配賦</b>します。
+
+<h4>配賦基準</h4>
+${TB(['種類','例','向いている費用'],[['価額基準','直接材料費基準、直接労務費基準、直接原価基準（直接費合計）、素価基準（直接材料費＋直接労務費）','金額の大きさに比例するもの'],['時間基準','直接作業時間、<b>機械運転時間</b>','時間に比例するもの（機械経費など）'],['数量基準','材料の使用量、車両の走行距離など','数量に比例するもの']])}
+
+<h4>実際配賦</h4>
+<div class="txt-formula">実際配賦率 ＝ 工事間接費の実際発生額 ÷ 配賦基準の合計<br>各工事への配賦額 ＝ 実際配賦率 × 各工事の配賦基準量</div>
+<div class="txt-ex">当月の工事間接費 240,000円、機械運転時間 A工事 300h・B工事 180h・C工事 120h → @400円 → A 120,000／B 72,000／C 48,000円</div>
+実際配賦には、①月末まで配賦額が確定しない ②操業度が低い月ほど1時間あたりの原価が高くなる、という欠点があるため、<b>予定配賦</b>が一般的です。
+
+<h4>予定配賦と配賦差異 ★第4問で毎回のように出る</h4>
+<div class="txt-formula">予定配賦率 ＝ 年間の工事間接費予算 ÷ 年間の基準操業度<br>予定配賦額 ＝ 予定配賦率 × 実際操業度<br>配賦差異 ＝ 予定配賦額 － 実際発生額</div>
+${TB(['配賦差異がマイナス（予定＜実際）','配賦差異がプラス（予定＞実際）'],[['<b>不利差異</b>（借方差異）<br>配りきれなかった原価がある','<b>有利差異</b>（貸方差異）<br>配りすぎた']])}
+<div class="t-row">${tAcctHTML("工事間接費",[["実際発生額",590000]],[["予定配賦額（未成工事支出金へ）",570000],["配賦差異（不利）",20000]],590000)}${tAcctHTML("工事間接費配賦差異",[["前月繰越（有利分は貸方）",""],["当月不利差異",20000]],[["前月繰越（有利）",8000],["月末残高（借方）",12000]],20000)}</div>
+<div class="txt-exam">「工事間接費配賦差異の<u>月末残高</u>を求め、借方か貸方かを答えよ」が定番。前月から繰り越した差異に当月の差異を加減します（有利＝貸方、不利＝借方）。月次の差異は年度末まで繰り越し、年度末に<b>完成工事原価</b>（または未成工事支出金）に加減します。</div>
+
+<h4>差異分析（公式法変動予算）</h4>
+工事間接費を<b>変動費</b>と<b>固定費</b>に分けて予算を立てると、差異の原因を2つに分けられます。
+${FIG(`<svg viewBox="0 0 460 280" xmlns="http://www.w3.org/2000/svg">
+<line x1="60" y1="210" x2="440" y2="210" class="s-ax"/><line x1="60" y1="210" x2="60" y2="15" class="s-ax"/>
+<line x1="60" y1="135" x2="430" y2="135" class="s-ln2"/><text x="64" y="150" class="s-txd">固定費予算</text>
+<line x1="60" y1="135" x2="420" y2="45" class="s-lpri"/>
+<line x1="60" y1="210" x2="380" y2="55" class="s-lhl"/>
+<line x1="330" y1="210" x2="330" y2="30" class="s-ln2"/><line x1="380" y1="210" x2="380" y2="55" class="s-ln2"/>
+<text x="326" y="226" text-anchor="end" class="s-txs">実際 950h</text><text x="384" y="226" class="s-txs">基準 1,000h</text>
+<line x1="20" y1="248" x2="40" y2="248" class="s-lpri"/><text x="46" y="252" class="s-txs">予算線</text>
+<line x1="20" y1="268" x2="40" y2="268" class="s-lhl"/><text x="46" y="272" class="s-txs">予定配賦線</text>
+<line x1="330" y1="40" x2="330" y2="67.5" style="stroke:var(--acc);stroke-width:5"/><line x1="330" y1="67.5" x2="330" y2="79" style="stroke:var(--hl);stroke-width:5"/>
+<circle cx="330" cy="40" r="4.5" class="s-acc"/><circle cx="330" cy="67.5" r="4" class="s-pri"/><circle cx="330" cy="79" r="4" class="s-hl"/>
+<text x="322" y="36" text-anchor="end" class="s-txs" style="fill:var(--acc)">実際発生額 590,000</text>
+<text x="346" y="100" class="s-txs">予定配賦額</text><text x="346" y="114" class="s-txs">570,000</text>
+<rect x="170" y="240" width="10" height="10" class="s-acc"/><text x="186" y="249" class="s-txs">予算差異 2,500（不利）</text>
+<rect x="170" y="260" width="10" height="10" class="s-hl"/><text x="186" y="269" class="s-txs">操業度差異 17,500（不利）</text>
+</svg>`,'図21-1 公式法変動予算の差異分析（縦の間隔は拡大表示）。実際額と予算許容額の差が予算差異、予算許容額と予定配賦額の差が操業度差異')}
+<div class="txt-ex"><div class="txt-ex-title">📝 設例：年間予算 7,200,000円（変動費率 @250円、固定費 月350,000円）、年間基準操業度 12,000h（月1,000h）</div>
+予定配賦率＝7,200,000÷12,000h＝@600円（変動費率 250＋固定費率 350）<br>
+当月：実際操業度 950h、実際発生額 590,000円<br>
+予定配賦額＝600×950＝570,000円 → 配賦差異 <b>20,000円（不利）</b><br>
+予算許容額＝250×950＋350,000＝587,500円<br>
+<b>予算差異</b>＝587,500－590,000＝<b>－2,500円（不利）</b>…使いすぎ<br>
+<b>操業度差異</b>＝350×（950－1,000）＝<b>－17,500円（不利）</b>…機械などの遊休<br>
+合計 －20,000円 で一致</div>
+
+<h4>基準操業度の種類</h4>
+${TB(['種類','意味','予定配賦率'],[['実現可能最大操業度','理論上の最大から、避けられない休止（点検・休日など）を除いた操業度','最も小さくなる'],['長期正常操業度（平均操業度）','景気変動を平均した数年間の操業度',''],['次期予定操業度（期待実際操業度）','次の1年間に予想される操業度','最も大きくなりやすい']])}
+`});
+W(21,"実際配賦","当月の工事間接費の実際発生額は 240,000円である。機械運転時間を基準に実際配賦する。当月の機械運転時間は、A工事 300時間、B工事 180時間、C工事 120時間であった。各工事への配賦額を求めなさい。","工事間接費の配賦",[["A工事",120000],["B工事",72000],["C工事",48000]],"実際配賦率＝240,000÷600時間＝@400円\nA：300h×400＝120,000円　B：180h×400＝72,000円　C：120h×400＝48,000円");
+W(21,"予定配賦と配賦差異","工事間接費の年間予算は 7,200,000円、年間の基準操業度（機械運転時間）は 12,000時間である。当月の実際機械運転時間は 950時間、工事間接費の実際発生額は 590,000円であった。予定配賦率、当月の予定配賦額、配賦差異の金額を求めなさい（差異は金額のみ）。","予定配賦",[["予定配賦率（1時間あたり）",600,'計算','円'],["当月の予定配賦額",570000],["配賦差異（不利差異）",20000]],"予定配賦率＝7,200,000÷12,000h＝@600円\n予定配賦額＝600×950h＝570,000円\n配賦差異＝570,000－590,000＝－20,000円（不利差異・借方差異）");
+J(21,"予定配賦の仕訳","上記の工事間接費の予定配賦額 570,000円を各工事に配賦した。",[["未成工事支出金",570000]],[["工事間接費",570000]],"予定配賦額を工事原価（未成工事支出金）へ振り替える。");
+J(21,"配賦差異の振替","上記の工事間接費の実際発生額 590,000円と予定配賦額 570,000円との差額を、工事間接費配賦差異勘定に振り替える。",[["工事間接費配賦差異",20000]],[["工事間接費",20000]],"実際＞予定なので工事間接費勘定に借方残 20,000円が残る → 配賦差異勘定の借方へ（不利差異）。");
+W(21,"差異分析（公式法変動予算）","工事間接費の予算は、変動費率 @250円、固定費 月額 350,000円、月間の基準操業度 1,000時間である。当月の実際操業度は 950時間、実際発生額は 590,000円であった。予算差異と操業度差異の金額を求めなさい（いずれも不利差異。金額のみ）。","差異分析",[["予算差異",2500],["操業度差異",17500]],"予算許容額＝250×950＋350,000＝587,500円\n予算差異＝587,500－590,000＝－2,500円（不利）\n固定費率＝350,000÷1,000h＝@350円\n操業度差異＝350×（950－1,000）＝－17,500円（不利）");
+W(21,"配賦差異の月末残高","工事間接費配賦差異勘定の前月繰越高は貸方 8,000円（有利差異）であった。当月の工事間接費の配賦差異は 20,000円の不利差異である。当月末の工事間接費配賦差異の残高を求めなさい（借方残高）。","配賦差異の残高",[["月末残高（借方）",12000]],"前月 貸方 8,000円（有利）＋当月 借方 20,000円（不利）→ 差し引き 借方 12,000円");
+W(21,"基準操業度と予定配賦率","A機械に係る年間の工事間接費予算（すべて固定費）は 9,000,000円である。実現可能最大操業度は 3,000時間、長期正常操業度は 2,500時間、次期予定操業度は 2,400時間である。それぞれの予定配賦率を求めなさい。","基準操業度",[["実現可能最大操業度",3000,'計算','円/h'],["長期正常操業度",3600,'計算','円/h'],["次期予定操業度",3750,'計算','円/h']],"9,000,000÷3,000h＝@3,000円\n9,000,000÷2,500h＝@3,600円\n9,000,000÷2,400h＝@3,750円");
+J(21,"年度末の差異の処理","年度末に、工事間接費配賦差異勘定の借方残高 12,000円を完成工事原価に振り替える。",[["完成工事原価",12000]],[["工事間接費配賦差異",12000]],"借方残高（不利差異）は原価の配賦不足なので、完成工事原価に加算する。");
+C(21,"差異の性質","工事間接費の予定配賦額が実際発生額より少なかったときの配賦差異はどれか。",["有利差異（貸方差異）","不利差異（借方差異）","予算差異のみ","差異は生じない"],1,"予定配賦額－実際発生額がマイナス → 不利差異（借方差異）。");
+
+/* ================= 第22章 ================= */
+CHAPTERS.push({n:22,t:"部門別原価計算",sec:"原価計算編",exam:"第3問",star:3,text:`
+<h4>部門の種類</h4>
+${TB(['部門','役割','例'],[['<b>施工部門</b>','直接工事を行う部門','土木部門、建築部門、第1部門・第2部門'],['<b>補助部門</b>','施工部門にサービスを提供する部門','機械部門、仮設部門、車両部門、運搬部門、事務部門']])}
+
+<h4>3回の配賦</h4>
+${FL(['① 部門個別費を賦課|部門共通費を配賦','*部門費配分表','② 補助部門費を施工部門へ','*部門費振替表','③ 施工部門費を各工事へ|予定配賦も'])}
+<b>部門共通費の配賦基準</b>
+${TB(['部門共通費','配賦基準'],[['建物の減価償却費・固定資産税・火災保険料','占有面積'],['電力料','電力消費量（kWh）'],['福利厚生費・労務管理費','従業員数'],['機械の保険料','機械の帳簿価額']])}
+<div class="txt-ex">建物減価償却費 180,000円を占有面積（第1部門 200㎡・第2部門 150㎡・機械部門 100㎡・仮設部門 50㎡、計500㎡）で配賦 → @360円 → 72,000／54,000／36,000／18,000円</div>
+
+<h4>補助部門費の配賦方法（3つ）★第3問の定番</h4>
+<div class="txt-ex"><div class="txt-ex-title">📝 設例</div>
+第1次集計額：第1部門 600,000／第2部門 400,000／機械部門 240,000／仮設部門 160,000<br>
+用役提供割合：機械部門 → 第1部門50%・第2部門30%・仮設部門20%　／　仮設部門 → 第1部門40%・第2部門40%・機械部門20%</div>
+
+<b>(1) 直接配賦法</b>：補助部門どうしのやりとりを<u>無視</u>し、施工部門にだけ配賦。
+${TB(['','第1部門','第2部門','計算'],[['機械部門 240,000',150000,90000,'50：30で按分'],['仮設部門 160,000',80000,80000,'40：40で按分'],['施工部門費合計',830000,570000,'合計 1,400,000']],[2])}
+
+<b>(2) 相互配賦法（簡便法）</b>：第1次配賦は補助部門にも配り、第2次配賦は直接配賦法で施工部門へ。
+${TB(['','第1部門','第2部門','機械部門','仮設部門'],[
+['第1次配賦：機械 240,000',120000,72000,'—',48000],
+['第1次配賦：仮設 160,000',64000,64000,32000,'—'],
+['第2次配賦：機械 32,000（5：3）',20000,12000,'',''],
+['第2次配賦：仮設 48,000（1：1）',24000,24000,'',''],
+['施工部門費合計',828000,572000,'','']],[4])}
+
+<b>(3) 階梯式配賦法</b>：補助部門に<b>順位</b>をつけ、上位（右側）の補助部門から、下位の補助部門と施工部門へ配賦。一度配賦し終えた部門には戻さない。
+<div class="txt-tip">💡 <b>順位のつけ方</b>：①他の補助部門へサービスを提供している数が多い部門を上位（右端）に。②同数なら<b>第1次集計額が大きい</b>部門を上位に。設例は両部門とも1部門ずつ提供 → 金額の大きい<b>機械部門</b>が上位。</div>
+${TB(['','第1部門','第2部門','仮設部門','機械部門'],[
+['第1次集計額',600000,400000,160000,240000],
+['機械部門費の配賦（5：3：2）',120000,72000,48000,''],
+['仮設部門費の配賦 208,000（1：1）',104000,104000,'',''],
+['施工部門費合計',824000,576000,'','']],[3])}
+<div class="txt-warn">⚠️ 階梯式で下位の仮設部門が配賦するのは「自部門費160,000＋機械部門から受けた48,000」＝208,000円。上位の機械部門への20%は無視して施工部門の比率（40：40）で按分します。</div>
+
+<h4>施工部門費の各工事への配賦</h4>
+施工部門費は作業時間などの基準で各工事に配賦します（予定配賦なら<b>部門費配賦差異</b>が生じる）。
+`});
+W(22,"部門共通費の配賦","建物の減価償却費 180,000円を占有面積により各部門に配賦する。占有面積は、第1部門 200㎡、第2部門 150㎡、機械部門 100㎡、仮設部門 50㎡である。","部門費配分表",[["第1部門",72000],["第2部門",54000],["機械部門",36000],["仮設部門",18000]],"配賦率＝180,000÷500㎡＝@360円\n200×360＝72,000／150×360＝54,000／100×360＝36,000／50×360＝18,000");
+W(22,"直接配賦法","第1次集計額：第1部門 600,000円、第2部門 400,000円、機械部門 240,000円、仮設部門 160,000円。\n用役提供割合：機械部門→第1部門50%・第2部門30%・仮設部門20%／仮設部門→第1部門40%・第2部門40%・機械部門20%\n直接配賦法による第1部門費・第2部門費の合計額を求めなさい。","部門費振替表（直接配賦法）",[["第1部門費合計",830000],["第2部門費合計",570000]],"機械 240,000を50：30 → 150,000／90,000\n仮設 160,000を40：40 → 80,000／80,000\n第1：600,000＋150,000＋80,000＝830,000円\n第2：400,000＋90,000＋80,000＝570,000円");
+W(22,"相互配賦法（簡便法）","上と同じ資料で、相互配賦法（簡便法）による第1部門費・第2部門費の合計額を求めなさい。","部門費振替表（相互配賦法）",[["第1部門費合計",828000],["第2部門費合計",572000]],"第1次：機械 240,000→第1 120,000・第2 72,000・仮設 48,000\n　　　　仮設 160,000→第1 64,000・第2 64,000・機械 32,000\n第2次（直接配賦法）：機械 32,000→20,000／12,000、仮設 48,000→24,000／24,000\n第1：600,000＋120,000＋64,000＋20,000＋24,000＝828,000円\n第2：400,000＋72,000＋64,000＋12,000＋24,000＝572,000円");
+W(22,"階梯式配賦法","上と同じ資料で、階梯式配賦法による第1部門費・第2部門費の合計額を求めなさい。なお、補助部門の順位は、他の補助部門への用役提供数が同じ場合は第1次集計額の大きいほうを上位とする。","部門費振替表（階梯式配賦法）",[["第1部門費合計",824000],["第2部門費合計",576000]],"提供数は同じ（各1）→ 第1次集計額が大きい機械部門が上位。\n機械 240,000→第1 120,000・第2 72,000・仮設 48,000\n仮設（160,000＋48,000＝208,000）→第1 104,000・第2 104,000\n第1：600,000＋120,000＋104,000＝824,000円\n第2：400,000＋72,000＋104,000＝576,000円");
+C(22,"階梯式の順位","階梯式配賦法で補助部門の配賦順位を決めるとき、最初に考慮する基準はどれか。",["第1次集計額の大きさ","他の補助部門への用役提供件数の多さ","施工部門への配賦割合の大きさ","部門の従業員数"],1,"まず他の補助部門にサービスを提供している数が多い部門を上位にする。同数の場合に第1次集計額の大きさで決める。");
+C(22,"直接配賦法の特徴","直接配賦法の説明として正しいものはどれか。",["補助部門間の用役の授受をすべて計算に反映させる","補助部門間の用役の授受を無視し、施工部門にだけ配賦する","第1次配賦だけで補助部門費がゼロになる方法である","補助部門に順位をつけて配賦する"],1,"直接配賦法は補助部門間のやりとりを無視する簡便な方法。順位をつけるのは階梯式配賦法。");
+
+/* ================= 第23章 ================= */
+CHAPTERS.push({n:23,t:"決算整理事項（第5問対策）",sec:"決算編",exam:"第5問",star:3,text:`
+<h4>第5問の構造</h4>
+月次で原価計算をしている建設会社の<b>残高試算表</b>に、10項目前後の<b>決算整理事項</b>を加えて、<b>8桁精算表</b>を完成させます（30点）。
+${FL(['残高試算表|期中の記帳結果','*決算整理事項|10項目前後','損益計算書欄','貸借対照表欄','最後に法人税等'])}
+
+<h4>月次の予定計上と決算の差額調整 ★建設業特有</h4>
+月次原価計算では、工事用機械の減価償却費や現場作業員の退職給付費用を、毎月<b>予定額</b>で工事原価に入れています。決算で年間の実際額が確定したら、<b>差額だけ</b>を工事原価（未成工事支出金）に加減します。
+${TB(['','予定計上額（月額×12）','実際発生額','差額の仕訳'],[
+['機械装置の減価償却費','48,000×12＝576,000','600,000','（未成工事支出金）24,000 ／（機械装置減価償却累計額）24,000'],
+['現場作業員の退職給付','20,000×12＝240,000','255,000','（未成工事支出金）15,000 ／（退職給付引当金）15,000'],
+['予定の方が多い場合','150,000×12＝1,800,000','1,750,000','（退職給付引当金）50,000 ／（未成工事支出金）50,000']])}
+
+<h4>頻出の決算整理事項チェックリスト</h4>
+${TB(['項目','典型的な仕訳','注意点'],[
+['現金過不足','（雑損失）／（現金過不足）','建設業は雑損失・雑収入'],
+['当座預金（未渡小切手等）','（当座預金）／（工事未払金・未払金）','第2章参照'],
+['仮払金の整理','（旅費交通費・前渡金・仮払法人税等など）／（仮払金）','中身を分解する'],
+['仮受金の整理','（仮受金）／（完成工事未収入金・未成工事受入金など）','貸倒引当金の計算前に'],
+['材料の減耗','（未成工事支出金・棚卸減耗損）／（材料貯蔵品）','原価性の有無'],
+['本社の減価償却','（販売費及び一般管理費）／（備品減価償却累計額など）',''],
+['機械の減価償却（月次予定）','差額を（未成工事支出金）で調整',''],
+['退職給付引当金','本社分は販管費、現場分は差額を未成工事支出金',''],
+['貸倒引当金','（販売費及び一般管理費）／（貸倒引当金）','受取手形＋完成工事未収入金'],
+['完成工事補償引当金','（完成工事原価）／（完成工事補償引当金）','完成工事高×率－残高'],
+['経過勘定','前払費用・未払費用など','長期前払費用に注意'],
+['<b>未成工事支出金の振替</b>','（完成工事原価）／（未成工事支出金）','整理後の残高－次期繰越額'],
+['<b>法人税等</b>','（法人税、住民税及び事業税）／（仮払法人税等）（未払法人税等）','<b>必ず最後</b>']])}
+<div class="txt-formula">完成工事原価への振替額 ＝ 未成工事支出金（試算表＋決算での追加－控除）－ 次期繰越額</div>
+<div class="txt-tip">💡 <b>解く順番のコツ</b>：①仮払金・仮受金など「他の計算の前提になるもの」→②個別の整理事項（原価に入るものは未成工事支出金へ）→③未成工事支出金から完成工事原価への振替→④損益計算書欄を集計→⑤法人税等。未成工事支出金を先に振り替えてしまうと、後から来た原価の追加を入れ忘れます。</div>
+<div class="txt-warn">⚠️ 問題文の「<b>工事原価は未成工事支出金を経由して処理する</b>」は、材料費・労務費・外注費・経費の各勘定を使わず、原価に入るものはすべて未成工事支出金に記入する、という意味です。</div>
+`});
+J(23,"機械の減価償却（差額調整）","当社は月次原価計算で、工事用機械装置の減価償却費を月額 48,000円で予定計上し、未成工事支出金に計上している。決算で確定した当期の減価償却費は 600,000円であった。差額を当期の工事原価に加減する（機械装置減価償却累計額勘定を用いる）。",[["未成工事支出金",24000]],[["機械装置減価償却累計額",24000]],"予定計上 48,000×12＝576,000円＜実際 600,000円。不足 24,000円を追加計上。");
+J(23,"退職給付（予定超過）","現場作業員の退職給付引当金について、月額 150,000円を予定計上（未成工事支出金経由）してきた。決算で確定した当期の繰入額は 1,750,000円であった。差額を調整しなさい。",[["退職給付引当金",50000]],[["未成工事支出金",50000]],"予定 1,800,000円＞実際 1,750,000円。計上しすぎた 50,000円を取り消す。");
+J(23,"本社備品の減価償却","本社の備品について、当期の減価償却費 90,000円を計上する（備品減価償却累計額勘定を用い、費用は販売費及び一般管理費勘定で処理する）。",[["販売費及び一般管理費",90000]],[["備品減価償却累計額",90000]],"本社の資産の償却は販管費。精算表ではまとめて販売費及び一般管理費を使うことが多い。");
+J(23,"完成工事原価への振替","決算整理後の未成工事支出金の残高は 8,400,000円であり、このうち次期に繰り越す額は 1,300,000円である。完成工事原価への振替を行う。",[["完成工事原価",7100000]],[["未成工事支出金",7100000]],"8,400,000－1,300,000＝7,100,000円。");
+J(23,"完成工事補償引当金","当期の完成工事高 45,000,000円に対し0.2%の完成工事補償引当金を差額補充法により計上する。残高は 32,000円である（繰入額は完成工事原価で処理）。",[["完成工事原価",58000]],[["完成工事補償引当金",58000]],"45,000,000×0.2%＝90,000－32,000＝58,000円。");
+J(23,"仮払金の分解","仮払金 380,000円の内容は次のとおりである。①法人税等の中間納付額 300,000円 ②本社管理部門の出張旅費 50,000円 ③下請業者への前渡し 30,000円。",[["仮払法人税等",300000],["旅費交通費",50000],["前渡金",30000]],[["仮払金",380000]],"中間納付→仮払法人税等、本社旅費→旅費交通費（販管費）、前渡し→前渡金。");
+J(23,"仮受金の分解","仮受金 250,000円の内容は、完成工事未収入金の回収 180,000円と、新規工事の前受金 70,000円であった。",[["仮受金",250000]],[["完成工事未収入金",180000],["未成工事受入金",70000]],"完成工事未収入金が減るので、この後の貸倒引当金の計算に影響する。");
+
+/* ================= 第24章 ================= */
+CHAPTERS.push({n:24,t:"精算表の作成（総仕上げ）",sec:"決算編",exam:"第5問",star:3,text:`
+<h4>8桁精算表の書き方</h4>
+${TB(['列','ルール'],[['残高試算表','与えられている（資産・費用は借方、負債・純資産・収益は貸方）'],['整理記入','決算整理仕訳をそのまま記入'],['損益計算書','収益・費用の科目：試算表±整理記入'],['貸借対照表','資産・負債・純資産の科目：試算表±整理記入']])}
+<div class="txt-formula">同じ側なら足す、反対側なら引く（例：借方残の資産に貸方の整理記入 → 減算）</div>
+<div class="txt-tip">💡 貸倒引当金・減価償却累計額は貸借対照表の<b>貸方</b>に書きます（資産から控除する形にしない）。当期純利益は損益計算書の<b>借方</b>と貸借対照表の<b>貸方</b>に同額を記入して、両欄の貸借を一致させます。</div>
+
+<h4>総合設例</h4>
+<b>決算整理事項</b>
+<ol>
+<li>機械装置の減価償却：月額 48,000円を予定計上済み。実際の年額は 600,000円（差額は未成工事支出金へ）</li>
+<li>本社備品の減価償却 80,000円（販売費及び一般管理費）</li>
+<li>退職給付引当金：現場分は月額 20,000円を予定計上済み、実際繰入額 255,000円。本社分 60,000円（販管費）</li>
+<li>仮払金 260,000円：法人税等の中間納付 200,000円、本社の出張旅費 60,000円（販管費）</li>
+<li>材料貯蔵品の減耗 6,000円（通常の範囲・未成工事支出金へ）</li>
+<li>貸倒引当金：受取手形と完成工事未収入金の2%（差額補充法・販管費）</li>
+<li>未成工事支出金の次期繰越額 2,245,000円</li>
+<li>完成工事補償引当金：完成工事高の0.25%（差額補充法・完成工事原価）</li>
+<li>支払利息の未払分 10,000円</li>
+<li>法人税、住民税及び事業税：税引前当期純利益の30%</li>
+</ol>
+${TB(['勘定科目','試算表 借','試算表 貸','整理 借','整理 貸','損益 借','損益 貸','B/S 借','B/S 貸'],[
+['現金預金',1500000,'','','','','',1500000,''],
+['受取手形',600000,'','','','','',600000,''],
+['完成工事未収入金',1400000,'','','','','',1400000,''],
+['貸倒引当金','',20000,'','⑥20,000','','','',40000],
+['未成工事支出金',10800000,'','①③⑤45,000','⑦8,600,000','','',2245000,''],
+['材料貯蔵品',180000,'','','⑤6,000','','',174000,''],
+['仮払金',260000,'','','④260,000','','','',''],
+['機械装置',3000000,'','','','','',3000000,''],
+['機械装置減価償却累計額','',1200000,'','①24,000','','','',1224000],
+['備品',400000,'','','','','',400000,''],
+['備品減価償却累計額','',160000,'','②80,000','','','',240000],
+['支払手形','',700000,'','','','','',700000],
+['工事未払金','',900000,'','','','','',900000],
+['未成工事受入金','',600000,'','','','','',600000],
+['完成工事補償引当金','',15000,'','⑧15,000','','','',30000],
+['退職給付引当金','',800000,'','③75,000','','','',875000],
+['資本金','',3000000,'','','','','',3000000],
+['繰越利益剰余金','',600000,'','','','','',600000],
+['完成工事高','',12000000,'','','',12000000,'',''],
+['販売費及び一般管理費',1800000,'','②③④⑥220,000','',2020000,'','',''],
+['受取利息','',25000,'','','',25000,'',''],
+['支払利息',80000,'','⑨10,000','',90000,'','',''],
+['合計',20020000,20020000,'','','','','',''],
+['完成工事原価','','','⑦⑧8,615,000','',8615000,'','',''],
+['仮払法人税等','','','④200,000','⑩200,000','','','',''],
+['未払費用','','','','⑨10,000','','','',10000],
+['法人税、住民税及び事業税','','','⑩390,000','',390000,'','',''],
+['未払法人税等','','','','⑩190,000','','','',190000],
+['当期純利益','','','','',910000,'','',910000],
+['合計','','',9480000,9480000,12025000,12025000,9319000,9319000]],[22,29]).replace('<table class="txt-tbl"','<table class="txt-tbl" style="min-width:760px;font-size:.7em"')}
+<div class="txt-ex"><div class="txt-ex-title">📝 計算の要点</div>
+・未成工事支出金：10,800,000＋24,000＋15,000＋6,000＝10,845,000 → 次期繰越 2,245,000を除く <b>8,600,000</b>を完成工事原価へ<br>
+・完成工事補償引当金：12,000,000×0.25%＝30,000－15,000＝15,000（完成工事原価）→ 完成工事原価 <b>8,615,000</b><br>
+・貸倒引当金：（600,000＋1,400,000）×2%＝40,000－20,000＝20,000<br>
+・販管費：1,800,000＋80,000＋60,000＋60,000＋20,000＝<b>2,020,000</b><br>
+・税引前当期純利益：12,025,000－（8,615,000＋2,020,000＋90,000）＝<b>1,300,000</b><br>
+・法人税等：1,300,000×30%＝<b>390,000</b>、未払法人税等＝390,000－200,000＝190,000<br>
+・当期純利益：1,300,000－390,000＝<b>910,000</b></div>
+<div class="txt-exam">答案用紙の精算表には主要な科目があらかじめ印刷されています。整理記入欄の合計が一致しなくても、損益計算書・貸借対照表の各金額が合っていれば部分点が入るので、<b>1項目ずつ確実に</b>転記しましょう。</div>
+`});
+W(24,"精算表：損益計算書欄","第24章の総合設例について、損益計算書欄の次の金額を求めなさい。","損益計算書欄",[["完成工事原価",8615000],["販売費及び一般管理費",2020000],["税引前当期純利益",1300000],["法人税、住民税及び事業税",390000],["当期純利益",910000]],"完成工事原価＝(10,845,000－2,245,000)＋15,000＝8,615,000\n販管費＝1,800,000＋80,000＋60,000＋60,000＋20,000＝2,020,000\n税引前＝12,025,000－(8,615,000＋2,020,000＋90,000)＝1,300,000\n法人税等＝1,300,000×30%＝390,000\n当期純利益＝910,000");
+W(24,"精算表：貸借対照表欄","第24章の総合設例について、貸借対照表欄の次の金額を求めなさい。","貸借対照表欄",[["未成工事支出金",2245000],["貸倒引当金",40000],["退職給付引当金",875000],["未払法人税等",190000],["貸借対照表の借方合計",9319000]],"未成工事支出金＝次期繰越額 2,245,000\n貸倒引当金＝(600,000＋1,400,000)×2%＝40,000\n退職給付引当金＝800,000＋15,000＋60,000＝875,000\n未払法人税等＝390,000－200,000＝190,000\nB/S借方合計＝1,500,000＋600,000＋1,400,000＋2,245,000＋174,000＋3,000,000＋400,000＝9,319,000");
+J(24,"法人税等の計上","第24章の総合設例で、税引前当期純利益 1,300,000円の30%を法人税、住民税及び事業税として計上する。中間納付額 200,000円は仮払法人税等に振り替え済みである。",[["法人税、住民税及び事業税",390000]],[["仮払法人税等",200000],["未払法人税等",190000]],"1,300,000×30%＝390,000円。中間納付額を差し引いた 190,000円が未払法人税等。");
+J(24,"未成工事支出金の振替","第24章の総合設例で、整理後の未成工事支出金 10,845,000円のうち、次期繰越額 2,245,000円を除いた額を完成工事原価に振り替える。",[["完成工事原価",8600000]],[["未成工事支出金",8600000]],"10,845,000－2,245,000＝8,600,000円。先に①③⑤の追加分を未成工事支出金に入れてから計算する。");
+
+
+/* ======== 状態管理 ======== */
+const LS='kensetsu2v1';
+let S={stats:{},textViews:{},textChecks:{},daily:{},settings:{dark:false,fontSize:'16px',tts:false,goalCount:10,goalRate:80},memo:'',resume:null};
+function ld(){try{const d=localStorage.getItem(LS);if(d){const p=JSON.parse(d);Object.assign(S,p)}}catch(e){}}
+function sv(){try{localStorage.setItem(LS,JSON.stringify(S))}catch(e){}}
+ld();
+function tdKey(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+try{console.log('%c建設業経理士2級 学習アプリ © 2026 大國将','color:#e3a232;font-weight:bold');console.log('本アプリのコード・解説・問題の無断転載・再配布を禁じます。')}catch(e){}
+
+let curTab='T-text';
+function switchTab(id){
+  document.getElementById('backBtn').classList.add('hide');
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('act'));
+  document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('act'));
+  document.getElementById(id)?.classList.add('act');curTab=id;
+  document.querySelector(`[data-tab="${id}"]`)?.classList.add('act');
+  if(id==='T-stats')renderStats();
+  if(id==='T-quiz'){document.getElementById('qMenu').classList.remove('hide');document.getElementById('qPlay').classList.add('hide');document.getElementById('backBtn').classList.add('hide');renderQMenu();renderPickList()}
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function goBack(){
+  if(curTab==='T-quiz'&&!document.getElementById('qPlay').classList.contains('hide')){
+    if(QS.questions.length>0&&QS.idx<QS.questions.length&&QS.mode!=='single'){
+      S.resume={mode:QS.mode,idx:QS.idx,qids:QS.questions.map(q=>q.id),correct:QS.correct,answered:QS.answered,ts:Date.now()};sv();
+    }
+    document.getElementById('qMenu').classList.remove('hide');document.getElementById('qPlay').classList.add('hide');document.getElementById('backBtn').classList.add('hide');
+    renderQMenu();renderPickList();
+  }
+}
+
+function init(){
+  applySt();renderText();renderQMenu();renderRef();renderStats();
+  document.getElementById('memoText').value=S.memo||'';
+  document.getElementById('gC').value=S.settings.goalCount||10;
+  document.getElementById('gR').value=S.settings.goalRate||80;
+  const sel=document.getElementById('pickChSel');
+  CHAPTERS.forEach(ch=>{const c=ALL.filter(q=>q.ch===ch.n).length;if(c>0){const o=document.createElement('option');o.value=ch.n;o.textContent=`第${ch.n}章 ${ch.t}（${c}問）`;sel.appendChild(o)}});
+  renderPickList();
+}
+
+/* ======== テキストタブ ======== */
+function stars(n){return '★'.repeat(n)+'☆'.repeat(3-n)}
+function qPreview(q){
+  if(q.type==='journal')return `<div style="font-size:.8em;color:var(--dim);margin:3px 0">${q.q}</div><div class="je-display">${fmtJE(q.entries)}</div>`;
+  if(q.type==='choice')return `<div style="font-size:.8em;color:var(--dim);margin:3px 0">${q.q}</div><div style="font-size:.8em;margin-top:2px">正解：<b>${q.opts[q.ans]}</b></div>`;
+  return `<div style="font-size:.8em;color:var(--dim);margin:3px 0">${q.q.substring(0,90)}${q.q.length>90?'…':''}</div>`;
+}
+function renderText(){
+  const c=document.getElementById('textSec');let sec='',h='';
+  CHAPTERS.forEach(ch=>{
+    if(ch.sec!==sec){sec=ch.sec;const cnt=CHAPTERS.filter(x=>x.sec===sec).length;h+=`<div class="sec-h"><span>📚 ${sec}</span><span>${cnt}章</span></div>`}
+    const views=S.textViews[ch.n]||0;
+    const checks=S.textChecks[ch.n]||[false,false,false];
+    const cases=ALL.filter(q=>q.ch===ch.n);
+    let body=`<div class="chk-row"><span style="font-size:.72em;color:var(--dim);margin-right:4px">理解度：</span>`;
+    for(let i=0;i<3;i++){body+=`<div class="chk-btn ${checks[i]?'done':''}" onclick="toggleChk(${ch.n},${i},this)">${checks[i]?'✓':i+1}</div>`}
+    body+=`<span style="font-size:.68em;color:var(--dim);margin-left:4px" id="chkCnt${ch.n}">(${checks.filter(Boolean).length}/3)</span></div>`;
+    body+=`<div style="margin:8px 0">${ch.text||'（準備中）'}</div>`;
+    if(cases.length>0){
+      body+=`<div style="margin-top:14px;font-size:.84em;font-weight:700;color:var(--pri)">📝 この章の問題（${cases.length}問）</div>`;
+      cases.forEach(q=>{
+        const tag=q.type==='worksheet'?' 📊':q.type==='choice'?' 🔘':'';
+        body+=`<div style="padding:8px;margin:4px 0;background:var(--card2);border-radius:6px;border-left:3px solid var(--pri);cursor:pointer" onclick="jumpToQ(${q.id})">`;
+        body+=`<div style="font-weight:600;font-size:.82em;color:var(--pri)">CASE ${q.case}${tag}: ${q.title} <span style="font-size:.75em;color:var(--dim)">▶タップで問題へ</span></div>`;
+        body+=qPreview(q)+'</div>';
+      });
+    }
+    const badge=views>0?`閲覧${views}回`:'未読';
+    h+=`<div class="acc" data-ch="${ch.n}"><div class="acc-h" onclick="togAcc(this,${ch.n})"><span class="cn">第${ch.n}章</span><span class="ct">${ch.t}<span class="ex">${ch.exam||''}</span></span><span class="st" title="出題頻度">${stars(ch.star||1)}</span><span class="cb">${badge}</span><span class="ar">▶</span></div><div class="acc-b">${body}</div></div>`;
+  });
+  c.innerHTML=h;
+}
+function togAcc(el,n){
+  const s=el.parentElement;const was=s.classList.contains('open');s.classList.toggle('open');
+  if(!was){S.textViews[n]=(S.textViews[n]||0)+1;sv();el.querySelector('.cb').textContent=`閲覧${S.textViews[n]}回`}
+}
+function toggleChk(ch,i,el){
+  if(!S.textChecks[ch])S.textChecks[ch]=[false,false,false];
+  S.textChecks[ch][i]=!S.textChecks[ch][i];
+  el.classList.toggle('done');el.textContent=S.textChecks[ch][i]?'✓':(i+1);
+  document.getElementById('chkCnt'+ch).textContent=`(${S.textChecks[ch].filter(Boolean).length}/3)`;
+  sv();
+}
+function jumpToQ(qid){
+  const q=ALL.find(x=>x.id===qid);if(!q)return;
+  QS.mode='single';QS.questions=[q];QS.idx=0;QS.correct=0;QS.answered=0;QS.startTime=Date.now();
+  switchTab('T-quiz');
+  document.getElementById('qMenu').classList.add('hide');
+  document.getElementById('qPlay').classList.remove('hide');
+  document.getElementById('backBtn').classList.remove('hide');
+  showQ();
+}
+function fmtJE(entries){
+  let dr=[],cr=[];
+  entries.forEach(e=>{if(e.dr)dr.push({n:e.dr,a:e.dr_amt});if(e.cr)cr.push({n:e.cr,a:e.cr_amt})});
+  let h='<table><tr><td class="dr-side">';
+  dr.forEach(d=>{h+=`<div style="color:var(--dr-col)">（${d.n}）<span style="float:right">${d.a.toLocaleString()}</span></div>`});
+  h+='</td><td>';
+  cr.forEach(c=>{h+=`<div style="color:var(--cr-col)">（${c.n}）<span style="float:right">${c.a.toLocaleString()}</span></div>`});
+  return h+'</td></tr></table>';
+}
+
+/* ======== 章別進捗パネル ======== */
+function renderChProgPanel(currentCh){
+  let h='<details class="ch-prog-panel"><summary>📊 章別進捗</summary>';
+  CHAPTERS.forEach(ch=>{
+    const qs=ALL.filter(q=>q.ch===ch.n);if(qs.length===0)return;
+    const done=qs.filter(q=>S.stats[q.id]?.cnt>0).length;
+    const pct=Math.round(done/qs.length*100);
+    const isCurrent=ch.n===currentCh;
+    h+=`<div class="ch-prog-row${isCurrent?' current':''}"><span class="ch-lbl">${isCurrent?'▶':''}${ch.n}章</span><div class="prog"><div class="prog-fill" style="width:${pct}%"></div></div><span class="ch-pct">${done}/${qs.length}</span></div>`;
+  });
+  return h+'</details>';
+}
+
+/* ======== 問題 ======== */
+let QS={mode:'',questions:[],idx:0,correct:0,answered:0,chFilter:new Set(),startTime:0,drRows:2,crRows:2,locked:false};
+const MODES=[{id:'seq',ico:'📖',lbl:'テキスト順',sub:'章の順番'},{id:'shuf',ico:'🔀',lbl:'シャッフル',sub:'ランダム'},{id:'weak',ico:'💪',lbl:'苦手復習',sub:'間違えた問題'},{id:'mini',ico:'📝',lbl:'ミニテスト',sub:'25問テスト'},{id:'srs',ico:'🧠',lbl:'忘却曲線',sub:'間隔反復法'},{id:'daily',ico:'📅',lbl:'デイリー',sub:'毎日の復習'}];
+
+function renderQMenu(){
+  const cf=document.getElementById('chF');
+  let fh=`<span class="ch-tag${QS.chFilter.size===0?' act':''}" onclick="togCF(0,this)">全章</span>`;
+  CHAPTERS.forEach(ch=>{const c=ALL.filter(q=>q.ch===ch.n).length;if(c>0)fh+=`<span class="ch-tag${QS.chFilter.has(ch.n)?' act':''}" onclick="togCF(${ch.n},this)">${ch.n}章</span>`});
+  cf.innerHTML=fh;
+  document.getElementById('mGrid').innerHTML=MODES.map(m=>{
+    const badge=S.resume&&S.resume.mode===m.id?`<span class="resume-badge">続き</span>`:'';
+    return `<div class="mode-btn" onclick="startQ('${m.id}')">${badge}<div class="ico">${m.ico}</div><div class="lbl">${m.lbl}</div><div class="sub">${m.sub}</div></div>`;
+  }).join('');
+  renderResumePanel();
+}
+function renderResumePanel(){
+  const p=document.getElementById('resumePanel');
+  if(S.resume&&S.resume.qids&&S.resume.qids.length){
+    const mode=MODES.find(x=>x.id===S.resume.mode);
+    const remaining=S.resume.qids.length-S.resume.idx;
+    p.classList.remove('hide');
+    p.innerHTML=`<div class="crd" style="background:var(--hl-bg);border:2px solid var(--hl)"><h3>⏸️ 中断中の問題があります</h3>
+<div style="font-size:.82em;margin:4px 0"><b>${mode?mode.lbl:''}</b>モード ― ${S.resume.idx+1}/${S.resume.qids.length}問目から（残り${remaining}問）</div>
+<div style="display:flex;gap:6px;margin-top:8px">
+<button class="btn btn-pri btn-sm" style="flex:1" onclick="resumeQuiz()">▶ 続きから再開</button>
+<button class="btn btn-out btn-sm" onclick="clearResume()">✕ 破棄</button>
+</div></div>`;
+  }else{p.classList.add('hide')}
+}
+function resumeQuiz(){
+  if(!S.resume)return;
+  QS.mode=S.resume.mode;
+  QS.questions=S.resume.qids.map(id=>ALL.find(q=>q.id===id)).filter(Boolean);
+  QS.idx=S.resume.idx;QS.correct=S.resume.correct;QS.answered=S.resume.answered;
+  QS.startTime=Date.now();S.resume=null;sv();
+  document.getElementById('qMenu').classList.add('hide');
+  document.getElementById('qPlay').classList.remove('hide');
+  document.getElementById('backBtn').classList.remove('hide');
+  showQ();
+}
+function clearResume(){if(confirm('中断中の問題を破棄しますか？')){S.resume=null;sv();renderQMenu()}}
+function togCF(n,el){
+  if(n===0){QS.chFilter.clear();document.querySelectorAll('#chF .ch-tag').forEach(t=>t.classList.remove('act'));el.classList.add('act');return}
+  document.querySelector('#chF .ch-tag').classList.remove('act');el.classList.toggle('act');
+  if(QS.chFilter.has(n))QS.chFilter.delete(n);else QS.chFilter.add(n);
+  if(QS.chFilter.size===0)document.querySelector('#chF .ch-tag').classList.add('act');
+}
+function getFQ(){return QS.chFilter.size===0?[...ALL]:ALL.filter(q=>QS.chFilter.has(q.ch))}
+
+function startQ(mode){
+  QS.mode=mode;let qs=getFQ();
+  if(qs.length===0){alert('選択した章に問題がありません');return}
+  switch(mode){
+    case'seq':break;
+    case'shuf':qs=shuf(qs);break;
+    case'weak':qs=qs.filter(q=>{const s=S.stats[q.id];return s&&s.cnt>0&&(s.ok/s.cnt)<0.6});if(!qs.length){alert('苦手問題はまだありません');return}break;
+    case'mini':qs=shuf(qs).slice(0,Math.min(25,qs.length));break;
+    case'srs':{const now=Date.now();qs=qs.filter(q=>{const s=S.stats[q.id];if(!s||!s.srs_next)return true;return now>=s.srs_next}).sort((a,b)=>(S.stats[a.id]?.srs_next||0)-(S.stats[b.id]?.srs_next||0)).slice(0,20);if(!qs.length){alert('いま復習すべき問題はありません');return}break}
+    case'daily':{const now=Date.now();const rv=qs.filter(q=>{const s=S.stats[q.id];return s&&s.srs_next&&now>=s.srs_next}).slice(0,10);const nw=qs.filter(q=>!S.stats[q.id]||!S.stats[q.id].cnt).slice(0,5);qs=[...rv,...nw];if(!qs.length){alert('今日の学習は完了です！');return}break}
+  }
+  QS.questions=qs;QS.idx=0;QS.correct=0;QS.answered=0;QS.startTime=Date.now();
+  document.getElementById('qMenu').classList.add('hide');document.getElementById('qPlay').classList.remove('hide');document.getElementById('backBtn').classList.remove('hide');
+  showQ();
+}
+function renderPickList(){
+  const sel=parseInt(document.getElementById('pickChSel').value||0);
+  const list=sel===0?ALL:ALL.filter(q=>q.ch===sel);
+  let h='';
+  list.forEach(q=>{
+    const s=S.stats[q.id];
+    const icon=s?.cnt>0?(s.ok/s.cnt>=0.8?'🟢':s.ok/s.cnt>=0.5?'🟡':'🔴'):'⚪';
+    const rate=s?.cnt>0?Math.round(s.ok/s.cnt*100)+'%':'—';
+    const tag=q.type==='worksheet'?' 📊':q.type==='choice'?' 🔘':'';
+    h+=`<div class="q-pick-item" onclick="jumpToQ(${q.id})"><span class="status-icon">${icon}</span>
+<div style="flex:1;min-width:0"><div style="font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">第${q.ch}章 CASE${q.case}${tag}: ${q.title}</div></div>
+<span class="stat-txt">${s?`${s.ok}/${s.cnt} (${rate})`:'未挑戦'}</span></div>`;
+  });
+  document.getElementById('pickList').innerHTML=h||'<p style="padding:16px;text-align:center;color:var(--dim);font-size:.8em">この章の問題はありません</p>';
+}
+function qHead(q){
+  const tot=QS.questions.length;const pct=Math.round((QS.idx+1)/tot*100);
+  const st=S.stats[q.id];
+  const statInfo=st&&st.cnt?`回答${st.cnt}回 / 正解${st.ok}回 / 正答率${Math.round(st.ok/st.cnt*100)}%`:'初挑戦';
+  const ch=CHAPTERS.find(c=>c.n===q.ch);
+  return `<div class="q-header"><span class="q-num">📝 問${QS.idx+1} / ${tot}</span><span class="q-progress-txt">第${q.ch}章 ${ch?ch.t:''}　CASE${q.case}</span></div>
+<div class="prog" style="margin:0 0 8px 0"><div class="prog-fill" style="width:${pct}%"></div></div>
+<div style="font-size:.7em;color:var(--dim);margin-bottom:4px">📊 ${statInfo}</div>
+${renderChProgPanel(q.ch)}
+<div class="q-title">${q.title}</div>
+<div class="q-text">${q.q}</div>`;
+}
+function qFoot(q){
+  const memo=(S.stats[q.id]?.memo||'').replace(/</g,'&lt;');
+  return `<div id="ansR"></div><div style="margin-top:8px"><textarea class="memo-area" style="min-height:36px" placeholder="この問題のメモ…" id="qM" oninput="sqm(${q.id})">${memo}</textarea></div>`;
+}
+function showQ(){
+  const q=QS.questions[QS.idx];if(!q){showRes();return}
+  QS.locked=false;
+  if(q.type==='worksheet'){showWorksheetQ(q)}
+  else if(q.type==='choice'){showChoiceQ(q)}
+  else{
+    QS.drRows=Math.max(q.entries.filter(e=>e.dr).length+1,2);
+    QS.crRows=Math.max(q.entries.filter(e=>e.cr).length+1,2);
+    renderQBody(q);
+  }
+  window.scrollTo({top:0});
+  if(S.settings.tts)speak(q.q);
+}
+let ACCT_OPTS='';
+function buildAcctOpts(){
+  ACCT_OPTS=ACCT_GROUPS.map(g=>`<optgroup label="${g.cat}">`+[...g.items].sort((a,b)=>a.localeCompare(b,'ja')).map(a=>`<option value="${a}">${a}</option>`).join('')+'</optgroup>').join('');
+}
+function renderQBody(q){
+  if(!ACCT_OPTS)buildAcctOpts();
+  let drH='',crH='';
+  for(let i=0;i<QS.drRows;i++)drH+=`<div class="je-row"><select id="da${i}"><option value="">勘定科目を選択</option>${ACCT_OPTS}</select><input type="number" id="dv${i}" placeholder="金額" inputmode="numeric"></div>`;
+  for(let i=0;i<QS.crRows;i++)crH+=`<div class="je-row"><select id="ca${i}"><option value="">勘定科目を選択</option>${ACCT_OPTS}</select><input type="number" id="cv${i}" placeholder="金額" inputmode="numeric"></div>`;
+  document.getElementById('qPlay').innerHTML=`<div class="fade-in">${qHead(q)}
+<div class="je-section"><div class="je-label dr-label"><span>【借方】（左側）</span>
+<div class="row-ctrl"><button onclick="modRow('dr',-1)" title="行を減らす">−</button><button onclick="modRow('dr',1)" title="行を追加">＋</button></div></div>
+<div class="je-rows">${drH}</div></div>
+<div class="je-section"><div class="je-label cr-label"><span>【貸方】（右側）</span>
+<div class="row-ctrl"><button onclick="modRow('cr',-1)" title="行を減らす">−</button><button onclick="modRow('cr',1)" title="行を追加">＋</button></div></div>
+<div class="je-rows">${crH}</div></div>
+<button class="btn btn-pri btn-block" onclick="chkAns()" style="margin-top:10px;padding:12px">解答する</button>
+${qFoot(q)}</div>`;
+}
+function modRow(side,delta){
+  const q=QS.questions[QS.idx];
+  const saved={dr:[],cr:[]};
+  for(let i=0;i<QS.drRows;i++){const a=document.getElementById('da'+i),v=document.getElementById('dv'+i);if(a)saved.dr.push({a:a.value,v:v.value})}
+  for(let i=0;i<QS.crRows;i++){const a=document.getElementById('ca'+i),v=document.getElementById('cv'+i);if(a)saved.cr.push({a:a.value,v:v.value})}
+  if(side==='dr'){QS.drRows=Math.max(1,Math.min(6,QS.drRows+delta))}else{QS.crRows=Math.max(1,Math.min(6,QS.crRows+delta))}
+  const ans=document.getElementById('ansR').innerHTML;
+  renderQBody(q);
+  document.getElementById('ansR').innerHTML=ans;
+  saved.dr.forEach((s,i)=>{const a=document.getElementById('da'+i),v=document.getElementById('dv'+i);if(a){a.value=s.a;v.value=s.v}});
+  saved.cr.forEach((s,i)=>{const a=document.getElementById('ca'+i),v=document.getElementById('cv'+i);if(a){a.value=s.a;v.value=s.v}});
+}
+function chkAns(){
+  if(QS.locked)return;
+  const q=QS.questions[QS.idx];let uDr=[],uCr=[];
+  for(let i=0;i<10;i++){const a=document.getElementById('da'+i);if(!a)break;if(a.value)uDr.push({name:a.value,amt:parseInt(document.getElementById('dv'+i).value)||0})}
+  for(let i=0;i<10;i++){const a=document.getElementById('ca'+i);if(!a)break;if(a.value)uCr.push({name:a.value,amt:parseInt(document.getElementById('cv'+i).value)||0})}
+  if(!uDr.length&&!uCr.length){alert('勘定科目を選んでから解答してください');return}
+  let eDr=[],eCr=[];
+  q.entries.forEach(e=>{if(e.dr)eDr.push({name:e.dr,amt:e.dr_amt});if(e.cr)eCr.push({name:e.cr,amt:e.cr_amt})});
+  const ok=arrM(mergeSame(uDr),mergeSame(eDr))&&arrM(mergeSame(uCr),mergeSame(eCr));
+  QS.locked=true;recordResult(q,ok);showAnsResult(q,ok);
+}
+function mergeSame(a){const m={};a.forEach(x=>{m[x.name]=(m[x.name]||0)+x.amt});return Object.keys(m).map(k=>({name:k,amt:m[k]}))}
+function recordResult(q,ok){
+  if(!S.stats[q.id])S.stats[q.id]={cnt:0,ok:0,last:0,memo:'',srs_interval:1,srs_next:0};
+  const st=S.stats[q.id];st.cnt++;st.last=Date.now();
+  if(ok){st.ok++;st.srs_interval=Math.min(st.srs_interval*2.5,30);QS.correct++}else{st.srs_interval=1}
+  st.srs_next=Date.now()+st.srs_interval*86400000;QS.answered++;
+  const td=tdKey(new Date());
+  if(!S.daily[td])S.daily[td]={cnt:0,ok:0};S.daily[td].cnt++;if(ok)S.daily[td].ok++;
+  sv();
+}
+function showAnsResult(q,ok){
+  const cls=ok?'ans-ok':'ans-ng';const icon=ok?'⭕ 正解！':'❌ 不正解';
+  let h=`<div class="ans-box ${cls}" style="margin-top:10px"><div style="font-weight:700;font-size:1em;margin-bottom:6px">${icon}</div>`;
+  if(q.type==='worksheet'){
+    h+=`<div style="font-size:.82em;font-weight:600;margin-bottom:4px">正解の値：</div><div style="font-size:.82em;line-height:1.8">`;
+    q.template.rows.forEach((r,i)=>{const u=document.getElementById('ws'+i);const uv=u?parseInt(u.value)||0:null;const m=uv===Math.abs(r.answer);h+=`${m?'✅':'❌'} ${r.label}：<b>${Math.abs(r.answer).toLocaleString()}</b>${r.unit||''}${!m&&uv!==null?` <span style="color:var(--dim)">（あなた：${uv.toLocaleString()}）</span>`:''}<br>`});
+    h+=`</div>`;
+  }else if(q.type==='choice'){
+    h+=`<div style="font-size:.84em">正解：<b>${q.opts[q.ans]}</b></div>`;
+  }else{
+    h+=`<div style="font-size:.82em;font-weight:600;margin-bottom:4px">正しい仕訳：</div><div class="je-display">${fmtJE(q.entries)}</div>`;
+  }
+  h+=`<div class="exp-box">💡 ${q.exp}</div></div>`;
+  h+=`<button class="btn btn-pri btn-block" onclick="nxtQ()" style="margin-top:8px;padding:12px">${QS.idx<QS.questions.length-1?'次の問題 ▶':'結果を見る 📊'}</button>`;
+  document.getElementById('ansR').innerHTML=h;
+  document.getElementById('ansR').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function arrM(u,e){if(u.length!==e.length)return false;const s=(a,b)=>a.name.localeCompare(b.name,'ja')||a.amt-b.amt;
+const a=[...u].sort(s),b=[...e].sort(s);return a.every((x,i)=>x.name===b[i].name&&x.amt===b[i].amt)}
+function nxtQ(){QS.idx++;showQ()}
+
+function showWorksheetQ(q){
+  let rows='';
+  q.template.rows.forEach((r,i)=>{
+    rows+=`<tr><td>${r.label}</td><td><span class="ws-side">${r.side||'計算'}</span></td><td class="num-col"><input type="number" class="ws-input" id="ws${i}" placeholder="${r.unit?'数値':'金額'}" inputmode="numeric"></td></tr>`;
+  });
+  document.getElementById('qPlay').innerHTML=`<div class="fade-in">${qHead(q)}
+<div style="background:var(--card);border:1px solid var(--bdr);border-radius:8px;padding:10px;margin:8px 0">
+<h4 style="text-align:center;font-size:.9em;margin-bottom:4px">${q.template.title}</h4>
+<p style="text-align:center;font-size:.72em;color:var(--dim);margin-bottom:8px">${q.template.subtitle||''}</p>
+<table class="ws-table"><thead><tr><th>項目</th><th>区分</th><th class="num-col">金額</th></tr></thead><tbody>${rows}</tbody></table>
+<p style="font-size:.7em;color:var(--dim);text-align:center;margin-top:6px">※ 空欄に数値を入力（カンマ不要）</p></div>
+<button class="btn btn-pri btn-block" onclick="chkWsAns()" style="margin-top:10px;padding:12px">解答する</button>
+${qFoot(q)}</div>`;
+}
+function chkWsAns(){
+  if(QS.locked)return;
+  const q=QS.questions[QS.idx];let allOk=true;
+  q.template.rows.forEach((r,i)=>{const v=parseInt(document.getElementById('ws'+i).value)||0;if(v!==Math.abs(r.answer))allOk=false});
+  QS.locked=true;recordResult(q,allOk);showAnsResult(q,allOk);
+}
+function showChoiceQ(q){
+  const kana=['ア','イ','ウ','エ','オ','カ'];
+  const opts=q.opts.map((o,i)=>`<button class="opt-btn" id="op${i}" onclick="chkChoice(${i})">${kana[i]}．${o}</button>`).join('');
+  document.getElementById('qPlay').innerHTML=`<div class="fade-in">${qHead(q)}<div class="opt-list">${opts}</div>${qFoot(q)}</div>`;
+}
+function chkChoice(i){
+  if(QS.locked)return;
+  const q=QS.questions[QS.idx];const ok=i===q.ans;
+  document.getElementById('op'+q.ans).classList.add('right');
+  if(!ok)document.getElementById('op'+i).classList.add('wrong');
+  QS.locked=true;recordResult(q,ok);showAnsResult(q,ok);
+}
+function showRes(){
+  S.resume=null;sv();
+  const pct=QS.answered>0?Math.round(QS.correct/QS.answered*100):0;
+  const el=Math.round((Date.now()-QS.startTime)/1000);
+  const m=Math.floor(el/60),s=el%60;
+  const pass=pct>=70;
+  document.getElementById('qPlay').innerHTML=`<div class="fade-in" style="text-align:center;padding:16px">
+<div style="font-size:2.5em;margin-bottom:8px">${pct>=80?'🎉':pct>=70?'👍':'💪'}</div>
+<h2 style="font-size:1.1em">結果</h2>
+<p style="font-size:.78em;color:var(--dim);margin-top:4px">${pass?'合格ライン（70%）に届いています':'合格ライン70%まであと少し。苦手復習モードで仕上げましょう'}</p>
+<div class="stat-grid" style="margin:12px 0">
+<div class="stat-box"><div class="num">${pct}%</div><div class="lbl">正答率</div></div>
+<div class="stat-box"><div class="num">${QS.correct}/${QS.answered}</div><div class="lbl">正解数</div></div>
+<div class="stat-box"><div class="num">${m}:${String(s).padStart(2,'0')}</div><div class="lbl">所要時間</div></div>
+<div class="stat-box"><div class="num" style="font-size:1.1em">${MODES.find(x=>x.id===QS.mode)?.lbl||'単問'}</div><div class="lbl">モード</div></div>
+</div>
+<button class="btn btn-pri btn-block" onclick="switchTab('T-quiz')">問題選択に戻る</button></div>`;
+}
+
+/* ======== 科目リファレンス ======== */
+function renderRef(){
+  let h='';
+  ACCT_REF.forEach(c=>{h+=`<div class="acct-cat ${c.cls}"><h4>${c.cat}（${c.items.length}）</h4>`;
+  c.items.forEach(a=>{h+=`<div class="acct-item"><div><b>${a[0]}</b> <span style="font-size:.74em;color:var(--dim)">${a[1]}</span>${a[3]?` <span class="cmp">（商）${a[3]}</span>`:''}</div><div style="font-size:.72em;white-space:nowrap">${a[2]}</div></div>`});h+='</div>'});
+  document.getElementById('acctRef').innerHTML=h;
+  document.getElementById('ptnRef').innerHTML=PATTERNS.map(p=>`<div class="ptn-card"><h4>${p[0]}</h4>${p.slice(1).map(x=>`<div class="ptn-je">${x}</div>`).join('')}</div>`).join('');
+}
+
+/* ======== メモ ======== */
+function toggleMemo(){
+  const o=document.getElementById('memoOL');o.classList.toggle('hide');
+  if(!o.classList.contains('hide')){o.style.display='flex';renderQMemos()}else o.style.display='';
+}
+function saveMemo(){S.memo=document.getElementById('memoText').value;sv()}
+function sqm(id){
+  if(!S.stats[id])S.stats[id]={cnt:0,ok:0,last:0,memo:'',srs_interval:1,srs_next:0};
+  S.stats[id].memo=document.getElementById('qM')?.value||'';sv();
+}
+function renderQMemos(){
+  const el=document.getElementById('qMemoList');
+  const memos=Object.entries(S.stats).filter(([k,v])=>v.memo).map(([k,v])=>{const q=ALL.find(x=>x.id==k);return q?{q,memo:v.memo}:null}).filter(Boolean);
+  if(!memos.length){el.innerHTML='<p style="font-size:.75em;color:var(--dim)">問題メモはまだありません</p>';return}
+  el.innerHTML='<div style="font-size:.8em;font-weight:600;margin-bottom:4px">📌 問題別メモ（タップで問題へ）</div>'+memos.map(m=>
+    `<div style="padding:8px;border-bottom:1px solid var(--bdr);font-size:.78em;cursor:pointer" onclick="toggleMemo();jumpToQ(${m.q.id})"><div style="display:flex;justify-content:space-between;align-items:center"><b>第${m.q.ch}章 CASE${m.q.case}: ${m.q.title}</b><span style="color:var(--pri)">▶</span></div><div style="color:var(--dim);margin-top:2px">${m.memo.replace(/</g,'&lt;')}</div></div>`).join('');
+}
+function saveGoal(){S.settings.goalCount=parseInt(document.getElementById('gC').value)||10;S.settings.goalRate=parseInt(document.getElementById('gR').value)||80;sv()}
+
+/* ======== 統計 ======== */
+function renderStats(){
+  const tQ=ALL.length,att=Object.keys(S.stats).filter(k=>S.stats[k].cnt>0&&ALL.some(q=>q.id==k)).length;
+  const tA=Object.values(S.stats).reduce((s,v)=>s+(v.cnt||0),0);
+  const tO=Object.values(S.stats).reduce((s,v)=>s+(v.ok||0),0);
+  const pct=tA>0?Math.round(tO/tA*100):0;
+  const tvCnt=Object.keys(S.textViews).length;
+  const chkCnt=Object.values(S.textChecks||{}).reduce((s,a)=>s+a.filter(Boolean).length,0);
+  const td=tdKey(new Date());const today=S.daily[td]||{cnt:0,ok:0};
+  document.getElementById('sGrid').innerHTML=`
+<div class="stat-box"><div class="num">${att}/${tQ}</div><div class="lbl">回答済み</div></div>
+<div class="stat-box"><div class="num">${pct}%</div><div class="lbl">通算正答率（目標${S.settings.goalRate||80}%）</div></div>
+<div class="stat-box"><div class="num">${today.cnt}/${S.settings.goalCount||10}</div><div class="lbl">今日の回答数</div></div>
+<div class="stat-box"><div class="num">${tA}</div><div class="lbl">総回答数</div></div>
+<div class="stat-box"><div class="num">${tvCnt}/${CHAPTERS.length}</div><div class="lbl">テキスト閲覧</div></div>
+<div class="stat-box"><div class="num">${chkCnt}/${CHAPTERS.length*3}</div><div class="lbl">理解チェック</div></div>`;
+  const now=new Date();let ch='';
+  ['日','月','火','水','木','金','土'].forEach(d=>{ch+=`<div style="font-size:.55em;text-align:center;color:var(--dim)">${d}</div>`});
+  const st=new Date(now.getFullYear(),now.getMonth(),1);
+  for(let i=0;i<st.getDay();i++)ch+='<div></div>';
+  for(let d=1;d<=31;d++){const dt=new Date(now.getFullYear(),now.getMonth(),d);if(dt.getMonth()!==now.getMonth())break;
+  const k=tdKey(dt);const dy=S.daily[k];
+  const bg=dy?(dy.ok/dy.cnt>=0.8?'var(--acc2)':'var(--pri)'):'var(--bdr)';const op=dy?1:0.35;
+  ch+=`<div style="aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:3px;background:${bg};opacity:${op};font-size:.65em;color:#fff">${d}</div>`}
+  document.getElementById('calG').innerHTML=ch;
+  const weakQs=Object.entries(S.stats).filter(([k,v])=>v.cnt>=2&&v.ok/v.cnt<0.7).map(([k,v])=>{const q=ALL.find(x=>x.id==k);return q?{q,rate:Math.round(v.ok/v.cnt*100),cnt:v.cnt,ok:v.ok}:null}).filter(Boolean).sort((a,b)=>a.rate-b.rate).slice(0,10);
+  if(!weakQs.length){document.getElementById('weakRank').innerHTML='<p style="font-size:.78em;color:var(--dim);text-align:center;padding:8px">まだ苦手問題はありません（2回以上回答した問題から抽出）</p>'}
+  else{document.getElementById('weakRank').innerHTML=weakQs.map((w,i)=>`<div class="ch-drill" style="padding:6px 0;border-bottom:1px solid var(--bdr);font-size:.8em" onclick="jumpToQ(${w.q.id})">
+<div style="display:flex;align-items:center;gap:6px"><span style="color:var(--acc);font-weight:700">${i+1}位</span><span style="flex:1">第${w.q.ch}章 C${w.q.case}: ${w.q.title}</span></div>
+<div style="font-size:.72em;color:var(--dim);margin-top:2px">正答率${w.rate}% (${w.ok}/${w.cnt}) ▶タップで挑戦</div></div>`).join('')}
+  let cp='';
+  CHAPTERS.forEach(ch=>{
+    const qs=ALL.filter(q=>q.ch===ch.n);
+    const done=qs.filter(q=>S.stats[q.id]?.cnt>0).length;
+    const pct2=qs.length>0?Math.round(done/qs.length*100):0;
+    const chks=S.textChecks[ch.n]||[false,false,false];
+    cp+=`<div class="ch-drill" style="display:flex;align-items:center;gap:6px;padding:6px 0;border-bottom:1px solid var(--bdr);font-size:.8em" onclick="showChDet(${ch.n})">
+<span style="width:44px;font-weight:700;color:var(--pri)">第${ch.n}章</span>
+<div style="flex:1"><div style="font-size:.78em;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${ch.t}</div><div class="prog"><div class="prog-fill" style="width:${pct2}%"></div></div></div>
+<span style="font-size:.7em;color:var(--dim)">${done}/${qs.length}</span>
+<span style="font-size:.6em">${chks.map(c=>c?'✅':'⬜').join('')}</span></div>`;
+  });
+  document.getElementById('chProg').innerHTML=cp;
+}
+function showChDet(n){
+  const el=document.getElementById('chDetail');el.classList.remove('hide');
+  const ch=CHAPTERS.find(c=>c.n===n);const qs=ALL.filter(q=>q.ch===n);
+  let h=`<h3>第${n}章: ${ch.t}</h3>`;
+  if(qs.length===0){h+=`<p style="font-size:.82em;color:var(--dim)">この章の問題はまだありません</p>`}
+  else{qs.forEach(q=>{
+      const st=S.stats[q.id];
+      const icon=st?.cnt>0?(st.ok/st.cnt>=0.8?'🟢':st.ok/st.cnt>=0.5?'🟡':'🔴'):'⚪';
+      const rate=st?.cnt>0?Math.round(st.ok/st.cnt*100)+'%':'—';
+      h+=`<div style="padding:8px;border-bottom:1px solid var(--bdr);font-size:.82em;cursor:pointer" onclick="jumpToQ(${q.id})">
+<div>${icon} <b>CASE${q.case}</b>: ${q.title} <span style="font-size:.7em;color:var(--dim)">▶タップで挑戦</span></div>${qPreview(q)}
+<div style="font-size:.7em;color:var(--dim);margin-top:2px">回答${st?.cnt||0}回 / 正解${st?.ok||0}回 / 正答率${rate}${st?.memo?` / 📝${st.memo.substring(0,30).replace(/</g,'&lt;')}`:''}</div></div>`;
+  })}
+  h+=`<button class="btn btn-sm btn-out" onclick="document.getElementById('chDetail').classList.add('hide')" style="margin-top:8px">閉じる</button>`;
+  el.innerHTML=h;el.scrollIntoView({behavior:'smooth'});
+}
+
+/* ======== 設定 ======== */
+function applySt(){
+  if(S.settings.dark){document.body.classList.add('dark');document.getElementById('dkT').classList.add('on')}
+  document.body.style.fontSize=S.settings.fontSize||'16px';
+  document.getElementById('fsS').value=S.settings.fontSize||'16px';
+  if(S.settings.tts)document.getElementById('ttsT').classList.add('on');
+}
+function toggleDark(){S.settings.dark=!S.settings.dark;document.body.classList.toggle('dark');document.getElementById('dkT').classList.toggle('on');sv()}
+function setFS(v){S.settings.fontSize=v;document.body.style.fontSize=v;sv()}
+function toggleTTS(){S.settings.tts=!S.settings.tts;document.getElementById('ttsT').classList.toggle('on');sv()}
+function speak(t){if(!S.settings.tts)return;try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';speechSynthesis.speak(u)}catch(e){}}
+function shuf(a){const r=[...a];for(let i=r.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[r[i],r[j]]=[r[j],r[i]]}return r}
+function exportD(){const b=new Blob([JSON.stringify(S,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='kensetsu2_'+new Date().toISOString().slice(0,10)+'.json';a.click()}
+function importD(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{try{S=JSON.parse(ev.target.result);sv();alert('読み込み完了');location.reload()}catch(e){alert('読み込みに失敗しました。書き出したJSONファイルを選んでください')}};r.readAsText(f)}
+function resetD(){if(confirm('全データをリセットしますか？元に戻せません')){localStorage.removeItem(LS);location.reload()}}
+
+init();
+
+</script>
+</body>
+</html>
